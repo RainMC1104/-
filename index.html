@@ -22,7 +22,7 @@
 <div class="menu-error" id="worldStorageNotice" hidden></div>
 <div id="titlePanel"><div class="eyebrow">ブロックの世界</div><h1>BLOCKLAND</h1><div class="menu-stack"><button class="start" id="worldMenuButton">ワールド</button><button class="menu-button" id="titleSettings">設定</button></div></div>
 <div id="worldListPanel" hidden><div class="menu-heading"><h1>ワールド</h1><button class="start" id="newWorldButton">新規作成</button></div><div class="world-list" id="worldList"></div><div class="menu-error" id="worldListError" hidden></div><button class="menu-button menu-back" id="worldListBack">戻る</button></div>
-<div id="createWorldPanel" hidden><div class="eyebrow">NEW WORLD</div><h1>ワールドを作成</h1><div class="world-mode-grid"><button class="world-mode" data-mode="survival"><strong>サバイバル</strong><span>シード2026の地形で、ブロックを集めながら遊びます。</span></button><button class="world-mode" data-mode="creative"><strong>クリエイティブ</strong><span>草・土・石の平坦な地形。全ブロックを使え、破壊は一瞬です。</span></button></div><div class="menu-error" id="createWorldError" hidden></div><button class="menu-button menu-back" id="createWorldBack">戻る</button></div>
+<div id="createWorldPanel" hidden><div class="eyebrow">NEW WORLD</div><h1>ワールドを作成</h1><div class="world-mode-grid"><button class="world-mode" data-mode="survival"><strong>サバイバル</strong><span>ランダムな地形を探検し、ブロックを集めながら遊びます。</span></button><button class="world-mode" data-mode="creative"><strong>クリエイティブ</strong><span>ランダムな地形で自由に建築。全ブロックを使え、破壊は一瞬です。</span></button></div><div class="menu-error" id="createWorldError" hidden></div><button class="menu-button menu-back" id="createWorldBack">戻る</button></div>
 <div id="pausePanel" hidden><h1>一時停止中</h1><div class="menu-stack"><button class="start" id="resume">ゲームに戻る</button><button class="menu-button" id="pauseSettings">設定</button><button class="menu-button" id="leaveWorld">ワールドを抜ける</button></div></div>
 <div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><section id="gameModeSettings" hidden><h2>ゲームモード</h2><div class="settings-mode-grid"><button class="settings-mode-button" data-game-mode="survival">サバイバル</button><button class="settings-mode-button" data-game-mode="creative">クリエイティブ</button><button class="settings-mode-button" data-game-mode="spectator">スペクテイター</button><button class="settings-mode-button" data-game-mode="adventure">アドベンチャー</button></div></section><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div>
 </div></div>
@@ -30,21 +30,23 @@
 <div id="chatPanel" class="chat-panel"><div id="chatLog" class="chat-log" aria-live="polite"></div><div id="chatSuggestions" class="chat-suggestions" hidden></div><input id="chatInput" class="chat-input" type="text" autocomplete="off" disabled aria-label="チャット"></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
-import { BLOCK_TYPES, FIXED_SURVIVAL_SEED, GAME_MODES, createWorldRecord, readWorlds, writeWorlds } from './world-store.js';
+import { BLOCK_TYPES, CHUNK_SIZE, FIXED_SURVIVAL_SEED, GAME_MODES, WORLD_DEPTH, WORLD_WIDTH, createWorldRecord, generateChunk, getSurfaceHeight, getTerrainColumn, readWorlds, writeWorlds } from './world-store.js';
 import { MODE_COMMANDS, attachChat } from './game-chat.js';
 
 const TYPES = BLOCK_TYPES;
-const LABELS = { grass: '草', dirt: '土', stone: '石', wood: '木', leaves: '葉' };
-const COLORS = { grass: 0x71ba55, dirt: 0x8d6243, stone: 0x8a9297, wood: 0x95633c, leaves: 0x4f914b };
-const CSS_COLORS = { grass: '#71ba55', dirt: '#8d6243', stone: '#8a9297', wood: '#95633c', leaves: '#4f914b' };
+const LABELS = { grass: '草', dirt: '土', stone: '石', wood: '木', leaves: '葉', sand: '砂', water: '水', lava: 'マグマ' };
+const COLORS = { grass: 0x71ba55, dirt: 0x8d6243, stone: 0x8a9297, wood: 0x95633c, leaves: 0x4f914b, sand: 0xd8c27a, water: 0x398bd0, lava: 0xf05a18 };
+const CSS_COLORS = { grass: '#71ba55', dirt: '#8d6243', stone: '#8a9297', wood: '#95633c', leaves: '#4f914b', sand: '#d8c27a', water: '#398bd0', lava: '#f05a18' };
 const makeStack = (id, count = 1) => {
   const tool = id.startsWith('iron_');
-  const labels = { iron_sword: '鉄の剣', iron_pickaxe: '鉄のツルハシ', iron_axe: '鉄の斧', stone: '石', wood: '木', dirt: '土', grass: '草', leaves: '葉' };
+  const labels = { iron_sword: '鉄の剣', iron_pickaxe: '鉄のツルハシ', iron_axe: '鉄の斧', ...LABELS };
   return { id, label: labels[id] || id, ...(tool ? { tool: true } : { type: id }), count: tool ? 1 : count };
 };
 const HOTBAR = [makeStack('iron_sword'), makeStack('iron_pickaxe'), makeStack('iron_axe'), null, makeStack('stone', 8), makeStack('wood', 8), makeStack('dirt', 12), makeStack('grass', 24), makeStack('leaves', 6)];
 const INVENTORY_SLOTS = Array(27).fill(null);
 const blocks = new Map();
+const blockEdits = new Map();
+const loadedChunks = new Map();
 const drops = [];
 const keys = Object.create(null);
 const random = Math.random;
@@ -56,6 +58,7 @@ let lastJumpPress = 0;
 let chat = null;
 let worldSaveTimer = 0;
 let lastAutosave = 0;
+let lastStreamCenter = null;
 const DEFAULT_BINDINGS = {
   forward: 'KeyW', back: 'KeyS', left: 'KeyA', right: 'KeyD', jump: 'Space',
   sneak: 'Tab', sprint: 'ShiftLeft', drop: 'KeyQ', inventory: 'KeyE',
@@ -148,22 +151,119 @@ const sun = new THREE.DirectionalLight(0xfff1ce, 2.6);
 sun.position.set(-18, 32, 16);
 scene.add(sun);
 
-const materials = Object.fromEntries(TYPES.map(type => [type, new THREE.MeshLambertMaterial({ color: COLORS[type] })]));
+const materials = Object.fromEntries(TYPES.map(type => [type, type === 'water'
+  ? new THREE.MeshLambertMaterial({ color: COLORS[type], transparent: true, opacity: 0.58, depthWrite: false })
+  : type === 'lava'
+    ? new THREE.MeshLambertMaterial({ color: COLORS[type], emissive: 0x7d2100, emissiveIntensity: 0.65 })
+    : new THREE.MeshLambertMaterial({ color: COLORS[type] })]));
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 const instanceMeshes = new Map();
 let blockInstances = [];
 const coordKey = (x, y, z) => `${x},${y},${z}`;
 
 function terrainHeight(x, z) {
-  if (gameMode === 'creative') return 0;
-  const seed = currentWorld?.seed || FIXED_SURVIVAL_SEED;
-  return Math.floor(1.4 + Math.sin(x * 0.22 + seed) * 1.5 + Math.cos(z * 0.21 + seed * 0.03) * 1.3 + Math.sin((x + z) * 0.13) * 0.9);
+  if (currentWorld?.terrainVersion !== 2) {
+    if (gameMode === 'creative') return 0;
+    const seed = currentWorld?.seed ?? FIXED_SURVIVAL_SEED;
+    return Math.floor(1.4 + Math.sin(x * 0.22 + seed) * 1.5 +
+      Math.cos(z * 0.21 + seed * 0.03) * 1.3 + Math.sin((x + z) * 0.13) * 0.9);
+  }
+  return getSurfaceHeight(x, z, currentWorld?.seed ?? FIXED_SURVIVAL_SEED);
+}
+function findSpawnPosition(seed) {
+  const search = (maxRadius, preferredBiome) => {
+    for (let radius = 0; radius <= maxRadius; radius++) {
+      for (let x = -radius; x <= radius; x++) for (const offsetZ of [-radius, radius]) {
+        const z = offsetZ + 7;
+        const column = getTerrainColumn(x, z, seed);
+        if (!column.lake && !column.magmaPool &&
+            (!preferredBiome || column.biome === preferredBiome)) {
+          return { x, z, y: column.height + 2.4 };
+        }
+      }
+      for (let offsetZ = -radius + 1; offsetZ < radius; offsetZ++) for (const x of [-radius, radius]) {
+        const z = offsetZ + 7;
+        const column = getTerrainColumn(x, z, seed);
+        if (!column.lake && !column.magmaPool &&
+            (!preferredBiome || column.biome === preferredBiome)) {
+          return { x, z, y: column.height + 2.4 };
+        }
+      }
+    }
+    return null;
+  };
+  return search(96, 'plains') || search(64, 'forest') ||
+    search(32, null) || { x: 0, z: 7, y: terrainHeight(0, 7) + 2.4 };
+}
+function isSolidBlock(block) {
+  return block && block.type !== 'water' && block.type !== 'lava';
+}
+function recordBlockEdit(x, y, z, type) {
+  if (currentWorld?.terrainVersion !== 2) return;
+  blockEdits.set(coordKey(x, y, z), { x, y, z, type });
+}
+function streamWorldChunks(force = false) {
+  if (currentWorld?.terrainVersion !== 2) return;
+  const centerX = Math.floor(player.pos.x / CHUNK_SIZE);
+  const centerZ = Math.floor(player.pos.z / CHUNK_SIZE);
+  if (!force && lastStreamCenter?.x === centerX && lastStreamCenter?.z === centerZ) return;
+  lastStreamCenter = { x: centerX, z: centerZ };
+
+  const minChunkX = Math.floor(-WORLD_WIDTH / 2 / CHUNK_SIZE);
+  const maxChunkX = Math.floor((WORLD_WIDTH / 2 - 1) / CHUNK_SIZE);
+  const minChunkZ = Math.floor(-WORLD_DEPTH / 2 / CHUNK_SIZE);
+  const maxChunkZ = Math.floor((WORLD_DEPTH / 2 - 1) / CHUNK_SIZE);
+  const desired = new Set();
+  for (let x = Math.max(minChunkX, centerX - 2); x <= Math.min(maxChunkX, centerX + 2); x++) {
+    for (let z = Math.max(minChunkZ, centerZ - 2); z <= Math.min(maxChunkZ, centerZ + 2); z++) {
+      desired.add(`${x},${z}`);
+    }
+  }
+  let changed = false;
+  for (const [chunkKey, keysInChunk] of loadedChunks) {
+    if (desired.has(chunkKey)) continue;
+    for (const key of keysInChunk) blocks.delete(key);
+    loadedChunks.delete(chunkKey);
+    changed = true;
+  }
+  for (const chunkKey of desired) {
+    if (loadedChunks.has(chunkKey)) continue;
+    const [chunkX, chunkZ] = chunkKey.split(',').map(Number);
+    const chunkKeys = [];
+    for (const baseBlock of generateChunk(chunkX, chunkZ, currentWorld.seed)) {
+      const key = coordKey(baseBlock.x, baseBlock.y, baseBlock.z);
+      const edit = blockEdits.get(key);
+      if (edit?.type === null) continue;
+      blocks.set(key, edit || baseBlock);
+      chunkKeys.push(key);
+    }
+    for (const edit of blockEdits.values()) {
+      if (edit.type === null || Math.floor(edit.x / CHUNK_SIZE) !== chunkX ||
+          Math.floor(edit.z / CHUNK_SIZE) !== chunkZ) continue;
+      const key = coordKey(edit.x, edit.y, edit.z);
+      if (!blocks.has(key)) {
+        blocks.set(key, edit);
+        chunkKeys.push(key);
+      }
+    }
+    loadedChunks.set(chunkKey, chunkKeys);
+    changed = true;
+  }
+  if (changed) rebuildBlockMeshes();
 }
 function setBlock(x, y, z, type) {
   x = Math.round(x); y = Math.round(y); z = Math.round(z);
+  if (currentWorld?.terrainVersion === 2 &&
+      (x < -WORLD_WIDTH / 2 || x >= WORLD_WIDTH / 2 ||
+       z < -WORLD_DEPTH / 2 || z >= WORLD_DEPTH / 2)) return false;
   const key = coordKey(x, y, z);
-  if (blocks.has(key)) return false;
-  blocks.set(key, { x, y, z, type });
+  const existing = blocks.get(key);
+  if (existing && !['water', 'lava'].includes(existing.type)) return false;
+  const block = { x, y, z, type };
+  blocks.set(key, block);
+  recordBlockEdit(x, y, z, type);
+  const chunkKey = `${Math.floor(x / CHUNK_SIZE)},${Math.floor(z / CHUNK_SIZE)}`;
+  if (loadedChunks.has(chunkKey) && !loadedChunks.get(chunkKey).includes(key)) loadedChunks.get(chunkKey).push(key);
   scheduleWorldSave();
   return true;
 }
@@ -204,7 +304,12 @@ function showMenuPanel(panelId) {
 }
 function saveCurrentWorld() {
   if (!currentWorld) return true;
-  currentWorld.blocks = [...blocks.values()];
+  if (currentWorld.terrainVersion === 2) {
+    currentWorld.blocks = [];
+    currentWorld.blockEdits = [...blockEdits.values()];
+  } else {
+    currentWorld.blocks = [...blocks.values()];
+  }
   currentWorld.player = {
     x: player.pos.x, y: player.pos.y, z: player.pos.z,
     yaw: player.yaw, pitch: player.pitch
@@ -263,7 +368,8 @@ function renderWorldList() {
     title.textContent = world.name;
     const details = document.createElement('p');
     const modeNames = { survival: 'サバイバル', creative: 'クリエイティブ', spectator: 'スペクテイター', adventure: 'アドベンチャー' };
-    details.textContent = `${modeNames[world.mode]} ・ シード ${world.seed} ・ ${new Date(world.createdAt).toLocaleDateString('ja-JP')}`;
+    const size = world.terrainVersion === 2 ? `${WORLD_WIDTH}×${WORLD_DEPTH}` : '従来ワールド';
+    details.textContent = `${modeNames[world.mode]} ・ ${size} ・ シード ${world.seed} ・ ${new Date(world.createdAt).toLocaleDateString('ja-JP')}`;
     info.append(title, details);
     const play = document.createElement('button');
     play.className = 'start';
@@ -297,7 +403,14 @@ function activateWorld(world) {
   currentWorld = world;
   gameMode = world.mode;
   blocks.clear();
-  for (const block of world.blocks) blocks.set(coordKey(block.x, block.y, block.z), { ...block });
+  blockEdits.clear();
+  loadedChunks.clear();
+  lastStreamCenter = null;
+  if (world.terrainVersion === 2) {
+    for (const edit of world.blockEdits || []) blockEdits.set(coordKey(edit.x, edit.y, edit.z), { ...edit });
+  } else {
+    for (const block of world.blocks) blocks.set(coordKey(block.x, block.y, block.z), { ...block });
+  }
   for (const drop of drops) {
     scene.remove(drop.mesh);
     drop.mesh.geometry?.dispose();
@@ -305,10 +418,13 @@ function activateWorld(world) {
   }
   drops.length = 0;
   const savedPlayer = world.player;
+  const spawn = world.terrainVersion === 2
+    ? findSpawnPosition(world.seed)
+    : { x: 0, z: 7, y: terrainHeight(0, 7) + 2.4 };
   player.pos.set(
-    Number.isFinite(savedPlayer?.x) ? savedPlayer.x : 0,
-    Number.isFinite(savedPlayer?.y) ? savedPlayer.y : terrainHeight(0, 7) + 2.4,
-    Number.isFinite(savedPlayer?.z) ? savedPlayer.z : 7
+    Number.isFinite(savedPlayer?.x) ? savedPlayer.x : spawn.x,
+    Number.isFinite(savedPlayer?.y) ? savedPlayer.y : spawn.y,
+    Number.isFinite(savedPlayer?.z) ? savedPlayer.z : spawn.z
   );
   player.yaw = Number.isFinite(savedPlayer?.yaw) ? savedPlayer.yaw : 0;
   player.pitch = Number.isFinite(savedPlayer?.pitch) ? savedPlayer.pitch : 0;
@@ -344,7 +460,8 @@ function activateWorld(world) {
   document.querySelector('#seed').textContent = world.seed;
   document.querySelector('#collected').textContent = collected;
   raycaster.far = gameMode === 'creative' ? 6 : 5;
-  rebuildBlockMeshes();
+  if (world.terrainVersion === 2) streamWorldChunks(true);
+  else rebuildBlockMeshes();
   updateHotbar();
   gameStarted = true;
   paused = false;
@@ -446,7 +563,7 @@ const outline = new THREE.LineSegments(
 outline.scale.setScalar(1.015);
 outline.visible = false;
 scene.add(outline);
-const breakTimes = { grass: 1000, dirt: 1000, leaves: 1000, wood: 2400, stone: 10000 };
+const breakTimes = { grass: 1000, dirt: 1000, leaves: 1000, wood: 2400, stone: 10000, sand: 800, water: 500, lava: 1200 };
 function getBreakDuration(type) {
   if (gameMode === 'creative') return 0;
   const tool = HOTBAR[selected]?.id;
@@ -698,7 +815,7 @@ function transferStack(stack, targets) {
   return remaining ? { ...stack, count: remaining } : null;
 }
 function addItemToInventory(id, count = 1) {
-  const labels = { iron_sword: '鉄の剣', iron_pickaxe: '鉄のツルハシ', iron_axe: '鉄の斧', stone: '石', wood: '木', dirt: '土', grass: '草', leaves: '葉' };
+  const labels = { iron_sword: '鉄の剣', iron_pickaxe: '鉄のツルハシ', iron_axe: '鉄の斧', ...LABELS };
   const tool = id.startsWith('iron_');
   const stack = { id, label: labels[id] || id, ...(tool ? { tool: true } : { type: id }), count: tool ? 1 : count };
   const leftover = transferStack(stack, [HOTBAR, INVENTORY_SLOTS]);
@@ -884,6 +1001,7 @@ function spawnDrop(item, x, y, z, count = 1) {
 function dropBlock(block) {
   const removedKey = coordKey(block.x, block.y, block.z);
   blocks.delete(removedKey);
+  recordBlockEdit(block.x, block.y, block.z, null);
   if (escapeBlockKey === removedKey) escapeBlockKey = null;
   scheduleWorldSave();
   rebuildBlockMeshes();
@@ -1220,7 +1338,7 @@ function collides(x, eyeY, z, bodyHeight = player.height, ignoredBlockKey = null
     for (let by = Math.floor(playerMin.y - 0.5); by <= Math.ceil(playerMax.y + 0.5); by++) {
       for (let bz = Math.floor(playerMin.z - 0.5); bz <= Math.ceil(playerMax.z + 0.5); bz++) {
         const block = blocks.get(coordKey(bx, by, bz));
-        if (!block) continue;
+        if (!isSolidBlock(block)) continue;
         if (coordKey(block.x, block.y, block.z) === ignoredBlockKey) continue;
         const overlapsX = playerMin.x < bx + 0.5 && playerMax.x > bx - 0.5;
         const overlapsY = playerMin.y < by + 0.5 && playerMax.y > by - 0.5;
@@ -1239,10 +1357,15 @@ function findLandingSurface(x, z, fromEyeY, toEyeY) {
   const fromFeet = fromEyeY - 1.65;
   const toFeet = toEyeY - 1.65;
   let best = null;
-  for (const block of blocks.values()) {
-    const top = block.y + 0.5;
-    if (horizontalBlockOverlap(x, z, block) && top <= fromFeet + 0.001 && top > toFeet - 0.001 && (!best || top > best.top)) {
-      best = { top };
+  for (let bx = Math.floor(x - 0.8); bx <= Math.ceil(x + 0.8); bx++) {
+    for (let bz = Math.floor(z - 0.8); bz <= Math.ceil(z + 0.8); bz++) {
+      for (let by = Math.floor(toFeet - 0.5); by <= Math.ceil(fromFeet + 0.5); by++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        if (!isSolidBlock(block)) continue;
+        const top = block.y + 0.5;
+        if (horizontalBlockOverlap(x, z, block) && top <= fromFeet + 0.001 &&
+            top > toFeet - 0.001 && (!best || top > best.top)) best = { top };
+      }
     }
   }
   return best;
@@ -1252,10 +1375,15 @@ function findCeilingSurface(x, z, fromEyeY, toEyeY, bodyHeight) {
   const fromHead = fromEyeY - 1.65 + headHeight;
   const toHead = toEyeY - 1.65 + headHeight;
   let best = null;
-  for (const block of blocks.values()) {
-    const bottom = block.y - 0.5;
-    if (horizontalBlockOverlap(x, z, block) && bottom >= fromHead - 0.001 && bottom < toHead + 0.001 && (!best || bottom < best.bottom)) {
-      best = { bottom };
+  for (let bx = Math.floor(x - 0.8); bx <= Math.ceil(x + 0.8); bx++) {
+    for (let bz = Math.floor(z - 0.8); bz <= Math.ceil(z + 0.8); bz++) {
+      for (let by = Math.floor(fromHead - 0.5); by <= Math.ceil(toHead + 0.5); by++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        if (!isSolidBlock(block)) continue;
+        const bottom = block.y - 0.5;
+        if (horizontalBlockOverlap(x, z, block) && bottom >= fromHead - 0.001 &&
+            bottom < toHead + 0.001 && (!best || bottom < best.bottom)) best = { bottom };
+      }
     }
   }
   return best;
@@ -1265,11 +1393,17 @@ function findJumpEscapeBlock() {
   const height = player.height - 0.15;
   const middleY = footY + height / 2;
   const overlaps = [];
-  for (const block of blocks.values()) {
-    const overlapX = player.pos.x - 0.3 < block.x + 0.5 && player.pos.x + 0.3 > block.x - 0.5;
-    const overlapZ = player.pos.z - 0.3 < block.z + 0.5 && player.pos.z + 0.3 > block.z - 0.5;
-    const overlapY = footY < block.y + 0.5 && footY + height > block.y - 0.5;
-    if (overlapX && overlapZ && overlapY) overlaps.push(block);
+  for (let bx = Math.floor(player.pos.x - 0.8); bx <= Math.ceil(player.pos.x + 0.8); bx++) {
+    for (let bz = Math.floor(player.pos.z - 0.8); bz <= Math.ceil(player.pos.z + 0.8); bz++) {
+      for (let by = Math.floor(footY - 0.5); by <= Math.ceil(footY + height + 0.5); by++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        if (!isSolidBlock(block)) continue;
+        const overlapX = player.pos.x - 0.3 < block.x + 0.5 && player.pos.x + 0.3 > block.x - 0.5;
+        const overlapZ = player.pos.z - 0.3 < block.z + 0.5 && player.pos.z + 0.3 > block.z - 0.5;
+        const overlapY = footY < block.y + 0.5 && footY + height > block.y - 0.5;
+        if (overlapX && overlapZ && overlapY) overlaps.push(block);
+      }
+    }
   }
   const lower = overlaps.filter(block => block.y - 0.5 < middleY && block.y + 0.5 > footY);
   const upper = overlaps.filter(block => block.y + 0.5 > middleY && block.y - 0.5 < footY + height);
@@ -1278,22 +1412,32 @@ function findJumpEscapeBlock() {
   const embeddedKey = coordKey(embedded.x, embedded.y, embedded.z);
   const targetEyeY = embedded.y + 2.15;
   const targetHeadTop = targetEyeY + (height - 1.65);
-  for (const block of blocks.values()) {
-    if (coordKey(block.x, block.y, block.z) === embeddedKey) continue;
-    const overlapX = player.pos.x - 0.3 < block.x + 0.5 && player.pos.x + 0.3 > block.x - 0.5;
-    const overlapZ = player.pos.z - 0.3 < block.z + 0.5 && player.pos.z + 0.3 > block.z - 0.5;
-    const blocksJumpPath = block.y + 0.5 > middleY && block.y - 0.5 < targetHeadTop;
-    if (overlapX && overlapZ && blocksJumpPath) return null;
+  for (let bx = Math.floor(player.pos.x - 0.8); bx <= Math.ceil(player.pos.x + 0.8); bx++) {
+    for (let bz = Math.floor(player.pos.z - 0.8); bz <= Math.ceil(player.pos.z + 0.8); bz++) {
+      for (let by = Math.floor(middleY - 0.5); by <= Math.ceil(targetHeadTop + 0.5); by++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        if (!isSolidBlock(block) || coordKey(block.x, block.y, block.z) === embeddedKey) continue;
+        const overlapX = player.pos.x - 0.3 < block.x + 0.5 && player.pos.x + 0.3 > block.x - 0.5;
+        const overlapZ = player.pos.z - 0.3 < block.z + 0.5 && player.pos.z + 0.3 > block.z - 0.5;
+        const blocksJumpPath = block.y + 0.5 > middleY && block.y - 0.5 < targetHeadTop;
+        if (overlapX && overlapZ && blocksJumpPath) return null;
+      }
+    }
   }
   return embedded;
 }
 function hasBlockOverhead() {
   const feetY = player.pos.y - 1.65;
   const headY = feetY + player.height - 0.15;
-  for (const block of blocks.values()) {
-    const bottom = block.y - 0.5;
-    if (horizontalBlockOverlap(player.pos.x, player.pos.z, block) &&
-        bottom >= headY - 0.08 && bottom <= headY + 1.1) return true;
+  for (let bx = Math.floor(player.pos.x - 0.8); bx <= Math.ceil(player.pos.x + 0.8); bx++) {
+    for (let bz = Math.floor(player.pos.z - 0.8); bz <= Math.ceil(player.pos.z + 0.8); bz++) {
+      for (let by = Math.floor(headY - 0.08); by <= Math.ceil(headY + 1.1); by++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        const bottom = block?.y - 0.5;
+        if (isSolidBlock(block) && horizontalBlockOverlap(player.pos.x, player.pos.z, block) &&
+            bottom >= headY - 0.08 && bottom <= headY + 1.1) return true;
+      }
+    }
   }
   return false;
 }
@@ -1341,7 +1485,7 @@ function hasSneakSupport(x, z, feetY, moveX, moveZ) {
     const bx = Math.floor(sx + 0.5), bz = Math.floor(sz + 0.5);
     for (let by = Math.floor(feetY) - 1; by <= Math.ceil(feetY); by++) {
       const block = blocks.get(coordKey(bx, by, bz));
-      const top = block ? block.y + 0.5 : -Infinity;
+    const top = isSolidBlock(block) ? block.y + 0.5 : -Infinity;
       if (top <= feetY + 0.08 && top >= feetY - 0.35) return true;
     }
     return false;
@@ -1350,12 +1494,18 @@ function hasSneakSupport(x, z, feetY, moveX, moveZ) {
 function findDropLandingTop(x, z, fromBottom, toBottom) {
   const halfSize = 0.15;
   let bestTop = null;
-  for (const block of blocks.values()) {
-    if (Math.abs(x - block.x) >= 0.5 + halfSize || Math.abs(z - block.z) >= 0.5 + halfSize) continue;
-    const top = block.y + 0.5;
-    const crossedSurface = fromBottom >= top - 0.001 && toBottom <= top + 0.001;
-    const overlapsSurface = toBottom <= top && toBottom + halfSize * 2 >= top;
-    if ((crossedSurface || overlapsSurface) && (bestTop === null || top > bestTop)) bestTop = top;
+  for (let bx = Math.floor(x - 0.65); bx <= Math.ceil(x + 0.65); bx++) {
+    for (let bz = Math.floor(z - 0.65); bz <= Math.ceil(z + 0.65); bz++) {
+      for (let by = Math.floor(toBottom - 0.5); by <= Math.ceil(fromBottom + 0.5); by++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        if (!isSolidBlock(block) || Math.abs(x - block.x) >= 0.5 + halfSize ||
+            Math.abs(z - block.z) >= 0.5 + halfSize) continue;
+        const top = block.y + 0.5;
+        const crossedSurface = fromBottom >= top - 0.001 && toBottom <= top + 0.001;
+        const overlapsSurface = toBottom <= top && toBottom + halfSize * 2 >= top;
+        if ((crossedSurface || overlapsSurface) && (bestTop === null || top > bestTop)) bestTop = top;
+      }
+    }
   }
   const fallbackTop = -2.5;
   if (fromBottom >= fallbackTop - 0.001 && toBottom <= fallbackTop + 0.001 && (bestTop === null || fallbackTop > bestTop)) {
@@ -1420,8 +1570,13 @@ function animate(now) {
     player.vel.x = 0;
     player.vel.z = 0;
   }
-  player.pos.x = candidateX;
-  player.pos.z = candidateZ;
+  player.pos.x = currentWorld?.terrainVersion === 2
+    ? THREE.MathUtils.clamp(candidateX, -WORLD_WIDTH / 2 - 0.2, WORLD_WIDTH / 2 - 0.8)
+    : candidateX;
+  player.pos.z = currentWorld?.terrainVersion === 2
+    ? THREE.MathUtils.clamp(candidateZ, -WORLD_DEPTH / 2 - 0.2, WORLD_DEPTH / 2 - 0.8)
+    : candidateZ;
+  streamWorldChunks();
   const requestedFov = baseFieldOfView * fieldOfViewPercent / 90 + (sprinting ? 10 : 0);
   displayedFieldOfView = THREE.MathUtils.damp(displayedFieldOfView, requestedFov, 8, dt);
   if (Math.abs(requestedFov - displayedFieldOfView) <= 0.01) displayedFieldOfView = requestedFov;
@@ -1464,7 +1619,11 @@ function animate(now) {
     const escapeBlock = blocks.get(escapeBlockKey);
     if (!escapeBlock || player.pos.y - 1.65 >= escapeBlock.y + 0.48) escapeBlockKey = null;
   }
-  if (player.pos.y < -8) { player.pos.set(0, terrainHeight(0, 7) + 2.4, 7); player.vel.set(0, 0, 0); }
+  if (player.pos.y < -8) {
+    player.pos.set(0, terrainHeight(0, 7) + 2.4, 7);
+    player.vel.set(0, 0, 0);
+    streamWorldChunks();
+  }
   camera.position.set(player.pos.x, player.pos.y - (2 - player.height), player.pos.z);
   document.querySelector('#coordX').textContent = player.pos.x.toFixed(1);
   document.querySelector('#coordY').textContent = player.pos.y.toFixed(1);
