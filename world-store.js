@@ -1,11 +1,11 @@
-export const BLOCK_TYPES = ['grass', 'dirt', 'stone', 'wood', 'leaves', 'sand', 'water', 'lava'];
+export const BLOCK_TYPES = ['grass', 'tall_grass', 'dirt', 'stone', 'wood', 'planks', 'leaves', 'sand', 'water', 'lava', 'coal_ore', 'iron_ore', 'gold_ore', 'diamond_ore', 'crafting_table', 'furnace', 'chest'];
 export const GAME_MODES = ['adventure', 'creative', 'spectator', 'survival'];
 export const WORLD_STORAGE_KEY = 'blockland-worlds-v1';
 export const FIXED_SURVIVAL_SEED = 2026;
 export const WORLD_WIDTH = 10000;
 export const WORLD_DEPTH = 1000;
 export const CHUNK_SIZE = 16;
-export const TERRAIN_VERSION = 2;
+export const TERRAIN_VERSION = 3;
 
 const isMode = mode => GAME_MODES.includes(mode);
 const inBounds = (x, z) => x >= -WORLD_WIDTH / 2 && x < WORLD_WIDTH / 2 &&
@@ -33,6 +33,59 @@ function noise(x, z, seed, scale) {
   return top * (1 - tz) + bottom * tz;
 }
 
+function caveAt(x, y, z, seed) {
+  const horizontal = noise(x + y * 0.37, z - y * 0.23, seed + 401, 0.12);
+  const vertical = noise(x - y * 0.19, z + y * 0.31, seed + 409, 0.16);
+  return horizontal * 0.55 + vertical * 0.45 > 0.72;
+}
+
+function oreAt(x, y, z, seed, cache) {
+  if (y > 8 || y < -4) return null;
+  const cellX = Math.floor(x / 5);
+  const cellY = Math.floor(y / 3);
+  const cellZ = Math.floor(z / 5);
+  for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+    for (let dz = -1; dz <= 1; dz++) {
+      const anchorX = cellX + dx;
+      const anchorY = cellY + dy;
+      const anchorZ = cellZ + dz;
+      const clusterKey = `${anchorX},${anchorY},${anchorZ}`;
+      let cluster = cache.get(clusterKey);
+      if (cluster === undefined) {
+        const anchor = hash(anchorX, anchorY * 31 + anchorZ, seed + 503);
+        cluster = null;
+        if (anchor <= 0.06) {
+          const centerX = anchorX * 5 + Math.floor(hash(anchorX, anchorZ, seed + 509) * 5);
+          const centerY = anchorY * 3 + Math.floor(hash(anchorY, anchorX, seed + 521) * 3);
+          const centerZ = anchorZ * 5 + Math.floor(hash(anchorZ, anchorY, seed + 523) * 5);
+          const choice = hash(anchorX, anchorY + anchorZ, seed + 541);
+          const type = centerY <= -2 && choice < 0.12 ? 'diamond_ore'
+            : centerY <= 1 && choice < 0.32 ? 'gold_ore'
+              : centerY <= 5 && choice < 0.62 ? 'iron_ore' : 'coal_ore';
+          const minimum = type === 'coal_ore' ? 5 : 3;
+          const maximum = type === 'coal_ore' ? 20 : 9;
+          const count = minimum + Math.floor(hash(anchorX, anchorY + anchorZ, seed + 547) * (maximum - minimum + 1));
+          const offsets = [];
+          for (let ox = -1; ox <= 1; ox++) for (let oy = -1; oy <= 1; oy++) {
+            for (let oz = -1; oz <= 1; oz++) offsets.push({ x: ox, y: oy, z: oz });
+          }
+          offsets.sort((a, b) => {
+            const distanceA = Math.abs(a.x) + Math.abs(a.y) + Math.abs(a.z);
+            const distanceB = Math.abs(b.x) + Math.abs(b.y) + Math.abs(b.z);
+            return distanceA - distanceB ||
+              hash(anchorX + a.x, anchorZ + a.z, seed + a.y + 557) -
+              hash(anchorX + b.x, anchorZ + b.z, seed + b.y + 557);
+          });
+          cluster = { type, centerX, centerY, centerZ, cells: new Set(offsets.slice(0, count).map(offset => `${offset.x},${offset.y},${offset.z}`)) };
+        }
+        cache.set(clusterKey, cluster);
+      }
+      if (cluster?.cells.has(`${x - cluster.centerX},${y - cluster.centerY},${z - cluster.centerZ}`)) return cluster.type;
+    }
+  }
+  return null;
+}
+
 function getColumn(x, z, seed) {
   const region = noise(x, z, seed, 0.005);
   const biome = region < 0.2 ? 'desert' : region > 0.88 ? 'volcanic' :
@@ -41,14 +94,17 @@ function getColumn(x, z, seed) {
   const detail = noise(x, z, seed + 13, 0.045);
   let height = Math.round(3 + (hills - 0.5) * 10 + (detail - 0.5) * 3);
   let lake = false;
+  const river = biome !== 'desert' && biome !== 'volcanic' &&
+    Math.abs(noise(x, z, seed + 83, 0.009) - 0.5) < 0.025;
   let magmaPool = false;
   const lakeNoise = noise(x, z, seed + 71, 0.018);
 
-  if (biome !== 'desert' && biome !== 'volcanic' &&
-      lakeNoise > 0.79) {
-    const lakeDepth = Math.max(0, Math.min(1, (noise(x, z, seed + 73, 0.045) - 0.35) * 2));
-    height -= Math.round(2 + lakeDepth * 2);
-    lake = height < 4;
+  if (river) {
+    height = Math.min(height, 1);
+    lake = true;
+  } else if (biome !== 'desert' && biome !== 'volcanic' && lakeNoise > 0.79 && height < 5) {
+    height = Math.min(height, 1);
+    lake = true;
   }
   if (biome === 'volcanic') {
     const pool = noise(x, z, seed + 97, 0.035);
@@ -57,9 +113,8 @@ function getColumn(x, z, seed) {
   }
 
   height = Math.max(-1, height);
-  const shore = biome !== 'desert' && biome !== 'volcanic' &&
-    lakeNoise > 0.73 && lakeNoise <= 0.79 && height <= 5;
-  return { biome, height, lake, magmaPool, shore };
+  const shore = lake && !river && lakeNoise < 0.86;
+  return { biome, height, lake, magmaPool, shore, river };
 }
 
 export function getSurfaceHeight(x, z, seed = FIXED_SURVIVAL_SEED) {
@@ -72,6 +127,7 @@ export function getTerrainColumn(x, z, seed = FIXED_SURVIVAL_SEED) {
 
 export function generateChunk(chunkX, chunkZ, seed) {
   const blocks = new Map();
+  const oreClusters = new Map();
   const startX = chunkX * CHUNK_SIZE;
   const startZ = chunkZ * CHUNK_SIZE;
   const endX = startX + CHUNK_SIZE;
@@ -90,15 +146,19 @@ export function generateChunk(chunkX, chunkZ, seed) {
       if (!inBounds(x, z)) continue;
       const column = getColumn(x, z, seed);
       for (let y = -4; y <= column.height; y++) {
+        if (y < column.height - 1 && y > -4 && caveAt(x, y, z, seed)) continue;
         let type;
         if (y === column.height) {
           type = column.biome === 'desert' || column.shore ? 'sand' : 'grass';
         } else if (column.biome === 'desert' && y >= column.height - 3) {
           type = 'sand';
         } else {
-          type = y >= column.height - 3 ? 'dirt' : 'stone';
+          type = y >= column.height - 3 ? 'dirt' : oreAt(x, y, z, seed, oreClusters) || 'stone';
         }
         add(x, y, z, type);
+      }
+      if (column.biome === 'forest' && !column.lake && hash(x, z, seed + 601) > 0.93) {
+        add(x, column.height + 1, z, 'tall_grass');
       }
       if (column.lake) {
         for (let y = column.height + 1; y <= 4; y++) add(x, y, z, 'water');
