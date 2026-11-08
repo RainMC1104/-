@@ -290,9 +290,7 @@ let leftMouseHeld = false;
 let collected = 0;
 let viewAction = 'idle';
 let viewActionStarted = 0;
-const queuedViewActions = [];
 let sprinting = false;
-let sprintBlocked = false;
 let jumpBoostTime = 0;
 let jumpBoostMaxSpeed = 7.6;
 const heldView = new THREE.Group();
@@ -370,11 +368,8 @@ function rebuildHeldItem() {
   }
 }
 function startViewAction(action, now = performance.now()) {
-  const duration = viewAction === 'swing' || viewAction === 'place' ? 280 : 0;
-  if (duration && now - viewActionStarted < duration) {
-    queuedViewActions.push(action);
-    return;
-  }
+  if ((viewAction === 'swing' || viewAction === 'place') && now - viewActionStarted < 280) return;
+  if (viewAction === action) return;
   viewAction = action;
   viewActionStarted = now;
 }
@@ -386,12 +381,9 @@ function animateHeldItem(now) {
   }
   const finiteAction = viewAction === 'swing' || viewAction === 'place';
   if (finiteAction && now - viewActionStarted >= 280) {
+    const repeatSwing = viewAction === 'swing' && leftMouseHeld;
     viewAction = 'idle';
-    const queuedAction = queuedViewActions.shift();
-    if (queuedAction) startViewAction(queuedAction, now);
-  }
-  if (viewAction === 'idle' && queuedViewActions.length) {
-    startViewAction(queuedViewActions.shift(), now);
+    if (repeatSwing) startViewAction('swing', now);
   }
   heldView.position.copy(heldBasePosition);
   heldView.rotation.set(0, 0, 0);
@@ -826,7 +818,7 @@ function handleBoundInput(event, code = event.code) {
   for (let slot = 1; slot <= HOTBAR.length; slot++) {
     if (code === bindings[`hotbar${slot}`]) { selected = slot - 1; updateHotbar(); break; }
   }
-  if (code === bindings.jump) jumpPlayer();
+  if (code === bindings.jump && !event.repeat) jumpPlayer();
 }
 document.addEventListener('mousedown', event => {
   if (event.button !== 3 && event.button !== 4) return;
@@ -871,7 +863,6 @@ document.addEventListener('keydown', event => {
 });
 document.addEventListener('keyup', event => {
   keys[event.code] = false;
-  if (event.code === bindings.sprint || event.code === bindings.forward) sprintBlocked = false;
 });
 document.addEventListener('mouseup', event => {
   if (event.button === 3 || event.button === 4) keys[event.button === 3 ? 'Mouse4' : 'Mouse5'] = false;
@@ -977,22 +968,29 @@ function jumpPlayer() {
   if (!direction.lengthSq()) return;
   direction.normalize();
   const sprintJump = sprinting || (keys[bindings.forward] && keys[bindings.sprint]);
-  const boost = (sprintJump ? 2.2 : 1.2) + (hasBlockOverhead() ? 1.2 : 0);
-  player.vel.x += direction.x * boost;
-  player.vel.z += direction.z * boost;
-  jumpBoostTime = 0.55;
-  jumpBoostMaxSpeed = sprintJump ? 8.5 : 7.6;
+  if (sprintJump) {
+    const boost = 2.2 + (hasBlockOverhead() ? 1.2 : 0);
+    player.vel.x += direction.x * boost;
+    player.vel.z += direction.z * boost;
+    jumpBoostTime = 0.55;
+    jumpBoostMaxSpeed = 8.5;
+  } else {
+    jumpBoostTime = 0;
+    jumpBoostMaxSpeed = 5;
+  }
 }
 function hasSneakSupport(x, z, feetY, moveX, moveZ) {
   const length = Math.hypot(moveX, moveZ) || 1;
   const forwardX = moveX / length;
   const forwardZ = moveZ / length;
-  const sideX = -forwardZ * 0.28;
-  const sideZ = forwardX * 0.28;
+  const frontReach = 0.27;
+  const sideReach = 0.24;
+  const sideX = -forwardZ * sideReach;
+  const sideZ = forwardX * sideReach;
   const samples = [
-    [x + forwardX * 0.46, z + forwardZ * 0.46],
-    [x + forwardX * 0.46 + sideX, z + forwardZ * 0.46 + sideZ],
-    [x + forwardX * 0.46 - sideX, z + forwardZ * 0.46 - sideZ]
+    [x + forwardX * frontReach, z + forwardZ * frontReach],
+    [x + forwardX * frontReach + sideX, z + forwardZ * frontReach + sideZ],
+    [x + forwardX * frontReach - sideX, z + forwardZ * frontReach - sideZ]
   ];
   return samples.every(([sx, sz]) => {
     const bx = Math.floor(sx + 0.5), bz = Math.floor(sz + 0.5);
@@ -1031,8 +1029,8 @@ function animate(now) {
   if (keys[bindings.sneak]) player.sneaking = true;
   else if (!collides(player.pos.x, player.pos.y, player.pos.z, 2)) player.sneaking = false;
   if (player.sneaking || !keys[bindings.forward]) sprinting = false;
-  if (!keys[bindings.forward] || !keys[bindings.sprint]) sprintBlocked = false;
-  if (!player.sneaking && keys[bindings.forward] && keys[bindings.sprint] && !sprintBlocked) sprinting = true;
+  if (!player.sneaking && keys[bindings.forward] && keys[bindings.sprint]) sprinting = true;
+  if (keys[bindings.jump] && player.onGround) jumpPlayer();
   const targetHeight = player.sneaking ? 1.75 : 2;
   player.height = THREE.MathUtils.damp(player.height, targetHeight, 14, dt);
   const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
@@ -1063,10 +1061,6 @@ function animate(now) {
   const hitZ = !!collides(candidateX, player.pos.y, nextZ);
   if (!hitX) candidateX = nextX; else player.vel.x = 0;
   if (!hitZ) candidateZ = nextZ; else player.vel.z = 0;
-  if (sprinting && (hitX || hitZ)) {
-    sprinting = false;
-    sprintBlocked = true;
-  }
   const actualMoveX = candidateX - startX;
   const actualMoveZ = candidateZ - startZ;
   if (player.sneaking && player.onGround && (actualMoveX || actualMoveZ) &&
@@ -1079,9 +1073,10 @@ function animate(now) {
   player.pos.x = candidateX;
   player.pos.z = candidateZ;
   const requestedFov = baseFieldOfView * fieldOfViewPercent / 90 + (sprinting ? 10 : 0);
-  if (Math.abs(requestedFov - displayedFieldOfView) > 0.01) {
-    displayedFieldOfView = requestedFov;
-    camera.fov = requestedFov;
+  displayedFieldOfView = THREE.MathUtils.damp(displayedFieldOfView, requestedFov, 8, dt);
+  if (Math.abs(requestedFov - displayedFieldOfView) <= 0.01) displayedFieldOfView = requestedFov;
+  if (camera.fov !== displayedFieldOfView) {
+    camera.fov = displayedFieldOfView;
     camera.updateProjectionMatrix();
   }
   const nextY = player.pos.y + player.vel.y * dt;
