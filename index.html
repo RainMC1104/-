@@ -11,7 +11,7 @@
 .bottom{flex-direction:column;align-items:center;justify-content:flex-end;gap:7px}.vitals{display:flex;flex-direction:row;align-items:center;gap:12px;padding:4px 8px;background:rgba(14,24,29,.54);border:1px solid rgba(255,255,255,.12)}.hearts,.hunger{display:flex;justify-content:center;gap:3px;line-height:1}.heart{font-size:17px;color:#ff5665;text-shadow:0 1px 3px #32151a}.food{font-size:14px;filter:drop-shadow(0 1px 2px #281910)}
 .menu-card [hidden]{display:none!important}.menu-actions{display:flex;justify-content:center;gap:10px}.menu-button,.binding-button{font-family:inherit;color:#eef2e8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 18px;cursor:pointer}.menu-button:hover,.binding-button:hover{border-color:var(--lime)}#settingsPanel h1{margin-bottom:10px}#settingsPanel h2{font-size:13px;color:var(--lime);margin:10px 0}.binding-list{display:flex;flex-direction:column;gap:12px;max-height:52vh;overflow-y:auto;padding:4px 8px 8px 4px;scrollbar-color:var(--lime) rgba(255,255,255,.08);scrollbar-width:thin}.binding-list::-webkit-scrollbar,.menu-card::-webkit-scrollbar{width:8px}.binding-list::-webkit-scrollbar-track,.menu-card::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:8px}.binding-list::-webkit-scrollbar-thumb,.menu-card::-webkit-scrollbar-thumb{background:#91aa94;border:2px solid rgba(15,27,31,.94);border-radius:8px}.binding-group-title{margin:0 0 6px;color:var(--lime);font-size:12px;letter-spacing:.08em}.binding-group-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}.binding-row{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:42px;padding:6px 8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:4px;font-size:12px;color:#d8e1dc}.binding-button{min-width:96px;min-height:32px;padding:5px 8px;font-family:monospace;font-size:11px;font-weight:700;background:#253632;border:1px solid #91aa94;color:#fff}.binding-button.waiting{background:#4e5d27;color:#efffc7;border-color:var(--lime)}.sensitivity-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:10px 0 5px;color:#d8e1dc}#sensitivity{width:100%;accent-color:var(--lime);pointer-events:auto}.back-button{margin-top:12px}.inventory-overlay{position:fixed;inset:0;z-index:4;display:none;place-items:center;background:rgba(5,12,14,.38);pointer-events:auto}.inventory-overlay.show{display:grid}.inventory-panel{padding:18px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 65px #0008}.inventory-panel h2{font:20px 'DotGothic16';text-align:center;margin:0 0 14px}.inventory-grid{display:grid;grid-template-columns:repeat(9,54px);gap:4px}.inventory-grid .slot{width:54px;height:54px;cursor:pointer;background:rgba(255,255,255,.08)}.inventory-grid .slot.active{transform:none}.inventory-grid .slot .label{display:none}.inventory-grid .slot .swatch{width:26px;height:26px}.inventory-grid .tool-icon{width:34px;height:34px}.inventory-grid .slot .count,.hotbar .slot .count{z-index:1}.slot .count{pointer-events:none}.inventory-separator{height:10px;border-bottom:1px solid #ffffff30;margin-bottom:10px}.cursor-item{position:fixed;z-index:10;display:none;pointer-events:none;width:48px;height:48px;align-items:center;justify-content:center;background:#162321d9;border:1px solid var(--lime);transform:translate(-50%,-50%)}.cursor-item.show{display:flex}.cursor-item .swatch{width:30px;height:30px}.cursor-item .tool-icon{width:36px;height:36px}.cursor-item b{position:absolute;right:2px;bottom:0;font-size:11px;text-shadow:0 1px 3px #000}@media(max-width:640px){.binding-group-grid{grid-template-columns:1fr}.menu-card:has(#settingsPanel:not([hidden])){padding:20px 14px}.binding-row{font-size:11px;padding:5px}.binding-button{min-width:78px}.inventory-grid{grid-template-columns:repeat(9,34px);gap:3px}.inventory-grid .slot{width:34px;height:42px}.inventory-panel{padding:11px}.inventory-grid .tool-icon{width:27px;height:27px}}
 /* Clearer control remapping: larger, higher contrast rows and more room for labels. */
-.menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}#settingsPanel .sensitivity-label,#settingsPanel #sensitivity{display:block;max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel .back-button{display:block;margin:16px auto 0}
+.menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}.binding-group-grid{grid-template-columns:1fr}.binding-row{min-height:40px}.sensitivity-label{max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel #sensitivity,#fieldOfView{display:block;width:100%;max-width:420px;margin-left:auto;margin-right:auto;accent-color:var(--lime);pointer-events:auto}.settings-range{margin-top:12px}.menu-card:has(#settingsPanel:not([hidden])){scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}#settingsPanel .back-button{display:block;margin:16px auto 0}
 </style>
 </head>
 <body>
@@ -51,6 +51,7 @@ const BINDING_GROUPS = [
 const SETTINGS_STORAGE_KEY = 'blockland-controls-v1';
 let bindings = { ...DEFAULT_BINDINGS };
 let mouseSensitivity = 1;
+let fieldOfViewPercent = 90;
 let rebindingAction = null;
 try {
   const saved = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}');
@@ -58,11 +59,14 @@ try {
     if (typeof saved.bindings[action] === 'string') bindings[action] = saved.bindings[action];
   }
   if (Number.isFinite(saved.sensitivity)) mouseSensitivity = THREE.MathUtils.clamp(saved.sensitivity, 0.2, 3);
+  if (Number.isFinite(saved.fieldOfView)) fieldOfViewPercent = THREE.MathUtils.clamp(saved.fieldOfView, 60, 120);
 } catch {}
 function saveControlSettings() {
-  try { localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ bindings, sensitivity: mouseSensitivity })); } catch {}
+  try { localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ bindings, sensitivity: mouseSensitivity, fieldOfView: fieldOfViewPercent })); } catch {}
 }
 function formatBinding(code) {
+  if (code === 'Mouse4') return 'マウス戻る';
+  if (code === 'Mouse5') return 'マウス進む';
   if (code === 'Space') return 'SPACE';
   if (code === 'Tab') return 'TAB';
   if (code.startsWith('Key')) return code.slice(3);
@@ -108,6 +112,8 @@ scene.background = new THREE.Color(0x9bd8ed);
 scene.fog = new THREE.Fog(0x9bd8ed, 25, 62);
 
 const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 100);
+const baseFieldOfView = camera.fov;
+let displayedFieldOfView = camera.fov;
 camera.rotation.order = 'YXZ';
 scene.add(camera);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -200,7 +206,7 @@ function rebuildBlockMeshes() {
 }
 rebuildBlockMeshes();
 
-const player = { pos: new THREE.Vector3(0, terrainHeight(0, 7) + 2.25, 7), vel: new THREE.Vector3(), yaw: 0, pitch: 0, onGround: false, sneaking: false, height: 2 };
+const player = { pos: new THREE.Vector3(0, terrainHeight(0, 7) + 2.4, 7), vel: new THREE.Vector3(), yaw: 0, pitch: 0, onGround: false, sneaking: false, height: 2 };
 let escapeBlockKey = null;
 camera.position.copy(player.pos);
 const raycaster = new THREE.Raycaster();
@@ -284,13 +290,17 @@ let leftMouseHeld = false;
 let collected = 0;
 let viewAction = 'idle';
 let viewActionStarted = 0;
+const queuedViewActions = [];
+let sprinting = false;
+let sprintBlocked = false;
+let jumpBoostTime = 0;
+let jumpBoostMaxSpeed = 7.6;
 const heldView = new THREE.Group();
 heldView.position.set(0.43, -0.43, -0.78);
 camera.add(heldView);
 const heldBasePosition = heldView.position.clone();
 const heldMetalMaterial = new THREE.MeshLambertMaterial({ color: 0x929b9b });
 const heldWoodMaterial = new THREE.MeshLambertMaterial({ color: 0x795a38 });
-const heldSleeveMaterial = new THREE.MeshLambertMaterial({ color: 0x5b7b4c });
 const heldSkinMaterial = new THREE.MeshLambertMaterial({ color: 0x9a7659 });
 function makeToolIcon(kind) {
   const canvas = document.createElement('canvas');
@@ -338,8 +348,7 @@ function rebuildHeldItem() {
   heldView.clear();
   const item = HOTBAR[selected];
   if (!item) {
-    addHeldBox(heldView, [0.19, 0.2, 0.38], [0.08, -0.12, 0.18], heldSleeveMaterial, -0.25);
-    addHeldBox(heldView, [0.16, 0.14, 0.17], [0.04, -0.04, -0.08], heldSkinMaterial, -0.15);
+    addHeldBox(heldView, [0.2, 0.2, 0.42], [0.05, -0.08, 0.08], heldSkinMaterial, -0.15);
   } else if (item.id === 'iron_sword') {
     addHeldBox(heldView, [0.085, 0.19, 0.075], [0.015, 0.07, -0.13], heldWoodMaterial);
     addHeldBox(heldView, [0.29, 0.055, 0.085], [0.015, 0.17, -0.13], heldMetalMaterial);
@@ -361,6 +370,11 @@ function rebuildHeldItem() {
   }
 }
 function startViewAction(action, now = performance.now()) {
+  const duration = viewAction === 'swing' || viewAction === 'place' ? 280 : 0;
+  if (duration && now - viewActionStarted < duration) {
+    queuedViewActions.push(action);
+    return;
+  }
   viewAction = action;
   viewActionStarted = now;
 }
@@ -370,8 +384,15 @@ function animateHeldItem(now) {
   } else if (viewAction === 'mine') {
     viewAction = 'idle';
   }
-  if (viewAction === 'swing' && now - viewActionStarted > 260) viewAction = 'idle';
-  if (viewAction === 'place' && now - viewActionStarted > 280) viewAction = 'idle';
+  const finiteAction = viewAction === 'swing' || viewAction === 'place';
+  if (finiteAction && now - viewActionStarted >= 280) {
+    viewAction = 'idle';
+    const queuedAction = queuedViewActions.shift();
+    if (queuedAction) startViewAction(queuedAction, now);
+  }
+  if (viewAction === 'idle' && queuedViewActions.length) {
+    startViewAction(queuedViewActions.shift(), now);
+  }
   heldView.position.copy(heldBasePosition);
   heldView.rotation.set(0, 0, 0);
   if (viewAction === 'mine') {
@@ -380,10 +401,10 @@ function animateHeldItem(now) {
     heldView.rotation.set(-0.15 + Math.max(0, swing) * 0.95, 0.05, 0.28 + swing * 0.24);
     heldView.position.y += Math.max(0, swing) * 0.035;
   } else if (viewAction === 'swing') {
-    const progress = Math.min((now - viewActionStarted) / 260, 1);
+    const progress = Math.min((now - viewActionStarted) / 280, 1);
     const swing = Math.sin(progress * Math.PI);
-    heldView.rotation.set(-0.15 + swing * 1.15, 0.05, 0.28 + swing * 0.24);
-    heldView.position.y += swing * 0.045;
+    heldView.rotation.set(-swing * 0.9, 0, swing * 0.15);
+    heldView.position.y -= swing * 0.12;
   } else if (viewAction === 'place') {
     const phase = Math.min((now - viewActionStarted) / 280, 1);
     const swing = Math.sin(phase * Math.PI);
@@ -393,7 +414,10 @@ function animateHeldItem(now) {
     heldView.position.y += Math.sin(now * 0.003) * 0.006;
   }
   const selectedItem = HOTBAR[selected];
-  heldView.rotation.y = selectedItem?.id === 'iron_axe' ? Math.PI : selectedItem?.tool ? -Math.PI / 2 : 0;
+  const axeSwing = selectedItem?.id === 'iron_axe' && viewAction === 'swing'
+    ? Math.sin(Math.min((now - viewActionStarted) / 280, 1) * Math.PI) * Math.PI
+    : 0;
+  heldView.rotation.y = (selectedItem?.id === 'iron_axe' ? Math.PI / 2 + axeSwing : selectedItem?.tool ? -Math.PI / 2 : 0);
 }
 function updateHotbar() {
   const renderSlots = (element, slots, area) => {
@@ -406,7 +430,7 @@ function updateHotbar() {
       slot.title = item?.label || '';
       const visual = item?.type
         ? `<span class="swatch" style="background:${CSS_COLORS[item.type]}"></span><span class="count">${item.count}</span>`
-        : item?.tool ? `<img class="tool-icon" src="${toolIcons[item.id]}" alt="${item.label}">` : '<span class="empty-icon"></span>';
+        : item?.tool ? `<img class="tool-icon" src="${toolIcons[item.id]}" alt="${item.label}">` : '';
       slot.innerHTML = `${area === 'hotbar' ? `<span class="num">${index + 1}</span>` : ''}${visual}${item ? `<span class="label">${item.label}</span>` : ''}`;
       element.appendChild(slot);
     });
@@ -706,6 +730,19 @@ sensitivitySlider.addEventListener('input', () => {
   sensitivityValue.value = mouseSensitivity.toFixed(1);
   saveControlSettings();
 });
+const fieldOfViewControl = document.createElement('div');
+fieldOfViewControl.className = 'settings-range';
+fieldOfViewControl.innerHTML = '<label class="sensitivity-label" for="fieldOfView">視野 <output id="fieldOfViewValue"></output></label><input id="fieldOfView" type="range" min="60" max="120" step="1">';
+sensitivitySlider.after(fieldOfViewControl);
+const fieldOfViewSlider = document.querySelector('#fieldOfView');
+const fieldOfViewValue = document.querySelector('#fieldOfViewValue');
+fieldOfViewSlider.value = fieldOfViewPercent;
+fieldOfViewValue.value = `${fieldOfViewPercent}%`;
+fieldOfViewSlider.addEventListener('input', () => {
+  fieldOfViewPercent = Number(fieldOfViewSlider.value);
+  fieldOfViewValue.value = `${fieldOfViewPercent}%`;
+  saveControlSettings();
+});
 function setPaused(value) {
   paused = value;
   menu.classList.toggle('show', paused);
@@ -763,6 +800,50 @@ document.addEventListener('mousemove', event => {
   player.yaw -= dx * 0.0022 * mouseSensitivity;
   player.pitch = THREE.MathUtils.clamp(player.pitch - dy * 0.0022 * mouseSensitivity, -1.48, 1.48);
 });
+function handleBoundInput(event, code = event.code) {
+  if (paused) return;
+  if (code === bindings.inventory) {
+    if (event.repeat) return;
+    event.preventDefault();
+    if (inventoryOpen) closeInventory(); else openInventory();
+    return;
+  }
+  if (inventoryOpen) {
+    if (code === bindings.drop && !event.repeat) {
+      event.preventDefault();
+      dropCursorStack(1);
+    }
+    return;
+  }
+  if (code === bindings.drop) {
+    if (event.repeat) return;
+    event.preventDefault();
+    dropSelectedItem();
+    return;
+  }
+  if (code === bindings.sneak) event.preventDefault();
+  keys[code] = true;
+  for (let slot = 1; slot <= HOTBAR.length; slot++) {
+    if (code === bindings[`hotbar${slot}`]) { selected = slot - 1; updateHotbar(); break; }
+  }
+  if (code === bindings.jump) jumpPlayer();
+}
+document.addEventListener('mousedown', event => {
+  if (event.button !== 3 && event.button !== 4) return;
+  event.preventDefault();
+  const code = event.button === 3 ? 'Mouse4' : 'Mouse5';
+  if (rebindingAction) {
+    bindings[rebindingAction] = code;
+    rebindingAction = null;
+    saveControlSettings();
+    renderBindingSettings();
+    return;
+  }
+  handleBoundInput(event, code);
+}, true);
+document.addEventListener('auxclick', event => {
+  if (event.button === 3 || event.button === 4) event.preventDefault();
+});
 document.addEventListener('keydown', event => {
   if (rebindingAction) {
     event.preventDefault();
@@ -786,42 +867,19 @@ document.addEventListener('keydown', event => {
     return;
   }
   if (paused) return;
-  if (event.code === bindings.inventory) {
-    if (event.repeat) return;
-    event.preventDefault();
-    if (inventoryOpen) closeInventory(); else openInventory();
-    return;
-  }
-  if (inventoryOpen) {
-    if (event.code === bindings.drop && !event.repeat) {
-      event.preventDefault();
-      dropCursorStack(1);
-    }
-    return;
-  }
-  if (event.code === bindings.drop) { if (event.repeat) return; event.preventDefault(); dropSelectedItem(); return; }
-  if (event.code === bindings.sneak) event.preventDefault();
-  keys[event.code] = true;
-  for (let slot = 1; slot <= HOTBAR.length; slot++) {
-    if (event.code === bindings[`hotbar${slot}`]) { selected = slot - 1; updateHotbar(); break; }
-  }
-  if (event.code === bindings.jump) {
-    const embedded = findJumpEscapeBlock();
-    if (embedded) {
-      escapeBlockKey = coordKey(embedded.x, embedded.y, embedded.z);
-      player.vel.y = 8.3;
-      player.onGround = false;
-    } else if (player.onGround) {
-      player.vel.y = 8.3;
-      player.onGround = false;
-    }
-  }
+  handleBoundInput(event);
 });
-document.addEventListener('keyup', event => { keys[event.code] = false; });
+document.addEventListener('keyup', event => {
+  keys[event.code] = false;
+  if (event.code === bindings.sprint || event.code === bindings.forward) sprintBlocked = false;
+});
+document.addEventListener('mouseup', event => {
+  if (event.button === 3 || event.button === 4) keys[event.button === 3 ? 'Mouse4' : 'Mouse5'] = false;
+});
 
 function collides(x, eyeY, z, bodyHeight = player.height, ignoredBlockKey = null) {
   const playerMin = { x: x - 0.3, y: eyeY - 1.65, z: z - 0.3 };
-  const playerMax = { x: x + 0.3, y: playerMin.y + bodyHeight, z: z + 0.3 };
+  const playerMax = { x: x + 0.3, y: playerMin.y + bodyHeight - 0.15, z: z + 0.3 };
   for (let bx = Math.floor(playerMin.x - 0.5); bx <= Math.ceil(playerMax.x + 0.5); bx++) {
     for (let by = Math.floor(playerMin.y - 0.5); by <= Math.ceil(playerMax.y + 0.5); by++) {
       for (let bz = Math.floor(playerMin.z - 0.5); bz <= Math.ceil(playerMax.z + 0.5); bz++) {
@@ -854,8 +912,9 @@ function findLandingSurface(x, z, fromEyeY, toEyeY) {
   return best;
 }
 function findCeilingSurface(x, z, fromEyeY, toEyeY, bodyHeight) {
-  const fromHead = fromEyeY - 1.65 + bodyHeight;
-  const toHead = toEyeY - 1.65 + bodyHeight;
+  const headHeight = bodyHeight - 0.15;
+  const fromHead = fromEyeY - 1.65 + headHeight;
+  const toHead = toEyeY - 1.65 + headHeight;
   let best = null;
   for (const block of blocks.values()) {
     const bottom = block.y - 0.5;
@@ -867,7 +926,7 @@ function findCeilingSurface(x, z, fromEyeY, toEyeY, bodyHeight) {
 }
 function findJumpEscapeBlock() {
   const footY = player.pos.y - 1.65;
-  const height = player.height;
+  const height = player.height - 0.15;
   const middleY = footY + height / 2;
   const overlaps = [];
   for (const block of blocks.values()) {
@@ -892,16 +951,48 @@ function findJumpEscapeBlock() {
   }
   return embedded;
 }
+function hasBlockOverhead() {
+  const feetY = player.pos.y - 1.65;
+  const headY = feetY + player.height - 0.15;
+  for (const block of blocks.values()) {
+    const bottom = block.y - 0.5;
+    if (horizontalBlockOverlap(player.pos.x, player.pos.z, block) &&
+        bottom >= headY - 0.08 && bottom <= headY + 1.1) return true;
+  }
+  return false;
+}
+function jumpPlayer() {
+  const embedded = findJumpEscapeBlock();
+  if (!embedded && !player.onGround) return;
+  if (embedded) escapeBlockKey = coordKey(embedded.x, embedded.y, embedded.z);
+  player.vel.y = 8.3;
+  player.onGround = false;
+  const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
+  const right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
+  const direction = new THREE.Vector3();
+  if (keys[bindings.forward]) direction.add(forward);
+  if (keys[bindings.back]) direction.sub(forward);
+  if (keys[bindings.right]) direction.add(right);
+  if (keys[bindings.left]) direction.sub(right);
+  if (!direction.lengthSq()) return;
+  direction.normalize();
+  const sprintJump = sprinting || (keys[bindings.forward] && keys[bindings.sprint]);
+  const boost = (sprintJump ? 2.2 : 1.2) + (hasBlockOverhead() ? 1.2 : 0);
+  player.vel.x += direction.x * boost;
+  player.vel.z += direction.z * boost;
+  jumpBoostTime = 0.55;
+  jumpBoostMaxSpeed = sprintJump ? 8.5 : 7.6;
+}
 function hasSneakSupport(x, z, feetY, moveX, moveZ) {
   const length = Math.hypot(moveX, moveZ) || 1;
   const forwardX = moveX / length;
   const forwardZ = moveZ / length;
-  const sideX = -forwardZ * 0.22;
-  const sideZ = forwardX * 0.22;
+  const sideX = -forwardZ * 0.28;
+  const sideZ = forwardX * 0.28;
   const samples = [
-    [x + forwardX * 0.28, z + forwardZ * 0.28],
-    [x + forwardX * 0.28 + sideX, z + forwardZ * 0.28 + sideZ],
-    [x + forwardX * 0.28 - sideX, z + forwardZ * 0.28 - sideZ]
+    [x + forwardX * 0.46, z + forwardZ * 0.46],
+    [x + forwardX * 0.46 + sideX, z + forwardZ * 0.46 + sideZ],
+    [x + forwardX * 0.46 - sideX, z + forwardZ * 0.46 - sideZ]
   ];
   return samples.every(([sx, sz]) => {
     const bx = Math.floor(sx + 0.5), bz = Math.floor(sz + 0.5);
@@ -939,6 +1030,9 @@ function animate(now) {
   if (paused) { renderer.render(scene, camera); return; }
   if (keys[bindings.sneak]) player.sneaking = true;
   else if (!collides(player.pos.x, player.pos.y, player.pos.z, 2)) player.sneaking = false;
+  if (player.sneaking || !keys[bindings.forward]) sprinting = false;
+  if (!keys[bindings.forward] || !keys[bindings.sprint]) sprintBlocked = false;
+  if (!player.sneaking && keys[bindings.forward] && keys[bindings.sprint] && !sprintBlocked) sprinting = true;
   const targetHeight = player.sneaking ? 1.75 : 2;
   player.height = THREE.MathUtils.damp(player.height, targetHeight, 14, dt);
   const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
@@ -949,12 +1043,14 @@ function animate(now) {
   if (keys[bindings.right]) movement.add(right);
   if (keys[bindings.left]) movement.sub(right);
   if (movement.lengthSq()) movement.normalize();
-  if (keys[bindings.jump] && player.onGround) { player.vel.y = 8.3; player.onGround = false; }
-  const speed = player.sneaking ? 1.6 : keys[bindings.sprint] ? 6.3 : 5;
-  player.vel.x = THREE.MathUtils.damp(player.vel.x, movement.x * speed, 12, dt);
-  player.vel.z = THREE.MathUtils.damp(player.vel.z, movement.z * speed, 12, dt);
+  jumpBoostTime = Math.max(0, jumpBoostTime - dt);
+  const speed = player.sneaking ? 1.6 : sprinting ? 6.3 : 5;
+  const movementSpeed = jumpBoostTime > 0 ? Math.max(speed, jumpBoostMaxSpeed) : speed;
+  player.vel.x = THREE.MathUtils.damp(player.vel.x, movement.x * movementSpeed, 12, dt);
+  player.vel.z = THREE.MathUtils.damp(player.vel.z, movement.z * movementSpeed, 12, dt);
   const horizontalSpeed = Math.hypot(player.vel.x, player.vel.z);
-  if (horizontalSpeed > speed) { player.vel.x *= speed / horizontalSpeed; player.vel.z *= speed / horizontalSpeed; }
+  const maxHorizontalSpeed = movementSpeed;
+  if (horizontalSpeed > maxHorizontalSpeed) { player.vel.x *= maxHorizontalSpeed / horizontalSpeed; player.vel.z *= maxHorizontalSpeed / horizontalSpeed; }
   player.vel.y -= 28 * dt;
   const startX = player.pos.x;
   const startZ = player.pos.z;
@@ -963,8 +1059,14 @@ function animate(now) {
   const feetY = player.pos.y - 1.65;
   let candidateX = startX;
   let candidateZ = startZ;
-  if (!collides(nextX, player.pos.y, startZ)) candidateX = nextX; else player.vel.x = 0;
-  if (!collides(candidateX, player.pos.y, nextZ)) candidateZ = nextZ; else player.vel.z = 0;
+  const hitX = !!collides(nextX, player.pos.y, startZ);
+  const hitZ = !!collides(candidateX, player.pos.y, nextZ);
+  if (!hitX) candidateX = nextX; else player.vel.x = 0;
+  if (!hitZ) candidateZ = nextZ; else player.vel.z = 0;
+  if (sprinting && (hitX || hitZ)) {
+    sprinting = false;
+    sprintBlocked = true;
+  }
   const actualMoveX = candidateX - startX;
   const actualMoveZ = candidateZ - startZ;
   if (player.sneaking && player.onGround && (actualMoveX || actualMoveZ) &&
@@ -976,6 +1078,12 @@ function animate(now) {
   }
   player.pos.x = candidateX;
   player.pos.z = candidateZ;
+  const requestedFov = baseFieldOfView * fieldOfViewPercent / 90 + (sprinting ? 10 : 0);
+  if (Math.abs(requestedFov - displayedFieldOfView) > 0.01) {
+    displayedFieldOfView = requestedFov;
+    camera.fov = requestedFov;
+    camera.updateProjectionMatrix();
+  }
   const nextY = player.pos.y + player.vel.y * dt;
   const ignoredEscapeBlock = player.vel.y > 0 ? escapeBlockKey : null;
   const verticalHit = collides(player.pos.x, nextY, player.pos.z, player.height, ignoredEscapeBlock);
@@ -1006,7 +1114,7 @@ function animate(now) {
     const escapeBlock = blocks.get(escapeBlockKey);
     if (!escapeBlock || player.pos.y - 1.65 >= escapeBlock.y + 0.48) escapeBlockKey = null;
   }
-  if (player.pos.y < -8) { player.pos.set(0, terrainHeight(0, 7) + 2.25, 7); player.vel.set(0, 0, 0); }
+  if (player.pos.y < -8) { player.pos.set(0, terrainHeight(0, 7) + 2.4, 7); player.vel.set(0, 0, 0); }
   camera.position.set(player.pos.x, player.pos.y - (2 - player.height), player.pos.z);
   document.querySelector('#coordX').textContent = player.pos.x.toFixed(1);
   document.querySelector('#coordY').textContent = player.pos.y.toFixed(1);
