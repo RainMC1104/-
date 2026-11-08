@@ -1082,7 +1082,14 @@ function animate(now) {
   const nextY = player.pos.y + player.vel.y * dt;
   const ignoredEscapeBlock = player.vel.y > 0 ? escapeBlockKey : null;
   const verticalHit = collides(player.pos.x, nextY, player.pos.z, player.height, ignoredEscapeBlock);
-  if (!verticalHit) { player.pos.y = nextY; player.onGround = false; }
+  const landing = player.vel.y <= 0
+    ? findLandingSurface(player.pos.x, player.pos.z, player.pos.y, nextY)
+    : null;
+  if (landing) {
+    player.pos.y = landing.top + 1.65;
+    player.vel.y = 0;
+    player.onGround = true;
+  } else if (!verticalHit) { player.pos.y = nextY; player.onGround = false; }
   else if (player.vel.y > 0) {
     const bodyHeight = player.height;
     const ceiling = findCeilingSurface(player.pos.x, player.pos.z, player.pos.y, nextY, bodyHeight);
@@ -1095,14 +1102,7 @@ function animate(now) {
     }
     player.onGround = false;
   } else {
-    const landing = findLandingSurface(player.pos.x, player.pos.z, player.pos.y, nextY);
-    if (landing) {
-      player.pos.y = landing.top + 1.65;
-      player.onGround = true;
-    } else {
-      // Side or lower-body overlap is not a landing surface; remain embedded in place.
-      player.onGround = false;
-    }
+    player.onGround = false;
     player.vel.y = 0;
   }
   if (escapeBlockKey) {
