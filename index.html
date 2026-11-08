@@ -12,7 +12,7 @@
 .menu-card [hidden]{display:none!important}.menu-actions{display:flex;justify-content:center;gap:10px}.menu-button,.binding-button{font-family:inherit;color:#eef2e8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 18px;cursor:pointer}.menu-button:hover,.binding-button:hover{border-color:var(--lime)}#settingsPanel h1{margin-bottom:10px}#settingsPanel h2{font-size:13px;color:var(--lime);margin:10px 0}.binding-list{display:flex;flex-direction:column;gap:12px;max-height:52vh;overflow-y:auto;padding:4px 8px 8px 4px;scrollbar-color:var(--lime) rgba(255,255,255,.08);scrollbar-width:thin}.binding-list::-webkit-scrollbar,.menu-card::-webkit-scrollbar{width:8px}.binding-list::-webkit-scrollbar-track,.menu-card::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:8px}.binding-list::-webkit-scrollbar-thumb,.menu-card::-webkit-scrollbar-thumb{background:#91aa94;border:2px solid rgba(15,27,31,.94);border-radius:8px}.binding-group-title{margin:0 0 6px;color:var(--lime);font-size:12px;letter-spacing:.08em}.binding-group-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}.binding-row{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:42px;padding:6px 8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:4px;font-size:12px;color:#d8e1dc}.binding-button{min-width:96px;min-height:32px;padding:5px 8px;font-family:monospace;font-size:11px;font-weight:700;background:#253632;border:1px solid #91aa94;color:#fff}.binding-button.waiting{background:#4e5d27;color:#efffc7;border-color:var(--lime)}.sensitivity-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:10px 0 5px;color:#d8e1dc}#sensitivity{width:100%;accent-color:var(--lime);pointer-events:auto}.back-button{margin-top:12px}.inventory-overlay{position:fixed;inset:0;z-index:4;display:none;place-items:center;background:rgba(5,12,14,.38);pointer-events:auto}.inventory-overlay.show{display:grid}.inventory-panel{padding:18px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 65px #0008}.inventory-panel h2{font:20px 'DotGothic16';text-align:center;margin:0 0 14px}.inventory-grid{display:grid;grid-template-columns:repeat(9,54px);gap:4px}.inventory-grid .slot{width:54px;height:54px;cursor:pointer;background:rgba(255,255,255,.08)}.inventory-grid .slot.active{transform:none}.inventory-grid .slot .label{display:none}.inventory-grid .slot .swatch{width:26px;height:26px}.inventory-grid .tool-icon{width:34px;height:34px}.inventory-grid .slot .count,.hotbar .slot .count{z-index:1}.slot .count{pointer-events:none}.inventory-separator{height:10px;border-bottom:1px solid #ffffff30;margin-bottom:10px}.cursor-item{position:fixed;z-index:10;display:none;pointer-events:none;width:48px;height:48px;align-items:center;justify-content:center;background:#162321d9;border:1px solid var(--lime);transform:translate(-50%,-50%)}.cursor-item.show{display:flex}.cursor-item .swatch{width:30px;height:30px}.cursor-item .tool-icon{width:36px;height:36px}.cursor-item b{position:absolute;right:2px;bottom:0;font-size:11px;text-shadow:0 1px 3px #000}@media(max-width:640px){.binding-group-grid{grid-template-columns:1fr}.menu-card:has(#settingsPanel:not([hidden])){padding:20px 14px}.binding-row{font-size:11px;padding:5px}.binding-button{min-width:78px}.inventory-grid{grid-template-columns:repeat(9,34px);gap:3px}.inventory-grid .slot{width:34px;height:42px}.inventory-panel{padding:11px}.inventory-grid .tool-icon{width:27px;height:27px}}
 /* Clearer control remapping: larger, higher contrast rows and more room for labels. */
 .menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}.binding-group-grid{grid-template-columns:1fr}.binding-row{min-height:40px}.sensitivity-label{max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel #sensitivity,#fieldOfView{display:block;width:100%;max-width:420px;margin-left:auto;margin-right:auto;accent-color:var(--lime);pointer-events:auto}.settings-range{margin-top:12px}.menu-card:has(#settingsPanel:not([hidden])){scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}#settingsPanel .back-button{display:block;margin:16px auto 0}
-.menu-overlay.show{display:grid}.menu-card:has(#worldListPanel:not([hidden])),.menu-card:has(#createWorldPanel:not([hidden])){width:min(700px,calc(100vw - 36px));text-align:left}.menu-card h1{margin-bottom:14px}#titlePanel h1{white-space:nowrap;font-size:clamp(20px,7vw,30px)}.menu-stack{display:flex;flex-direction:column;gap:12px;width:min(320px,100%);margin:26px auto 0}.menu-stack .menu-button,.menu-stack .start,.world-row .start{width:100%;font-size:14px}.menu-stack .start{padding-left:12px;padding-right:12px}#titlePanel #worldMenuButton{white-space:nowrap}.menu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.menu-heading h1{margin:0}.world-list{display:flex;flex-direction:column;gap:9px;max-height:55vh;overflow-y:auto;padding:2px 6px 6px 2px;scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}.world-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}.world-row h2{margin:0 0 3px;font-size:15px}.world-row p{margin:0;color:#aebbb7;font-size:11px}.world-row .start{width:auto;min-width:100px;padding:10px 18px}.world-empty,.world-error{padding:24px;text-align:center;color:#c6d2cf;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.2)}.world-error{color:#ffb4a9}.world-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}.world-mode{min-height:160px;padding:20px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);color:var(--ink);cursor:pointer;font:inherit}.world-mode:hover{border-color:var(--lime);background:rgba(204,245,104,.09)}.world-mode strong{display:block;color:var(--lime);font-size:18px;margin-bottom:8px}.world-mode span{font-size:12px;line-height:1.8;color:#c6d2cf}.menu-error{margin:8px 0;color:#ffb4a9;font-size:12px}.menu-back{display:block;margin:12px auto 0}.menu-card [hidden]{display:none!important}#ui.menu-hidden{display:none}@media(max-width:600px){.world-mode-grid{grid-template-columns:1fr}.world-mode{min-height:120px}.world-row{gap:8px;padding:10px}.world-row .start{min-width:74px;padding:9px}.menu-heading{align-items:flex-start}}
+.menu-overlay.show{display:grid}.menu-card:has(#worldListPanel:not([hidden])),.menu-card:has(#createWorldPanel:not([hidden])){width:min(700px,calc(100vw - 36px));text-align:left}.menu-card h1{margin-bottom:14px}#titlePanel h1{white-space:nowrap;font-size:clamp(20px,7vw,30px)}.menu-stack{display:flex;flex-direction:column;gap:12px;width:min(320px,100%);margin:26px auto 0}.menu-stack .menu-button,.menu-stack .start,.world-row .start{width:100%;font-size:14px}.menu-stack .start{padding-left:12px;padding-right:12px}#titlePanel #worldMenuButton{white-space:nowrap}.menu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.menu-heading h1{margin:0}.world-list{display:flex;flex-direction:column;gap:9px;max-height:55vh;overflow-y:auto;padding:2px 6px 6px 2px;scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}.world-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}.world-row h2{margin:0 0 3px;font-size:15px}.world-row p{margin:0;color:#aebbb7;font-size:11px}.world-row-actions{display:flex;gap:8px}.world-row .start{width:auto;min-width:100px;padding:10px 18px}.world-row .delete-world{color:#ffb4a9;border-color:#a36363}.world-empty,.world-error{padding:24px;text-align:center;color:#c6d2cf;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.2)}.world-error{color:#ffb4a9}.world-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}.world-mode{min-height:160px;padding:20px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);color:var(--ink);cursor:pointer;font:inherit}.world-mode:hover{border-color:var(--lime);background:rgba(204,245,104,.09)}.world-mode strong{display:block;color:var(--lime);font-size:18px;margin-bottom:8px}.world-mode span{font-size:12px;line-height:1.8;color:#c6d2cf}.menu-error{margin:8px 0;color:#ffb4a9;font-size:12px}.menu-back{display:block;margin:12px auto 0}.settings-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px auto;max-width:420px}.settings-mode-button{padding:9px 6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:var(--ink);font:inherit;cursor:pointer}.settings-mode-button.active{border-color:var(--lime);color:var(--lime);background:rgba(204,245,104,.1)}.chat-panel{position:fixed;z-index:3;left:24px;bottom:110px;width:min(520px,calc(100vw - 40px));pointer-events:none;opacity:0;transform:translateY(8px);transition:.12s}.chat-panel.open{opacity:1;transform:none;pointer-events:auto}.chat-log{max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:linear-gradient(transparent,rgba(8,18,21,.78));font-size:13px;text-shadow:0 1px 3px #000}.chat-line{overflow-wrap:anywhere}.chat-line.system{color:var(--lime)}.chat-line.message{color:#fff}.chat-suggestions{max-height:140px;overflow-y:auto;width:max-content;min-width:180px;margin-bottom:5px;padding:4px;background:rgba(12,22,25,.94);border:1px solid rgba(255,255,255,.2);scrollbar-color:#91aa94 rgba(255,255,255,.08)}.chat-suggestion{padding:4px 8px;font:13px monospace;color:#e5ebe5}.chat-suggestion.selected{background:rgba(204,245,104,.18);color:var(--lime)}.chat-input{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.3);outline:none;background:rgba(12,22,25,.95);color:#fff;font:14px monospace}.chat-input:focus{border-color:var(--lime)}.chat-suggestions[hidden]{display:none!important}#ui.menu-hidden{display:none!important}#ui.spectator .bottom{display:none!important}#ui.spectator .coords{opacity:.7}@media(max-width:600px){.world-mode-grid{grid-template-columns:1fr}.world-mode{min-height:120px}.world-row{gap:8px;padding:10px}.world-row .start{min-width:74px;padding:9px}.menu-heading{align-items:flex-start}.world-row-actions{flex-direction:column}.chat-panel{left:12px;bottom:20px}}
 </style>
 </head>
 <body>
@@ -24,12 +24,14 @@
 <div id="worldListPanel" hidden><div class="menu-heading"><h1>ワールド</h1><button class="start" id="newWorldButton">新規作成</button></div><div class="world-list" id="worldList"></div><div class="menu-error" id="worldListError" hidden></div><button class="menu-button menu-back" id="worldListBack">戻る</button></div>
 <div id="createWorldPanel" hidden><div class="eyebrow">NEW WORLD</div><h1>ワールドを作成</h1><div class="world-mode-grid"><button class="world-mode" data-mode="survival"><strong>サバイバル</strong><span>シード2026の地形で、ブロックを集めながら遊びます。</span></button><button class="world-mode" data-mode="creative"><strong>クリエイティブ</strong><span>草・土・石の平坦な地形。全ブロックを使え、破壊は一瞬です。</span></button></div><div class="menu-error" id="createWorldError" hidden></div><button class="menu-button menu-back" id="createWorldBack">戻る</button></div>
 <div id="pausePanel" hidden><h1>一時停止中</h1><div class="menu-stack"><button class="start" id="resume">ゲームに戻る</button><button class="menu-button" id="pauseSettings">設定</button><button class="menu-button" id="leaveWorld">ワールドを抜ける</button></div></div>
-<div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div>
+<div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><section id="gameModeSettings" hidden><h2>ゲームモード</h2><div class="settings-mode-grid"><button class="settings-mode-button" data-game-mode="survival">サバイバル</button><button class="settings-mode-button" data-game-mode="creative">クリエイティブ</button><button class="settings-mode-button" data-game-mode="spectator">スペクテイター</button><button class="settings-mode-button" data-game-mode="adventure">アドベンチャー</button></div></section><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div>
 </div></div>
 <div id="inventoryOverlay" class="inventory-overlay"><div class="inventory-panel"><h2>インベントリ</h2><div id="inventoryGrid" class="inventory-grid"></div><div class="inventory-separator"></div><div id="inventoryHotbar" class="inventory-grid"></div></div></div><div id="cursorItem" class="cursor-item"></div>
+<div id="chatPanel" class="chat-panel"><div id="chatLog" class="chat-log" aria-live="polite"></div><div id="chatSuggestions" class="chat-suggestions" hidden></div><input id="chatInput" class="chat-input" type="text" autocomplete="off" disabled aria-label="チャット"></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
-import { BLOCK_TYPES, FIXED_SURVIVAL_SEED, createWorldRecord, readWorlds, writeWorlds } from './world-store.js';
+import { BLOCK_TYPES, FIXED_SURVIVAL_SEED, GAME_MODES, createWorldRecord, readWorlds, writeWorlds } from './world-store.js';
+import { MODE_COMMANDS, attachChat } from './game-chat.js';
 
 const TYPES = BLOCK_TYPES;
 const LABELS = { grass: '草', dirt: '土', stone: '石', wood: '木', leaves: '葉' };
@@ -49,6 +51,9 @@ const random = Math.random;
 let worlds = [];
 let currentWorld = null;
 let gameMode = 'survival';
+let playerFlying = false;
+let lastJumpPress = 0;
+let chat = null;
 let worldSaveTimer = 0;
 let lastAutosave = 0;
 const DEFAULT_BINDINGS = {
@@ -206,6 +211,11 @@ function saveCurrentWorld() {
   };
   currentWorld.hotbar = HOTBAR.map(item => item ? { ...item } : null);
   currentWorld.inventory = INVENTORY_SLOTS.map(item => item ? { ...item } : null);
+  currentWorld.modeItems = currentWorld.modeItems || {};
+  currentWorld.modeItems[gameMode] = {
+    hotbar: currentWorld.hotbar,
+    inventory: currentWorld.inventory
+  };
   currentWorld.collected = collected;
   try {
     writeWorlds(worlds);
@@ -252,14 +262,23 @@ function renderWorldList() {
     const title = document.createElement('h2');
     title.textContent = world.name;
     const details = document.createElement('p');
-    details.textContent = `${world.mode === 'creative' ? 'クリエイティブ' : 'サバイバル'} ・ シード ${world.seed} ・ ${new Date(world.createdAt).toLocaleDateString('ja-JP')}`;
+    const modeNames = { survival: 'サバイバル', creative: 'クリエイティブ', spectator: 'スペクテイター', adventure: 'アドベンチャー' };
+    details.textContent = `${modeNames[world.mode]} ・ シード ${world.seed} ・ ${new Date(world.createdAt).toLocaleDateString('ja-JP')}`;
     info.append(title, details);
     const play = document.createElement('button');
     play.className = 'start';
     play.type = 'button';
     play.textContent = 'プレイ';
     play.addEventListener('click', () => activateWorld(world));
-    row.append(info, play);
+    const remove = document.createElement('button');
+    remove.className = 'menu-button delete-world';
+    remove.type = 'button';
+    remove.textContent = '削除';
+    remove.addEventListener('click', () => deleteWorld(world));
+    const actions = document.createElement('div');
+    actions.className = 'world-row-actions';
+    actions.append(play, remove);
+    row.append(info, actions);
     list.appendChild(row);
   }
 }
@@ -305,17 +324,22 @@ function activateWorld(world) {
   escapeBlockKey = null;
   for (const code of Object.keys(keys)) keys[code] = false;
   cancelBreak();
+  const savedModeItems = world.modeItems?.[gameMode];
+  const savedHotbar = savedModeItems?.hotbar || world.hotbar;
+  const savedInventory = savedModeItems?.inventory || world.inventory;
   HOTBAR.splice(0, HOTBAR.length, ...(gameMode === 'creative'
     ? defaultHotbar(gameMode)
-    : Array.isArray(world.hotbar) ? world.hotbar.slice(0, 9).map(item => normalizeSavedStack(item, gameMode)) : defaultHotbar(gameMode)));
+    : Array.isArray(savedHotbar) ? savedHotbar.slice(0, 9).map(item => normalizeSavedStack(item, gameMode)) : defaultHotbar(gameMode)));
   while (HOTBAR.length < 9) HOTBAR.push(null);
   selected = 0;
   INVENTORY_SLOTS.fill(null);
-  if (gameMode !== 'creative' && Array.isArray(world.inventory)) {
-    world.inventory.slice(0, INVENTORY_SLOTS.length).forEach((item, index) => {
+  if (gameMode !== 'creative' && Array.isArray(savedInventory)) {
+    savedInventory.slice(0, INVENTORY_SLOTS.length).forEach((item, index) => {
       INVENTORY_SLOTS[index] = normalizeSavedStack(item, gameMode);
     });
   }
+  playerFlying = gameMode === 'spectator';
+  lastJumpPress = 0;
   collected = Number.isFinite(world.collected) ? world.collected : 0;
   document.querySelector('#seed').textContent = world.seed;
   document.querySelector('#collected').textContent = collected;
@@ -325,11 +349,72 @@ function activateWorld(world) {
   gameStarted = true;
   paused = false;
   lastAutosave = performance.now();
+  updateGameModeUI();
   document.querySelector('#ui').classList.remove('menu-hidden');
   document.querySelector('#menu').classList.remove('show');
   heldView.visible = true;
   requestLook();
   scheduleWorldSave();
+}
+function setGameMode(mode) {
+  if (!GAME_MODES.includes(mode) || !currentWorld) return false;
+  if (inventoryOpen) closeInventory();
+  if (mode === gameMode) return true;
+  saveCurrentWorld();
+  gameMode = mode;
+  currentWorld.mode = mode;
+  const saved = currentWorld.modeItems?.[mode];
+  if (mode === 'creative') {
+    HOTBAR.splice(0, HOTBAR.length, ...defaultHotbar(mode));
+    INVENTORY_SLOTS.fill(null);
+  } else if (saved) {
+    const savedHotbar = Array.isArray(saved.hotbar) ? saved.hotbar : defaultHotbar(mode);
+    HOTBAR.splice(0, HOTBAR.length, ...savedHotbar.slice(0, 9).map(item => normalizeSavedStack(item, mode)));
+    while (HOTBAR.length < 9) HOTBAR.push(null);
+    INVENTORY_SLOTS.fill(null);
+    (Array.isArray(saved.inventory) ? saved.inventory : []).slice(0, INVENTORY_SLOTS.length).forEach((item, index) => {
+      INVENTORY_SLOTS[index] = normalizeSavedStack(item, mode);
+    });
+  } else if (mode === 'survival') {
+    HOTBAR.splice(0, HOTBAR.length, ...defaultHotbar(mode));
+    INVENTORY_SLOTS.fill(null);
+  }
+  playerFlying = mode === 'spectator';
+  player.vel.set(0, 0, 0);
+  player.onGround = false;
+  lastJumpPress = 0;
+  sprinting = false;
+  jumpBoostTime = 0;
+  raycaster.far = mode === 'creative' ? 6 : 5;
+  updateGameModeUI();
+  updateHotbar();
+  scheduleWorldSave();
+  return true;
+}
+function updateGameModeUI() {
+  const ui = document.querySelector('#ui');
+  ui.classList.toggle('spectator', gameMode === 'spectator');
+  document.querySelector('#gameModeSettings').hidden = !gameStarted;
+  document.querySelectorAll('[data-game-mode]').forEach(button => {
+    button.classList.toggle('active', button.dataset.gameMode === gameMode);
+    button.setAttribute('aria-pressed', String(button.dataset.gameMode === gameMode));
+  });
+  if (gameMode === 'spectator') heldView.visible = false;
+  else heldView.visible = gameStarted && !paused;
+}
+function deleteWorld(world) {
+  if (!confirm(`「${world.name}」を削除しますか？この操作は取り消せません。`)) return;
+  try {
+    worlds = readWorlds().filter(saved => saved.id !== world.id);
+    writeWorlds(worlds);
+    if (currentWorld?.id === world.id) currentWorld = null;
+    renderWorldList();
+  } catch (cause) {
+    const error = document.querySelector('#worldListError');
+    error.textContent = `ワールドを削除できませんでした: ${cause.message}`;
+    error.hidden = false;
+    console.error('Failed to delete world', cause);
+  }
 }
 function createWorld(mode) {
   const error = document.querySelector('#createWorldError');
@@ -566,7 +651,7 @@ function updateHotbar() {
       slot.dataset.index = index;
       slot.title = item?.label || '';
       const visual = item?.type
-        ? `<span class="swatch" style="background:${CSS_COLORS[item.type]}"></span><span class="count">${item.count}</span>`
+        ? `<span class="swatch" style="background:${CSS_COLORS[item.type]}"></span><span class="count">${gameMode === 'creative' ? '∞' : item.count}</span>`
         : item?.tool ? `<img class="tool-icon" src="${toolIcons[item.id]}" alt="${item.label}">` : '';
       slot.innerHTML = `${area === 'hotbar' ? `<span class="num">${index + 1}</span>` : ''}${visual}${item ? `<span class="label">${item.label}</span>` : ''}`;
       element.appendChild(slot);
@@ -621,6 +706,40 @@ function addItemToInventory(id, count = 1) {
   if (added) updateHotbar();
   return added;
 }
+chat = attachChat({
+  input: document.querySelector('#chatInput'),
+  log: document.querySelector('#chatLog'),
+  suggestions: document.querySelector('#chatSuggestions'),
+  itemIds: TYPES,
+  onCommand(text) {
+    const [command, ...args] = text.trim().split(/\s+/);
+    if (command === '/gamemode') {
+      if (args.length !== 1 || !MODE_COMMANDS[args[0].toLowerCase()]) {
+        return '使い方: /gamemode survival|creative|spectator|adventure';
+      }
+      const mode = MODE_COMMANDS[args[0].toLowerCase()];
+      return setGameMode(mode) ? `ゲームモードを ${mode} に変更しました` : 'ワールド内でのみ使用できます。';
+    }
+    if (command === '/give') {
+      if (args.length < 2 || args.length > 3) return '使い方: /give <対象> <アイテムID> [個数]';
+      const [target, itemId, rawCount = '1'] = args;
+      if (!['@s', '@p', '@a', '@r', '@e'].includes(target)) {
+        return 'このワールドで使える対象は @s、@p、@a、@r、@e です。';
+      }
+      if (!TYPES.includes(itemId)) return `アイテム「${itemId}」が見つかりません。`;
+      const count = Number(rawCount);
+      if (!Number.isInteger(count) || count < 1 || count > 64) return '個数は1〜64で指定してください。';
+      const added = addItemToInventory(itemId, count);
+      return added ? `${itemId} を ${added} 個付与しました。` : '所持品に空きがありません。';
+    }
+    return `不明なコマンドです: ${command}`;
+  },
+  onMessage() {},
+  onClose() {
+    for (const code of Object.keys(keys)) keys[code] = false;
+    if (gameStarted && !paused) requestLook();
+  }
+});
 function handleSlotClick(event, slotElement) {
   const area = slotElement.dataset.area;
   const slots = slotArray(area);
@@ -705,6 +824,7 @@ function dropCursorStack(count = cursorStack?.count) {
   updateCursorItem();
 }
 function openInventory() {
+  if (gameMode === 'spectator') return;
   inventoryOpen = true;
   inventoryWasLocked = locked;
   for (const code of Object.keys(keys)) keys[code] = false;
@@ -794,6 +914,11 @@ function drawCracks(stage, block) {
   });
 }
 function updateTargetAndBreaking(now) {
+  if (gameMode === 'spectator') {
+    outline.visible = false;
+    cancelBreak();
+    return;
+  }
   const target = getTarget();
   if (target?.block) {
     outline.position.set(target.block.x, target.block.y, target.block.z);
@@ -801,7 +926,7 @@ function updateTargetAndBreaking(now) {
   } else {
     outline.visible = false;
   }
-  if (!leftMouseHeld || !target?.block) { cancelBreak(); return; }
+  if (!leftMouseHeld || !target?.block || gameMode === 'adventure') { cancelBreak(); return; }
   if (gameMode === 'creative') {
     dropBlock(target.block);
     cancelBreak();
@@ -834,6 +959,7 @@ function updateTargetAndBreaking(now) {
   }
 }
 function placeBlock(hit) {
+  if (gameMode === 'adventure' || gameMode === 'spectator') return;
   const held = HOTBAR[selected];
   const type = held?.type;
   if (!type) return;
@@ -876,6 +1002,9 @@ document.querySelectorAll('.world-mode').forEach(button => {
 });
 document.querySelector('#titleSettings').addEventListener('click', () => openSettings('titlePanel'));
 document.querySelector('#pauseSettings').addEventListener('click', () => openSettings('pausePanel'));
+document.querySelectorAll('[data-game-mode]').forEach(button => {
+  button.addEventListener('click', () => setGameMode(button.dataset.gameMode));
+});
 document.querySelector('#settingsBack').addEventListener('click', () => {
   rebindingAction = null;
   showMenuPanel(settingsReturnPanel);
@@ -906,7 +1035,7 @@ function setPaused(value) {
   if (!gameStarted) return;
   paused = value;
   menu.classList.toggle('show', paused);
-  heldView.visible = !paused;
+  heldView.visible = !paused && gameMode !== 'spectator';
   if (paused) {
     leftMouseHeld = false;
     cancelBreak();
@@ -972,8 +1101,8 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 document.addEventListener('pointerlockchange', () => {
   const wasLocked = locked;
   locked = document.pointerLockElement === renderer.domElement;
-  if (wasLocked && !locked && !paused && !inventoryOpen) {
-    setTimeout(() => { if (!locked && !paused) setPaused(true); }, 80);
+  if (wasLocked && !locked && !paused && !inventoryOpen && !chat?.isOpen) {
+    setTimeout(() => { if (!locked && !paused && !chat?.isOpen) setPaused(true); }, 80);
   }
 });
 document.addEventListener('mousemove', event => {
@@ -990,6 +1119,7 @@ function handleBoundInput(event, code = event.code) {
   if (code === bindings.inventory) {
     if (event.repeat) return;
     event.preventDefault();
+    if (gameMode === 'spectator') return;
     if (inventoryOpen) closeInventory(); else openInventory();
     return;
   }
@@ -1003,15 +1133,28 @@ function handleBoundInput(event, code = event.code) {
   if (code === bindings.drop) {
     if (event.repeat) return;
     event.preventDefault();
+    if (gameMode === 'spectator') return;
     dropSelectedItem();
     return;
   }
   if (code === bindings.sneak) event.preventDefault();
+  if (code === bindings.jump) event.preventDefault();
   keys[code] = true;
-  for (let slot = 1; slot <= HOTBAR.length; slot++) {
+  if (gameMode !== 'spectator') for (let slot = 1; slot <= HOTBAR.length; slot++) {
     if (code === bindings[`hotbar${slot}`]) { selected = slot - 1; updateHotbar(); break; }
   }
-  if (code === bindings.jump && !event.repeat) jumpPlayer();
+  if (code === bindings.jump && !event.repeat) {
+    const now = performance.now();
+    if (gameMode === 'creative' && lastJumpPress && now - lastJumpPress <= 320) {
+      playerFlying = !playerFlying;
+      lastJumpPress = 0;
+      player.vel.y = 0;
+      if (!playerFlying) player.onGround = false;
+    } else {
+      lastJumpPress = now;
+      if (!playerFlying && gameMode !== 'spectator') jumpPlayer();
+    }
+  }
 }
 document.addEventListener('mousedown', event => {
   if (event.button !== 3 && event.button !== 4) return;
@@ -1030,6 +1173,7 @@ document.addEventListener('auxclick', event => {
   if (event.button === 3 || event.button === 4) event.preventDefault();
 });
 document.addEventListener('keydown', event => {
+  if (chat?.isOpen) return;
   if (rebindingAction) {
     event.preventDefault();
     if (event.code !== 'Escape' && !event.code.startsWith('Control') && !event.code.startsWith('Alt') && !event.code.startsWith('Shift')) {
@@ -1050,6 +1194,15 @@ document.addEventListener('keydown', event => {
     return;
   }
   if (paused) return;
+  if (gameStarted && !inventoryOpen && (event.code === 'KeyT' || event.code === 'Slash')) {
+    event.preventDefault();
+    for (const code of Object.keys(keys)) keys[code] = false;
+    player.vel.x = 0;
+    player.vel.z = 0;
+    if (document.pointerLockElement) document.exitPointerLock();
+    chat.open(event.code === 'Slash' ? '/' : '');
+    return;
+  }
   handleBoundInput(event);
 });
 document.addEventListener('keyup', event => {
@@ -1060,6 +1213,7 @@ document.addEventListener('mouseup', event => {
 });
 
 function collides(x, eyeY, z, bodyHeight = player.height, ignoredBlockKey = null) {
+  if (gameMode === 'spectator') return null;
   const playerMin = { x: x - 0.3, y: eyeY - 1.65, z: z - 0.3 };
   const playerMax = { x: x + 0.3, y: playerMin.y + bodyHeight - 0.15, z: z + 0.3 };
   for (let bx = Math.floor(playerMin.x - 0.5); bx <= Math.ceil(playerMax.x + 0.5); bx++) {
@@ -1217,11 +1371,12 @@ function animate(now) {
   previousTime = now;
   camera.rotation.set(player.pitch, player.yaw, 0);
   if (paused) { renderer.render(scene, camera); return; }
-  if (keys[bindings.sneak]) player.sneaking = true;
+  const flying = gameMode === 'spectator' || (gameMode === 'creative' && playerFlying);
+  if (gameMode !== 'spectator' && !playerFlying && keys[bindings.sneak]) player.sneaking = true;
   else if (!collides(player.pos.x, player.pos.y, player.pos.z, 2)) player.sneaking = false;
   if (player.sneaking || !keys[bindings.forward]) sprinting = false;
   if (!player.sneaking && keys[bindings.forward] && keys[bindings.sprint]) sprinting = true;
-  if (keys[bindings.jump] && player.onGround) jumpPlayer();
+  if (keys[bindings.jump] && player.onGround && !flying) jumpPlayer();
   const targetHeight = player.sneaking ? 1.75 : 2;
   player.height = THREE.MathUtils.damp(player.height, targetHeight, 14, dt);
   const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
@@ -1233,14 +1388,18 @@ function animate(now) {
   if (keys[bindings.left]) movement.sub(right);
   if (movement.lengthSq()) movement.normalize();
   jumpBoostTime = Math.max(0, jumpBoostTime - dt);
-  const speed = player.sneaking ? 1.6 : sprinting ? 6.3 : 5;
+  const speed = flying ? 6.3 : player.sneaking ? 1.6 : sprinting ? 6.3 : 5;
   const movementSpeed = jumpBoostTime > 0 ? Math.max(speed, jumpBoostMaxSpeed) : speed;
   player.vel.x = THREE.MathUtils.damp(player.vel.x, movement.x * movementSpeed, 12, dt);
   player.vel.z = THREE.MathUtils.damp(player.vel.z, movement.z * movementSpeed, 12, dt);
   const horizontalSpeed = Math.hypot(player.vel.x, player.vel.z);
   const maxHorizontalSpeed = movementSpeed;
   if (horizontalSpeed > maxHorizontalSpeed) { player.vel.x *= maxHorizontalSpeed / horizontalSpeed; player.vel.z *= maxHorizontalSpeed / horizontalSpeed; }
-  player.vel.y -= 28 * dt;
+  if (flying) {
+    player.vel.y = ((keys[bindings.jump] ? 1 : 0) - (keys[bindings.sneak] ? 1 : 0)) * 6.3;
+  } else {
+    player.vel.y -= 28 * dt;
+  }
   const startX = player.pos.x;
   const startZ = player.pos.z;
   const nextX = startX + player.vel.x * dt;
@@ -1248,8 +1407,8 @@ function animate(now) {
   const feetY = player.pos.y - 1.65;
   let candidateX = startX;
   let candidateZ = startZ;
-  const hitX = !!collides(nextX, player.pos.y, startZ);
-  const hitZ = !!collides(candidateX, player.pos.y, nextZ);
+  const hitX = !flying && !!collides(nextX, player.pos.y, startZ);
+  const hitZ = !flying && !!collides(candidateX, player.pos.y, nextZ);
   if (!hitX) candidateX = nextX; else player.vel.x = 0;
   if (!hitZ) candidateZ = nextZ; else player.vel.z = 0;
   const actualMoveX = candidateX - startX;
@@ -1271,6 +1430,10 @@ function animate(now) {
     camera.updateProjectionMatrix();
   }
   const nextY = player.pos.y + player.vel.y * dt;
+  if (flying) {
+    player.pos.y = nextY;
+    player.onGround = false;
+  } else {
   const ignoredEscapeBlock = player.vel.y > 0 ? escapeBlockKey : null;
   const verticalHit = collides(player.pos.x, nextY, player.pos.z, player.height, ignoredEscapeBlock);
   const landing = player.vel.y <= 0
@@ -1295,6 +1458,7 @@ function animate(now) {
   } else {
     player.onGround = false;
     player.vel.y = 0;
+  }
   }
   if (escapeBlockKey) {
     const escapeBlock = blocks.get(escapeBlockKey);

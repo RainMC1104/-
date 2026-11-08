@@ -1,8 +1,9 @@
 export const BLOCK_TYPES = ['grass', 'dirt', 'stone', 'wood', 'leaves'];
+export const GAME_MODES = ['adventure', 'creative', 'spectator', 'survival'];
 export const WORLD_STORAGE_KEY = 'blockland-worlds-v1';
 export const FIXED_SURVIVAL_SEED = 2026;
 
-const isMode = mode => mode === 'survival' || mode === 'creative';
+const isMode = mode => GAME_MODES.includes(mode);
 
 function makeRandom(seed) {
   let state = seed >>> 0;
@@ -60,7 +61,7 @@ function generateBlocks(mode, seed) {
 }
 
 export function createWorldRecord({ mode, name, id, createdAt = Date.now() }) {
-  if (!isMode(mode)) throw new TypeError(`Unsupported world mode: ${mode}`);
+  if (mode !== 'survival' && mode !== 'creative') throw new TypeError(`Unsupported initial world mode: ${mode}`);
   return {
     id,
     name,
