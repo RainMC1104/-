@@ -12,18 +12,26 @@
 .menu-card [hidden]{display:none!important}.menu-actions{display:flex;justify-content:center;gap:10px}.menu-button,.binding-button{font-family:inherit;color:#eef2e8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 18px;cursor:pointer}.menu-button:hover,.binding-button:hover{border-color:var(--lime)}#settingsPanel h1{margin-bottom:10px}#settingsPanel h2{font-size:13px;color:var(--lime);margin:10px 0}.binding-list{display:flex;flex-direction:column;gap:12px;max-height:52vh;overflow-y:auto;padding:4px 8px 8px 4px;scrollbar-color:var(--lime) rgba(255,255,255,.08);scrollbar-width:thin}.binding-list::-webkit-scrollbar,.menu-card::-webkit-scrollbar{width:8px}.binding-list::-webkit-scrollbar-track,.menu-card::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:8px}.binding-list::-webkit-scrollbar-thumb,.menu-card::-webkit-scrollbar-thumb{background:#91aa94;border:2px solid rgba(15,27,31,.94);border-radius:8px}.binding-group-title{margin:0 0 6px;color:var(--lime);font-size:12px;letter-spacing:.08em}.binding-group-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}.binding-row{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:42px;padding:6px 8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:4px;font-size:12px;color:#d8e1dc}.binding-button{min-width:96px;min-height:32px;padding:5px 8px;font-family:monospace;font-size:11px;font-weight:700;background:#253632;border:1px solid #91aa94;color:#fff}.binding-button.waiting{background:#4e5d27;color:#efffc7;border-color:var(--lime)}.sensitivity-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:10px 0 5px;color:#d8e1dc}#sensitivity{width:100%;accent-color:var(--lime);pointer-events:auto}.back-button{margin-top:12px}.inventory-overlay{position:fixed;inset:0;z-index:4;display:none;place-items:center;background:rgba(5,12,14,.38);pointer-events:auto}.inventory-overlay.show{display:grid}.inventory-panel{padding:18px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 65px #0008}.inventory-panel h2{font:20px 'DotGothic16';text-align:center;margin:0 0 14px}.inventory-grid{display:grid;grid-template-columns:repeat(9,54px);gap:4px}.inventory-grid .slot{width:54px;height:54px;cursor:pointer;background:rgba(255,255,255,.08)}.inventory-grid .slot.active{transform:none}.inventory-grid .slot .label{display:none}.inventory-grid .slot .swatch{width:26px;height:26px}.inventory-grid .tool-icon{width:34px;height:34px}.inventory-grid .slot .count,.hotbar .slot .count{z-index:1}.slot .count{pointer-events:none}.inventory-separator{height:10px;border-bottom:1px solid #ffffff30;margin-bottom:10px}.cursor-item{position:fixed;z-index:10;display:none;pointer-events:none;width:48px;height:48px;align-items:center;justify-content:center;background:#162321d9;border:1px solid var(--lime);transform:translate(-50%,-50%)}.cursor-item.show{display:flex}.cursor-item .swatch{width:30px;height:30px}.cursor-item .tool-icon{width:36px;height:36px}.cursor-item b{position:absolute;right:2px;bottom:0;font-size:11px;text-shadow:0 1px 3px #000}@media(max-width:640px){.binding-group-grid{grid-template-columns:1fr}.menu-card:has(#settingsPanel:not([hidden])){padding:20px 14px}.binding-row{font-size:11px;padding:5px}.binding-button{min-width:78px}.inventory-grid{grid-template-columns:repeat(9,34px);gap:3px}.inventory-grid .slot{width:34px;height:42px}.inventory-panel{padding:11px}.inventory-grid .tool-icon{width:27px;height:27px}}
 /* Clearer control remapping: larger, higher contrast rows and more room for labels. */
 .menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}.binding-group-grid{grid-template-columns:1fr}.binding-row{min-height:40px}.sensitivity-label{max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel #sensitivity,#fieldOfView{display:block;width:100%;max-width:420px;margin-left:auto;margin-right:auto;accent-color:var(--lime);pointer-events:auto}.settings-range{margin-top:12px}.menu-card:has(#settingsPanel:not([hidden])){scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}#settingsPanel .back-button{display:block;margin:16px auto 0}
+.menu-overlay.show{display:grid}.menu-card:has(#worldListPanel:not([hidden])),.menu-card:has(#createWorldPanel:not([hidden])){width:min(700px,calc(100vw - 36px));text-align:left}.menu-card h1{margin-bottom:14px}#titlePanel h1{white-space:nowrap;font-size:clamp(20px,7vw,30px)}.menu-stack{display:flex;flex-direction:column;gap:12px;width:min(320px,100%);margin:26px auto 0}.menu-stack .menu-button,.menu-stack .start,.world-row .start{width:100%;font-size:14px}.menu-stack .start{padding-left:12px;padding-right:12px}#titlePanel #worldMenuButton{white-space:nowrap}.menu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.menu-heading h1{margin:0}.world-list{display:flex;flex-direction:column;gap:9px;max-height:55vh;overflow-y:auto;padding:2px 6px 6px 2px;scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}.world-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}.world-row h2{margin:0 0 3px;font-size:15px}.world-row p{margin:0;color:#aebbb7;font-size:11px}.world-row .start{width:auto;min-width:100px;padding:10px 18px}.world-empty,.world-error{padding:24px;text-align:center;color:#c6d2cf;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.2)}.world-error{color:#ffb4a9}.world-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}.world-mode{min-height:160px;padding:20px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);color:var(--ink);cursor:pointer;font:inherit}.world-mode:hover{border-color:var(--lime);background:rgba(204,245,104,.09)}.world-mode strong{display:block;color:var(--lime);font-size:18px;margin-bottom:8px}.world-mode span{font-size:12px;line-height:1.8;color:#c6d2cf}.menu-error{margin:8px 0;color:#ffb4a9;font-size:12px}.menu-back{display:block;margin:12px auto 0}.menu-card [hidden]{display:none!important}#ui.menu-hidden{display:none}@media(max-width:600px){.world-mode-grid{grid-template-columns:1fr}.world-mode{min-height:120px}.world-row{gap:8px;padding:10px}.world-row .start{min-width:74px;padding:9px}.menu-heading{align-items:flex-start}}
 </style>
 </head>
 <body>
 <div id="game"></div>
-<div id="ui"><div class="top"><div class="coords">X <b id="coordX">0.0</b><span>Y</span> <b id="coordY">0.0</b><span>Z</span> <b id="coordZ">0.0</b></div><div class="stats"><div class="pill">WORLD <b id="seed">----</b></div><div class="pill">拾った数 <b id="collected">0</b></div></div></div><div class="crosshair"></div><div class="bottom"><div class="vitals"><div class="hearts" id="hearts" aria-label="体力"></div><div class="hunger" id="hunger" aria-label="満腹度"></div></div><div class="hotbar" id="hotbar"></div></div></div>
-<div class="menu-overlay" id="menu"><div class="menu-card"><div id="mainMenu"><h1>一時停止中</h1><div class="menu-actions"><button class="menu-button" id="openSettings">設定</button><button class="start" id="resume">ゲームに戻る</button></div></div><div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div></div></div>
+<div id="ui" class="menu-hidden"><div class="top"><div class="coords">X <b id="coordX">0.0</b><span>Y</span> <b id="coordY">0.0</b><span>Z</span> <b id="coordZ">0.0</b></div><div class="stats"><div class="pill">WORLD <b id="seed">----</b></div><div class="pill">拾った数 <b id="collected">0</b></div></div></div><div class="crosshair"></div><div class="bottom"><div class="vitals"><div class="hearts" id="hearts" aria-label="体力"></div><div class="hunger" id="hunger" aria-label="満腹度"></div></div><div class="hotbar" id="hotbar"></div></div></div>
+<div class="menu-overlay show" id="menu"><div class="menu-card">
+<div class="menu-error" id="worldStorageNotice" hidden></div>
+<div id="titlePanel"><div class="eyebrow">ブロックの世界</div><h1>BLOCKLAND</h1><div class="menu-stack"><button class="start" id="worldMenuButton">ワールド</button><button class="menu-button" id="titleSettings">設定</button></div></div>
+<div id="worldListPanel" hidden><div class="menu-heading"><h1>ワールド</h1><button class="start" id="newWorldButton">新規作成</button></div><div class="world-list" id="worldList"></div><div class="menu-error" id="worldListError" hidden></div><button class="menu-button menu-back" id="worldListBack">戻る</button></div>
+<div id="createWorldPanel" hidden><div class="eyebrow">NEW WORLD</div><h1>ワールドを作成</h1><div class="world-mode-grid"><button class="world-mode" data-mode="survival"><strong>サバイバル</strong><span>シード2026の地形で、ブロックを集めながら遊びます。</span></button><button class="world-mode" data-mode="creative"><strong>クリエイティブ</strong><span>草・土・石の平坦な地形。全ブロックを使え、破壊は一瞬です。</span></button></div><div class="menu-error" id="createWorldError" hidden></div><button class="menu-button menu-back" id="createWorldBack">戻る</button></div>
+<div id="pausePanel" hidden><h1>一時停止中</h1><div class="menu-stack"><button class="start" id="resume">ゲームに戻る</button><button class="menu-button" id="pauseSettings">設定</button><button class="menu-button" id="leaveWorld">ワールドを抜ける</button></div></div>
+<div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div>
+</div></div>
 <div id="inventoryOverlay" class="inventory-overlay"><div class="inventory-panel"><h2>インベントリ</h2><div id="inventoryGrid" class="inventory-grid"></div><div class="inventory-separator"></div><div id="inventoryHotbar" class="inventory-grid"></div></div></div><div id="cursorItem" class="cursor-item"></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
+import { BLOCK_TYPES, FIXED_SURVIVAL_SEED, createWorldRecord, readWorlds, writeWorlds } from './world-store.js';
 
-const SEED = 2026;
-const TYPES = ['grass', 'dirt', 'stone', 'wood', 'leaves'];
+const TYPES = BLOCK_TYPES;
 const LABELS = { grass: '草', dirt: '土', stone: '石', wood: '木', leaves: '葉' };
 const COLORS = { grass: 0x71ba55, dirt: 0x8d6243, stone: 0x8a9297, wood: 0x95633c, leaves: 0x4f914b };
 const CSS_COLORS = { grass: '#71ba55', dirt: '#8d6243', stone: '#8a9297', wood: '#95633c', leaves: '#4f914b' };
@@ -37,6 +45,12 @@ const INVENTORY_SLOTS = Array(27).fill(null);
 const blocks = new Map();
 const drops = [];
 const keys = Object.create(null);
+const random = Math.random;
+let worlds = [];
+let currentWorld = null;
+let gameMode = 'survival';
+let worldSaveTimer = 0;
+let lastAutosave = 0;
 const DEFAULT_BINDINGS = {
   forward: 'KeyW', back: 'KeyS', left: 'KeyA', right: 'KeyD', jump: 'Space',
   sneak: 'Tab', sprint: 'ShiftLeft', drop: 'KeyQ', inventory: 'KeyE',
@@ -135,50 +149,18 @@ const instanceMeshes = new Map();
 let blockInstances = [];
 const coordKey = (x, y, z) => `${x},${y},${z}`;
 
-function makeRandom(seed) {
-  let state = seed >>> 0;
-  return function random() {
-    state += 0x6D2B79F5;
-    let value = state;
-    value = Math.imul(value ^ (value >>> 15), value | 1);
-    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
-    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
-  };
-}
-const random = makeRandom(SEED);
-document.querySelector('#seed').textContent = SEED;
-
 function terrainHeight(x, z) {
-  return Math.floor(1.4 + Math.sin(x * 0.22 + SEED) * 1.5 + Math.cos(z * 0.21 + SEED * 0.03) * 1.3 + Math.sin((x + z) * 0.13) * 0.9);
+  if (gameMode === 'creative') return 0;
+  const seed = currentWorld?.seed || FIXED_SURVIVAL_SEED;
+  return Math.floor(1.4 + Math.sin(x * 0.22 + seed) * 1.5 + Math.cos(z * 0.21 + seed * 0.03) * 1.3 + Math.sin((x + z) * 0.13) * 0.9);
 }
 function setBlock(x, y, z, type) {
   x = Math.round(x); y = Math.round(y); z = Math.round(z);
   const key = coordKey(x, y, z);
   if (blocks.has(key)) return false;
   blocks.set(key, { x, y, z, type });
+  scheduleWorldSave();
   return true;
-}
-
-// Build a small fixed island. One InstancedMesh per block type keeps rendering light.
-for (let x = -16; x <= 16; x++) {
-  for (let z = -16; z <= 16; z++) {
-    const distance = Math.hypot(x, z);
-    if (distance > 16 || (distance > 12 && random() < (distance - 12) / 5)) continue;
-    const top = terrainHeight(x, z);
-    for (let y = -3; y <= top; y++) {
-      setBlock(x, y, z, y === top ? 'grass' : y >= top - 2 ? 'dirt' : 'stone');
-    }
-    if (distance > 3 && top > 0 && random() < 0.075) {
-      const trunkHeight = 3 + Math.floor(random() * 2);
-      for (let y = 1; y <= trunkHeight; y++) setBlock(x, top + y, z, 'wood');
-      for (let dx = -2; dx <= 2; dx++) for (let dz = -2; dz <= 2; dz++) {
-        for (let dy = trunkHeight - 1; dy <= trunkHeight + 2; dy++) {
-          const radius = Math.abs(dx) + Math.abs(dz) + Math.max(0, dy - trunkHeight);
-          if (radius <= 3 && random() > 0.13) setBlock(x + dx, top + dy, z + dz, 'leaves');
-        }
-      }
-    }
-  }
 }
 
 const instanceToBlock = new Map();
@@ -208,6 +190,167 @@ rebuildBlockMeshes();
 
 const player = { pos: new THREE.Vector3(0, terrainHeight(0, 7) + 2.4, 7), vel: new THREE.Vector3(), yaw: 0, pitch: 0, onGround: false, sneaking: false, height: 2 };
 let escapeBlockKey = null;
+let gameStarted = false;
+let paused = true;
+let settingsReturnPanel = 'titlePanel';
+const menuPanels = ['titlePanel', 'worldListPanel', 'createWorldPanel', 'pausePanel', 'settingsPanel'];
+function showMenuPanel(panelId) {
+  for (const id of menuPanels) document.querySelector(`#${id}`).hidden = id !== panelId;
+}
+function saveCurrentWorld() {
+  if (!currentWorld) return true;
+  currentWorld.blocks = [...blocks.values()];
+  currentWorld.player = {
+    x: player.pos.x, y: player.pos.y, z: player.pos.z,
+    yaw: player.yaw, pitch: player.pitch
+  };
+  currentWorld.hotbar = HOTBAR.map(item => item ? { ...item } : null);
+  currentWorld.inventory = INVENTORY_SLOTS.map(item => item ? { ...item } : null);
+  currentWorld.collected = collected;
+  try {
+    writeWorlds(worlds);
+    document.querySelector('#worldStorageNotice').hidden = true;
+    return true;
+  } catch (error) {
+    const message = `ワールドを保存できませんでした: ${error.message}`;
+    console.error(message, error);
+    const notice = document.querySelector('#worldStorageNotice');
+    notice.textContent = message;
+    notice.hidden = false;
+    return false;
+  }
+}
+function scheduleWorldSave() {
+  if (!currentWorld) return;
+  clearTimeout(worldSaveTimer);
+  worldSaveTimer = setTimeout(saveCurrentWorld, 500);
+}
+function renderWorldList() {
+  const list = document.querySelector('#worldList');
+  const error = document.querySelector('#worldListError');
+  list.replaceChildren();
+  error.hidden = true;
+  try {
+    worlds = readWorlds();
+  } catch (cause) {
+    error.textContent = `ワールドを読み込めませんでした: ${cause.message}`;
+    error.hidden = false;
+    console.error('Failed to read saved worlds', cause);
+    return;
+  }
+  if (!worlds.length) {
+    const empty = document.createElement('div');
+    empty.className = 'world-empty';
+    empty.textContent = 'ワールドがありません。「新規作成」から作成してください。';
+    list.appendChild(empty);
+    return;
+  }
+  for (const world of [...worlds].reverse()) {
+    const row = document.createElement('article');
+    row.className = 'world-row';
+    const info = document.createElement('div');
+    const title = document.createElement('h2');
+    title.textContent = world.name;
+    const details = document.createElement('p');
+    details.textContent = `${world.mode === 'creative' ? 'クリエイティブ' : 'サバイバル'} ・ シード ${world.seed} ・ ${new Date(world.createdAt).toLocaleDateString('ja-JP')}`;
+    info.append(title, details);
+    const play = document.createElement('button');
+    play.className = 'start';
+    play.type = 'button';
+    play.textContent = 'プレイ';
+    play.addEventListener('click', () => activateWorld(world));
+    row.append(info, play);
+    list.appendChild(row);
+  }
+}
+function defaultHotbar(mode) {
+  if (mode === 'creative') return [...TYPES.map(type => makeStack(type, 64)), ...Array(9 - TYPES.length).fill(null)];
+  return [makeStack('iron_sword'), makeStack('iron_pickaxe'), makeStack('iron_axe'), null,
+    makeStack('stone', 8), makeStack('wood', 8), makeStack('dirt', 12), makeStack('grass', 24), makeStack('leaves', 6)];
+}
+function normalizeSavedStack(item, mode) {
+  if (!item || typeof item !== 'object') return null;
+  if (mode === 'creative' && !TYPES.includes(item.type)) return null;
+  if (!TYPES.includes(item.type) && !['iron_sword', 'iron_pickaxe', 'iron_axe'].includes(item.id)) return null;
+  return makeStack(item.id, Math.max(1, Math.min(64, Number(item.count) || 1)));
+}
+function activateWorld(world) {
+  currentWorld = world;
+  gameMode = world.mode;
+  blocks.clear();
+  for (const block of world.blocks) blocks.set(coordKey(block.x, block.y, block.z), { ...block });
+  for (const drop of drops) {
+    scene.remove(drop.mesh);
+    drop.mesh.geometry?.dispose();
+    drop.mesh.material?.dispose();
+  }
+  drops.length = 0;
+  const savedPlayer = world.player;
+  player.pos.set(
+    Number.isFinite(savedPlayer?.x) ? savedPlayer.x : 0,
+    Number.isFinite(savedPlayer?.y) ? savedPlayer.y : terrainHeight(0, 7) + 2.4,
+    Number.isFinite(savedPlayer?.z) ? savedPlayer.z : 7
+  );
+  player.yaw = Number.isFinite(savedPlayer?.yaw) ? savedPlayer.yaw : 0;
+  player.pitch = Number.isFinite(savedPlayer?.pitch) ? savedPlayer.pitch : 0;
+  player.vel.set(0, 0, 0);
+  player.height = 2;
+  player.onGround = false;
+  player.sneaking = false;
+  leftMouseHeld = false;
+  dragging = false;
+  sprinting = false;
+  jumpBoostTime = 0;
+  viewAction = 'idle';
+  escapeBlockKey = null;
+  for (const code of Object.keys(keys)) keys[code] = false;
+  cancelBreak();
+  HOTBAR.splice(0, HOTBAR.length, ...(gameMode === 'creative'
+    ? defaultHotbar(gameMode)
+    : Array.isArray(world.hotbar) ? world.hotbar.slice(0, 9).map(item => normalizeSavedStack(item, gameMode)) : defaultHotbar(gameMode)));
+  while (HOTBAR.length < 9) HOTBAR.push(null);
+  selected = 0;
+  INVENTORY_SLOTS.fill(null);
+  if (gameMode !== 'creative' && Array.isArray(world.inventory)) {
+    world.inventory.slice(0, INVENTORY_SLOTS.length).forEach((item, index) => {
+      INVENTORY_SLOTS[index] = normalizeSavedStack(item, gameMode);
+    });
+  }
+  collected = Number.isFinite(world.collected) ? world.collected : 0;
+  document.querySelector('#seed').textContent = world.seed;
+  document.querySelector('#collected').textContent = collected;
+  raycaster.far = gameMode === 'creative' ? 6 : 5;
+  rebuildBlockMeshes();
+  updateHotbar();
+  gameStarted = true;
+  paused = false;
+  lastAutosave = performance.now();
+  document.querySelector('#ui').classList.remove('menu-hidden');
+  document.querySelector('#menu').classList.remove('show');
+  heldView.visible = true;
+  requestLook();
+  scheduleWorldSave();
+}
+function createWorld(mode) {
+  const error = document.querySelector('#createWorldError');
+  error.hidden = true;
+  try {
+    worlds = readWorlds();
+    const world = createWorldRecord({
+      id: globalThis.crypto?.randomUUID?.() || `world-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      name: `ワールド ${worlds.length + 1}`,
+      mode
+    });
+    worlds.push(world);
+    currentWorld = world;
+    activateWorld(world);
+    saveCurrentWorld();
+  } catch (cause) {
+    error.textContent = `ワールドを作成できませんでした: ${cause.message}`;
+    error.hidden = false;
+    console.error('Failed to create world', cause);
+  }
+}
 camera.position.copy(player.pos);
 const raycaster = new THREE.Raycaster();
 raycaster.far = 5;
@@ -220,6 +363,7 @@ outline.visible = false;
 scene.add(outline);
 const breakTimes = { grass: 1000, dirt: 1000, leaves: 1000, wood: 2400, stone: 10000 };
 function getBreakDuration(type) {
+  if (gameMode === 'creative') return 0;
   const tool = HOTBAR[selected]?.id;
   const speed = type === 'leaves' && tool === 'iron_sword' ? 2.2
     : type === 'stone' && tool === 'iron_pickaxe' ? 14
@@ -295,6 +439,7 @@ let jumpBoostTime = 0;
 let jumpBoostMaxSpeed = 7.6;
 const heldView = new THREE.Group();
 heldView.position.set(0.43, -0.43, -0.78);
+heldView.visible = false;
 camera.add(heldView);
 const heldBasePosition = heldView.position.clone();
 const heldMetalMaterial = new THREE.MeshLambertMaterial({ color: 0x929b9b });
@@ -620,13 +765,15 @@ function dropBlock(block) {
   const removedKey = coordKey(block.x, block.y, block.z);
   blocks.delete(removedKey);
   if (escapeBlockKey === removedKey) escapeBlockKey = null;
+  scheduleWorldSave();
   rebuildBlockMeshes();
-  spawnDrop({ id: block.type, type: block.type }, block.x, block.y, block.z);
+  if (gameMode !== 'creative') spawnDrop({ id: block.type, type: block.type }, block.x, block.y, block.z);
 }
 updateHotbar();
 
 function getTarget() {
   camera.updateMatrixWorld(true);
+  raycaster.far = gameMode === 'creative' ? 6 : 5;
   raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
   const hit = raycaster.intersectObjects([...instanceMeshes.values()], false)[0];
   if (!hit || hit.instanceId === undefined) return null;
@@ -655,6 +802,12 @@ function updateTargetAndBreaking(now) {
     outline.visible = false;
   }
   if (!leftMouseHeld || !target?.block) { cancelBreak(); return; }
+  if (gameMode === 'creative') {
+    dropBlock(target.block);
+    cancelBreak();
+    outline.visible = false;
+    return;
+  }
   const targetKey = coordKey(target.block.x, target.block.y, target.block.z);
   if (!breakState || breakState.key !== targetKey) {
     cancelBreak();
@@ -691,27 +844,41 @@ function placeBlock(hit) {
   const z = Math.round(hit.point.z + normal.z * 0.01);
   if (Math.abs(x - player.pos.x) < 0.8 && Math.abs(z - player.pos.z) < 0.8 && y > player.pos.y - 1.8 && y < player.pos.y + 0.2) return;
   if (setBlock(x, y, z, type)) {
-    held.count--;
-    if (held.count <= 0) HOTBAR[selected] = null;
+    if (gameMode !== 'creative') {
+      held.count--;
+      if (held.count <= 0) HOTBAR[selected] = null;
+    }
     rebuildBlockMeshes();
     updateHotbar();
     startViewAction('place');
   }
 }
 
-let paused = false;
 const menu = document.querySelector('#menu');
-const mainMenu = document.querySelector('#mainMenu');
 const settingsPanel = document.querySelector('#settingsPanel');
-document.querySelector('#openSettings').addEventListener('click', () => {
-  mainMenu.hidden = true;
-  settingsPanel.hidden = false;
+function openSettings(returnPanel) {
+  settingsReturnPanel = returnPanel;
+  showMenuPanel('settingsPanel');
   renderBindingSettings();
+}
+document.querySelector('#worldMenuButton').addEventListener('click', () => {
+  renderWorldList();
+  showMenuPanel('worldListPanel');
 });
+document.querySelector('#newWorldButton').addEventListener('click', () => {
+  document.querySelector('#createWorldError').hidden = true;
+  showMenuPanel('createWorldPanel');
+});
+document.querySelector('#worldListBack').addEventListener('click', () => showMenuPanel('titlePanel'));
+document.querySelector('#createWorldBack').addEventListener('click', () => showMenuPanel('worldListPanel'));
+document.querySelectorAll('.world-mode').forEach(button => {
+  button.addEventListener('click', () => createWorld(button.dataset.mode));
+});
+document.querySelector('#titleSettings').addEventListener('click', () => openSettings('titlePanel'));
+document.querySelector('#pauseSettings').addEventListener('click', () => openSettings('pausePanel'));
 document.querySelector('#settingsBack').addEventListener('click', () => {
   rebindingAction = null;
-  settingsPanel.hidden = true;
-  mainMenu.hidden = false;
+  showMenuPanel(settingsReturnPanel);
 });
 const sensitivitySlider = document.querySelector('#sensitivity');
 const sensitivityValue = document.querySelector('#sensitivityValue');
@@ -736,32 +903,58 @@ fieldOfViewSlider.addEventListener('input', () => {
   saveControlSettings();
 });
 function setPaused(value) {
+  if (!gameStarted) return;
   paused = value;
   menu.classList.toggle('show', paused);
   heldView.visible = !paused;
-  if (paused) { leftMouseHeld = false; cancelBreak(); }
+  if (paused) {
+    leftMouseHeld = false;
+    cancelBreak();
+    showMenuPanel('pausePanel');
+    saveCurrentWorld();
+  }
   for (const code of Object.keys(keys)) keys[code] = false;
   if (paused) {
-    mainMenu.hidden = false;
-    settingsPanel.hidden = true;
     rebindingAction = null;
     if (document.pointerLockElement) document.exitPointerLock();
+    clearTimeout(worldSaveTimer);
   } else {
+    document.querySelector('#ui').classList.remove('menu-hidden');
     requestLook();
   }
 }
 document.querySelector('#resume').addEventListener('click', () => setPaused(false));
+document.querySelector('#leaveWorld').addEventListener('click', () => {
+  clearTimeout(worldSaveTimer);
+  saveCurrentWorld();
+  if (document.pointerLockElement) document.exitPointerLock();
+  if (inventoryOpen) {
+    returnCursorStack();
+    inventoryOpen = false;
+    inventoryWasLocked = false;
+    document.querySelector('#inventoryOverlay').classList.remove('show');
+    document.querySelector('#cursorItem').classList.remove('show');
+  }
+  for (const code of Object.keys(keys)) keys[code] = false;
+  gameStarted = false;
+  paused = true;
+  heldView.visible = false;
+  document.querySelector('#ui').classList.add('menu-hidden');
+  menu.classList.add('show');
+  showMenuPanel('titlePanel');
+});
+addEventListener('pagehide', saveCurrentWorld);
 
 function requestLook() {
-  if (!renderer.domElement.requestPointerLock) return;
+  if (!gameStarted || paused || !renderer.domElement.requestPointerLock) return;
   try {
     const result = renderer.domElement.requestPointerLock();
     if (result && result.catch) result.catch(() => {});
   } catch {}
 }
-renderer.domElement.addEventListener('click', () => { if (!locked) requestLook(); });
+renderer.domElement.addEventListener('click', () => { if (gameStarted && !locked) requestLook(); });
 renderer.domElement.addEventListener('mousedown', event => {
-  if (paused || inventoryOpen) return;
+  if (!gameStarted || paused || inventoryOpen) return;
   if (!locked) dragging = true;
   if (event.button === 0) {
     leftMouseHeld = true;
@@ -850,12 +1043,10 @@ document.addEventListener('keydown', event => {
   if (event.code === 'Escape') {
     event.preventDefault();
     if (inventoryOpen) { closeInventory(); return; }
-    if (paused && !settingsPanel.hidden) {
-      settingsPanel.hidden = true;
-      mainMenu.hidden = false;
-    } else {
-      setPaused(!paused);
-    }
+    if (!settingsPanel.hidden) showMenuPanel(settingsReturnPanel);
+    else if (gameStarted) setPaused(!paused);
+    else if (!document.querySelector('#createWorldPanel').hidden) showMenuPanel('worldListPanel');
+    else if (!document.querySelector('#worldListPanel').hidden) showMenuPanel('titlePanel');
     return;
   }
   if (paused) return;
@@ -983,7 +1174,7 @@ function hasSneakSupport(x, z, feetY, moveX, moveZ) {
   const length = Math.hypot(moveX, moveZ) || 1;
   const forwardX = moveX / length;
   const forwardZ = moveZ / length;
-  const frontReach = 0.27;
+  const frontReach = 0.01;
   const sideReach = 0.24;
   const sideX = -forwardZ * sideReach;
   const sideZ = forwardX * sideReach;
@@ -1116,6 +1307,10 @@ function animate(now) {
   document.querySelector('#coordZ').textContent = player.pos.z.toFixed(1);
   updateTargetAndBreaking(now);
   animateHeldItem(now);
+  if (now - lastAutosave >= 5000) {
+    lastAutosave = now;
+    scheduleWorldSave();
+  }
 
   for (let i = drops.length - 1; i >= 0; i--) {
     const drop = drops[i];
