@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>BLOCKLAND — ブロックの世界</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap');
+:root{--ink:#f5f4ec;--muted:#a5adab;--line:rgba(255,255,255,.17);--glass:rgba(14,24,29,.76);--lime:#ccf568;--gold:#ffd76b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#83c9e6;color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif}canvas{display:block}#game{position:fixed;inset:0}#ui{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:26px 32px 27px}.top{display:flex;align-items:flex-start;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border:1px solid rgba(255,255,255,.55);background:rgba(20,41,44,.35);display:grid;place-items:center;transform:rotate(-4deg)}.logo span{font-family:'DotGothic16';font-size:24px;color:var(--lime);transform:rotate(4deg)}.name{font-weight:900;font-size:15px;letter-spacing:.13em;line-height:1.2;text-shadow:0 2px 12px #315560}.sub{font-size:10px;letter-spacing:.22em;color:#e2f3ef;opacity:.82;margin-top:4px}.stats{display:flex;gap:8px}.pill{background:var(--glass);border:1px solid var(--line);padding:9px 13px;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.04em;backdrop-filter:blur(10px)}.pill b{font-family:'DotGothic16';font-size:13px;color:var(--lime);font-weight:400}.bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.help{max-width:400px;background:var(--glass);border:1px solid var(--line);padding:14px 17px;backdrop-filter:blur(10px)}.help-title{font-size:10px;letter-spacing:.17em;color:var(--lime);font-weight:700;margin-bottom:8px}.controls{display:grid;grid-template-columns:auto auto;gap:5px 17px}.control{font-size:11px;color:#d8e1dc;display:flex;gap:8px;align-items:center}.key{font-family:'DotGothic16';font-size:10px;color:#fff;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.09);padding:2px 6px;min-width:27px;text-align:center}.hotbar{display:flex;gap:4px;padding:6px;background:rgba(14,24,29,.68);border:1px solid var(--line);backdrop-filter:blur(12px)}.slot{width:48px;height:59px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.035);position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;transition:.15s}.slot.active{border:2px solid var(--lime);background:rgba(204,245,104,.13);transform:translateY(-5px)}.slot .swatch{width:20px;height:20px;border:1px solid rgba(255,255,255,.35);box-shadow:inset -4px -4px rgba(0,0,0,.18)}.slot .label{font-size:8px;color:#d5dfd9;white-space:nowrap;transform:scaleX(.78)}.tool-icon{width:28px;height:28px;object-fit:contain;image-rendering:pixelated}.empty-icon{width:16px;height:16px;border:1px dashed rgba(255,255,255,.32)}.slot .count{position:absolute;right:5px;top:3px;font-family:'DotGothic16';font-size:11px;color:#fff;text-shadow:0 1px 4px #000}.slot .num{position:absolute;left:4px;top:3px;font-size:8px;color:#96a3a2}.crosshair{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 2px #000)}.crosshair:before,.crosshair:after{content:'';position:absolute;background:rgba(255,255,255,.9);border:1px solid rgba(15,30,34,.6)}.crosshair:before{width:2px;height:14px;left:6px;top:0}.crosshair:after{width:14px;height:2px;top:6px;left:0}.overlay{display:none}.overlay.hidden{opacity:0;pointer-events:none}.card{width:min(500px,calc(100vw - 38px));padding:38px 40px 31px;background:rgba(15,27,31,.83);border:1px solid rgba(255,255,255,.25);box-shadow:0 24px 80px rgba(12,28,35,.23);backdrop-filter:blur(18px);text-align:center}.eyebrow{font-size:10px;letter-spacing:.27em;color:var(--lime);font-weight:700}.card h1{font-family:'DotGothic16';font-size:clamp(31px,8vw,48px);font-weight:400;letter-spacing:.06em;margin:9px 0 7px}.card p{font-size:12px;line-height:1.9;color:#c6d2cf;margin:0 auto 22px;max-width:350px}.start{font-family:inherit;font-weight:700;letter-spacing:.09em;font-size:12px;color:#15231f;background:var(--lime);border:0;padding:13px 28px;cursor:pointer;box-shadow:0 5px 0 #86a93b;transition:.12s}.start:hover{transform:translateY(-2px);box-shadow:0 7px 0 #86a93b}.start:active{transform:translateY(3px);box-shadow:0 2px 0 #86a93b}.foot{margin-top:20px;font-size:9px;letter-spacing:.12em;color:#879491}
+.coords{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);font-family:'DotGothic16';font-size:11px;color:#dfe9e4}.coords span{color:#8faaa0;margin-left:5px}.coords b{font-weight:400;color:var(--lime);min-width:35px}.bottom{justify-content:center}.help{display:none}.crosshair{filter:none}.menu-overlay{position:fixed;inset:0;z-index:5;display:none;place-items:center;background:rgba(7,17,20,.62);backdrop-filter:blur(7px);pointer-events:auto}.menu-overlay.show{display:grid}.menu-card{width:min(430px,calc(100vw - 36px));padding:30px 34px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.25);box-shadow:0 24px 80px rgba(0,0,0,.28);text-align:center}.menu-card h1{font-family:'DotGothic16';font-size:30px;font-weight:400;margin:7px 0 20px}.menu-controls{display:grid;grid-template-columns:1fr 1fr;gap:11px 14px;text-align:left;font-size:11px;color:#d8e1dc;margin-bottom:23px}.menu-controls .key{display:inline-block}.menu-card .start{pointer-events:auto}
+.bottom{flex-direction:column;align-items:center;justify-content:flex-end;gap:7px}.vitals{display:flex;flex-direction:row;align-items:center;gap:12px;padding:4px 8px;background:rgba(14,24,29,.54);border:1px solid rgba(255,255,255,.12)}.hearts,.hunger{display:flex;justify-content:center;gap:3px;line-height:1}.heart{font-size:17px;color:#ff5665;text-shadow:0 1px 3px #32151a}.food{font-size:14px;filter:drop-shadow(0 1px 2px #281910)}
+.menu-card [hidden]{display:none!important}.menu-actions{display:flex;justify-content:center;gap:10px}.menu-button,.binding-button{font-family:inherit;color:#eef2e8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 18px;cursor:pointer}.menu-button:hover,.binding-button:hover{border-color:var(--lime)}#settingsPanel h1{margin-bottom:10px}#settingsPanel h2{font-size:13px;color:var(--lime);margin:10px 0}.binding-list{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;max-height:34vh;overflow-y:auto;padding:2px 4px 8px 0}.binding-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;color:#d8e1dc}.binding-button{min-width:72px;padding:5px 8px;font-family:monospace;font-size:11px}.binding-button.waiting{color:var(--lime);border-color:var(--lime)}.sensitivity-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:10px 0 5px;color:#d8e1dc}#sensitivity{width:100%;accent-color:var(--lime);pointer-events:auto}.back-button{margin-top:12px}.inventory-overlay{position:fixed;inset:0;z-index:4;display:none;place-items:center;background:rgba(5,12,14,.38);pointer-events:auto}.inventory-overlay.show{display:grid}.inventory-panel{padding:18px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 65px #0008}.inventory-panel h2{font:20px 'DotGothic16';text-align:center;margin:0 0 14px}.inventory-grid{display:grid;grid-template-columns:repeat(9,54px);gap:4px}.inventory-grid .slot{width:54px;height:54px;cursor:pointer;background:rgba(255,255,255,.08)}.inventory-grid .slot.active{transform:none}.inventory-grid .slot .label{display:none}.inventory-grid .slot .swatch{width:26px;height:26px}.inventory-grid .tool-icon{width:34px;height:34px}.inventory-grid .slot .count,.hotbar .slot .count{z-index:1}.slot .count{pointer-events:none}.inventory-separator{height:10px;border-bottom:1px solid #ffffff30;margin-bottom:10px}.cursor-item{position:fixed;z-index:10;display:none;pointer-events:none;width:48px;height:48px;align-items:center;justify-content:center;background:#162321d9;border:1px solid var(--lime);transform:translate(-50%,-50%)}.cursor-item.show{display:flex}.cursor-item .swatch{width:30px;height:30px}.cursor-item .tool-icon{width:36px;height:36px}.cursor-item b{position:absolute;right:2px;bottom:0;font-size:11px;text-shadow:0 1px 3px #000}@media(max-width:640px){.inventory-grid{grid-template-columns:repeat(9,34px);gap:3px}.inventory-grid .slot{width:34px;height:42px}.inventory-panel{padding:11px}.inventory-grid .tool-icon{width:27px;height:27px}}
+/* Clearer control remapping: larger, higher contrast rows and more room for labels. */
+.menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}.binding-list{grid-template-columns:1fr 1fr;max-height:45vh;gap:7px 10px;padding:4px}.binding-row{min-height:46px;padding:6px 8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:4px;font-size:12px}.binding-button{min-width:104px;min-height:32px;background:#253632;border:1px solid #91aa94;color:#fff;font-size:12px;font-weight:700}.binding-button.waiting{background:#4e5d27;color:#efffc7;border-color:var(--lime)}#settingsPanel .sensitivity-label,#settingsPanel #sensitivity{display:block;max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel .back-button{display:block;margin:16px auto 0}@media(max-width:640px){.menu-card:has(#settingsPanel:not([hidden])){padding:20px 14px}.binding-list{grid-template-columns:1fr 1fr;gap:5px}.binding-row{font-size:11px;padding:5px}.binding-button{min-width:78px}}
+</style>
+</head>
+<body>
+<div id="game"></div>
+<div id="ui"><div class="top"><div class="coords">X <b id="coordX">0.0</b><span>Y</span> <b id="coordY">0.0</b><span>Z</span> <b id="coordZ">0.0</b></div><div class="stats"><div class="pill">WORLD <b id="seed">----</b></div><div class="pill">拾った数 <b id="collected">0</b></div></div></div><div class="crosshair"></div><div class="bottom"><div class="vitals"><div class="hearts" id="hearts" aria-label="体力"></div><div class="hunger" id="hunger" aria-label="満腹度"></div></div><div class="hotbar" id="hotbar"></div></div></div>
+<div class="menu-overlay" id="menu"><div class="menu-card"><div id="mainMenu"><h1>一時停止中</h1><div class="menu-actions"><button class="menu-button" id="openSettings">設定</button><button class="start" id="resume">ゲームに戻る</button></div></div><div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div></div></div>
+<div id="inventoryOverlay" class="inventory-overlay"><div class="inventory-panel"><h2>インベントリ</h2><div id="inventoryGrid" class="inventory-grid"></div><div class="inventory-separator"></div><div id="inventoryHotbar" class="inventory-grid"></div></div></div><div id="cursorItem" class="cursor-item"></div>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
+
+const SEED = 2026;
+const TYPES = ['grass', 'dirt', 'stone', 'wood', 'leaves'];
+const LABELS = { grass: '草', dirt: '土', stone: '石', wood: '木', leaves: '葉' };
+const COLORS = { grass: 0x71ba55, dirt: 0x8d6243, stone: 0x8a9297, wood: 0x95633c, leaves: 0x4f914b };
+const CSS_COLORS = { grass: '#71ba55', dirt: '#8d6243', stone: '#8a9297', wood: '#95633c', leaves: '#4f914b' };
+const makeStack = (id, count = 1) => {
+  const tool = id.startsWith('iron_');
+  const labels = { iron_sword: '鉄の剣', iron_pickaxe: '鉄のツルハシ', iron_axe: '鉄の斧', stone: '石', wood: '木', dirt: '土', grass: '草', leaves: '葉' };
+  return { id, label: labels[id] || id, ...(tool ? { tool: true } : { type: id }), count: tool ? 1 : count };
+};
+const HOTBAR = [makeStack('iron_sword'), makeStack('iron_pickaxe'), makeStack('iron_axe'), null, makeStack('stone', 8), makeStack('wood', 8), makeStack('dirt', 12), makeStack('grass', 24), makeStack('leaves', 6)];
+const INVENTORY_SLOTS = Array(27).fill(null);
+const blocks = new Map();
+const drops = [];
+const keys = Object.create(null);
+const DEFAULT_BINDINGS = {
+  forward: 'KeyW', back: 'KeyS', left: 'KeyA', right: 'KeyD', jump: 'Space',
+  sneak: 'Tab', sprint: 'ShiftLeft', drop: 'KeyQ', inventory: 'KeyE',
+  hotbar1: 'Digit1', hotbar2: 'Digit2', hotbar3: 'Digit3', hotbar4: 'Digit4', hotbar5: 'Digit5',
+  hotbar6: 'Digit6', hotbar7: 'Digit7', hotbar8: 'Digit8', hotbar9: 'Digit9'
+};
+const BINDING_LABELS = {
+  forward: '前進', back: '後退', left: '左移動', right: '右移動', jump: 'ジャンプ',
+  sneak: 'スニーク', sprint: 'ダッシュ', drop: 'アイテムを落とす', inventory: 'インベントリ',
+  hotbar1: 'スロット1', hotbar2: 'スロット2', hotbar3: 'スロット3', hotbar4: 'スロット4',
+  hotbar5: 'スロット5', hotbar6: 'スロット6', hotbar7: 'スロット7', hotbar8: 'スロット8', hotbar9: 'スロット9'
+};
+const SETTINGS_STORAGE_KEY = 'blockland-controls-v1';
+let bindings = { ...DEFAULT_BINDINGS };
+let mouseSensitivity = 1;
+let rebindingAction = null;
+try {
+  const saved = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}');
+  if (saved.bindings) for (const action of Object.keys(DEFAULT_BINDINGS)) {
+    if (typeof saved.bindings[action] === 'string') bindings[action] = saved.bindings[action];
+  }
+  if (Number.isFinite(saved.sensitivity)) mouseSensitivity = THREE.MathUtils.clamp(saved.sensitivity, 0.2, 3);
+} catch {}
+function saveControlSettings() {
+  try { localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ bindings, sensitivity: mouseSensitivity })); } catch {}
+}
+function formatBinding(code) {
+  if (code === 'Space') return 'SPACE';
+  if (code === 'Tab') return 'TAB';
+  if (code.startsWith('Key')) return code.slice(3);
+  if (code.startsWith('Digit')) return code.slice(5);
+  if (code.startsWith('Numpad')) return `Num ${code.slice(6)}`;
+  if (code === 'ShiftLeft') return '左Shift';
+  if (code === 'ShiftRight') return '右Shift';
+  return code.replace('Arrow', '矢印');
+}
+function renderBindingSettings() {
+  const list = document.querySelector('#bindingList');
+  if (!list) return;
+  list.innerHTML = '';
+  for (const [action, label] of Object.entries(BINDING_LABELS)) {
+    const row = document.createElement('div');
+    row.className = 'binding-row';
+    const name = document.createElement('span');
+    name.textContent = label;
+    const button = document.createElement('button');
+    button.className = `binding-button${rebindingAction === action ? ' waiting' : ''}`;
+    button.type = 'button';
+    button.textContent = rebindingAction === action ? 'キーを押す' : formatBinding(bindings[action]);
+    button.addEventListener('click', () => {
+      rebindingAction = action;
+      renderBindingSettings();
+    });
+    row.append(name, button);
+    list.appendChild(row);
+  }
+}
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x9bd8ed);
+scene.fog = new THREE.Fog(0x9bd8ed, 25, 62);
+
+const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 100);
+camera.rotation.order = 'YXZ';
+scene.add(camera);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+document.querySelector('#game').appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xd9f6ff, 0x647956, 2.0));
+const sun = new THREE.DirectionalLight(0xfff1ce, 2.6);
+sun.position.set(-18, 32, 16);
+scene.add(sun);
+
+const materials = Object.fromEntries(TYPES.map(type => [type, new THREE.MeshLambertMaterial({ color: COLORS[type] })]));
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+const instanceMeshes = new Map();
+let blockInstances = [];
+const coordKey = (x, y, z) => `${x},${y},${z}`;
+
+function makeRandom(seed) {
+  let state = seed >>> 0;
+  return function random() {
+    state += 0x6D2B79F5;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const random = makeRandom(SEED);
+document.querySelector('#seed').textContent = SEED;
+
+function terrainHeight(x, z) {
+  return Math.floor(1.4 + Math.sin(x * 0.22 + SEED) * 1.5 + Math.cos(z * 0.21 + SEED * 0.03) * 1.3 + Math.sin((x + z) * 0.13) * 0.9);
+}
+function setBlock(x, y, z, type) {
+  x = Math.round(x); y = Math.round(y); z = Math.round(z);
+  const key = coordKey(x, y, z);
+  if (blocks.has(key)) return false;
+  blocks.set(key, { x, y, z, type });
+  return true;
+}
+
+// Build a small fixed island. One InstancedMesh per block type keeps rendering light.
+for (let x = -16; x <= 16; x++) {
+  for (let z = -16; z <= 16; z++) {
+    const distance = Math.hypot(x, z);
+    if (distance > 16 || (distance > 12 && random() < (distance - 12) / 5)) continue;
+    const top = terrainHeight(x, z);
+    for (let y = -3; y <= top; y++) {
+      setBlock(x, y, z, y === top ? 'grass' : y >= top - 2 ? 'dirt' : 'stone');
+    }
+    if (distance > 3 && top > 0 && random() < 0.075) {
+      const trunkHeight = 3 + Math.floor(random() * 2);
+      for (let y = 1; y <= trunkHeight; y++) setBlock(x, top + y, z, 'wood');
+      for (let dx = -2; dx <= 2; dx++) for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = trunkHeight - 1; dy <= trunkHeight + 2; dy++) {
+          const radius = Math.abs(dx) + Math.abs(dz) + Math.max(0, dy - trunkHeight);
+          if (radius <= 3 && random() > 0.13) setBlock(x + dx, top + dy, z + dz, 'leaves');
+        }
+      }
+    }
+  }
+}
+
+const instanceToBlock = new Map();
+function rebuildBlockMeshes() {
+  for (const mesh of instanceMeshes.values()) scene.remove(mesh);
+  instanceMeshes.clear();
+  instanceToBlock.clear();
+  for (const type of TYPES) {
+    const entries = [...blocks.values()].filter(block => block.type === type);
+    if (!entries.length) continue;
+    const mesh = new THREE.InstancedMesh(cubeGeometry, materials[type], entries.length);
+    mesh.userData.blockType = type;
+    const transform = new THREE.Object3D();
+    entries.forEach((block, index) => {
+      transform.position.set(block.x, block.y, block.z);
+      transform.updateMatrix();
+      mesh.setMatrixAt(index, transform.matrix);
+      instanceToBlock.set(`${type}:${index}`, block);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.computeBoundingSphere();
+    scene.add(mesh);
+    instanceMeshes.set(type, mesh);
+  }
+}
+rebuildBlockMeshes();
+
+const player = { pos: new THREE.Vector3(0, terrainHeight(0, 7) + 2.25, 7), vel: new THREE.Vector3(), yaw: 0, pitch: 0, onGround: false, sneaking: false, height: 2 };
+let escapeBlockKey = null;
+camera.position.copy(player.pos);
+const raycaster = new THREE.Raycaster();
+raycaster.far = 5;
+const outline = new THREE.LineSegments(
+  new THREE.EdgesGeometry(cubeGeometry),
+  new THREE.LineBasicMaterial({ color: 0xfff4b0, transparent: true, opacity: 0.95, depthTest: true })
+);
+outline.scale.setScalar(1.015);
+outline.visible = false;
+scene.add(outline);
+const breakTimes = { grass: 1000, dirt: 1000, leaves: 1000, wood: 2400, stone: 10000 };
+function getBreakDuration(type) {
+  const tool = HOTBAR[selected]?.id;
+  const speed = type === 'leaves' && tool === 'iron_sword' ? 2.2
+    : type === 'stone' && tool === 'iron_pickaxe' ? 14
+    : type === 'wood' && tool === 'iron_axe' ? 2.6
+    : 1;
+  return breakTimes[type] / speed;
+}
+const fracturePaths = [
+  [[32, 32], [28, 26], [21, 22], [18, 14], [11, 9]],
+  [[28, 26], [22, 29], [14, 27], [7, 31]],
+  [[21, 22], [24, 16], [22, 9], [26, 3]],
+  [[32, 32], [38, 30], [43, 24], [50, 23], [57, 16]],
+  [[38, 30], [40, 39], [47, 43], [53, 52]],
+  [[32, 32], [30, 39], [25, 45], [22, 56]],
+  [[38, 30], [46, 34], [54, 35], [61, 40]],
+  [[28, 26], [25, 19], [15, 15], [8, 12]],
+  [[30, 39], [36, 46], [36, 54], [42, 61]],
+  [[43, 24], [41, 16], [46, 10], [45, 4]]
+];
+function makeCrackTexture(progress) {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  let total = 0;
+  for (const path of fracturePaths) for (let i = 1; i < path.length; i++) total += Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
+  let remaining = total * progress;
+  for (const path of fracturePaths) {
+    for (let i = 1; i < path.length && remaining > 0; i++) {
+      const a = path[i - 1], b = path[i];
+      const length = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      const amount = Math.min(1, remaining / length);
+      const end = [a[0] + (b[0] - a[0]) * amount, a[1] + (b[1] - a[1]) * amount];
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(end[0], end[1]);
+      ctx.strokeStyle = 'rgba(20, 18, 16, 0.96)'; ctx.lineWidth = 5; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(end[0], end[1]);
+      ctx.strokeStyle = 'rgba(248, 244, 225, 0.9)'; ctx.lineWidth = 1.7; ctx.stroke();
+      remaining -= length * amount;
+    }
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+  return texture;
+}
+const destroyStages = Array.from({ length: 10 }, (_, stage) => makeCrackTexture((stage + 1) / 10));
+const crackMaterial = new THREE.MeshBasicMaterial({ map: destroyStages[0], color: 0xffffff, transparent: true, alphaTest: 0.005, depthTest: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1, side: THREE.DoubleSide });
+const crackMesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), crackMaterial);
+crackMesh.renderOrder = 100;
+crackMesh.visible = false;
+scene.add(crackMesh);
+let breakState = null;
+let selected = 0;
+let locked = false;
+let dragging = false;
+let leftMouseHeld = false;
+let collected = 0;
+let viewAction = 'idle';
+let viewActionStarted = 0;
+const heldView = new THREE.Group();
+heldView.position.set(0.43, -0.43, -0.78);
+camera.add(heldView);
+const heldBasePosition = heldView.position.clone();
+const heldMetalMaterial = new THREE.MeshLambertMaterial({ color: 0x929b9b });
+const heldWoodMaterial = new THREE.MeshLambertMaterial({ color: 0x795a38 });
+const heldSleeveMaterial = new THREE.MeshLambertMaterial({ color: 0x5b7b4c });
+const heldSkinMaterial = new THREE.MeshLambertMaterial({ color: 0x9a7659 });
+function makeToolIcon(kind) {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+  const wood = '#795a38', metal = '#929b9b', outline = '#59635e';
+  const px = (x, y, w, h, color) => { ctx.fillStyle = color; ctx.fillRect(x, y, w, h); };
+  if (kind === 'iron_sword') {
+    [[20,2],[18,6],[16,10],[14,14]].forEach(([x,y]) => { px(x-1,y-1,7,7,outline); px(x,y,5,5,metal); });
+    px(10,17,14,4,outline); px(11,18,12,2,metal);
+    px(15,21,4,8,wood); px(13,29,8,2,outline);
+  } else if (kind === 'iron_pickaxe') {
+    px(14,12,5,17,outline); px(15,13,3,15,wood);
+    px(5,4,22,8,outline); px(7,5,18,5,metal);
+    px(3,7,6,7,outline); px(4,8,4,4,metal); px(23,8,5,6,outline); px(24,9,3,4,metal);
+  } else {
+    px(14,12,5,17,outline); px(15,13,3,15,wood);
+    px(7,3,18,8,outline); px(9,4,14,5,metal);
+    px(4,7,12,11,outline); px(6,8,9,8,metal);
+  }
+  return canvas.toDataURL('image/png');
+}
+const toolIcons = {
+  iron_sword: makeToolIcon('iron_sword'),
+  iron_pickaxe: makeToolIcon('iron_pickaxe'),
+  iron_axe: makeToolIcon('iron_axe')
+};
+function addHeldBox(parent, size, position, material, rotation = 0) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
+  mesh.position.set(...position);
+  mesh.rotation.z = rotation;
+  parent.add(mesh);
+}
+function rebuildHeldItem() {
+  for (const child of heldView.children) child.geometry?.dispose();
+  heldView.clear();
+  const item = HOTBAR[selected];
+  if (!item) {
+    addHeldBox(heldView, [0.19, 0.2, 0.38], [0.08, -0.12, 0.18], heldSleeveMaterial, -0.25);
+    addHeldBox(heldView, [0.16, 0.14, 0.17], [0.04, -0.04, -0.08], heldSkinMaterial, -0.15);
+  } else if (item.id === 'iron_sword') {
+    addHeldBox(heldView, [0.085, 0.19, 0.075], [0.015, 0.07, -0.13], heldWoodMaterial);
+    addHeldBox(heldView, [0.29, 0.055, 0.085], [0.015, 0.17, -0.13], heldMetalMaterial);
+    addHeldBox(heldView, [0.115, 0.49, 0.055], [-0.025, 0.43, -0.13], heldMetalMaterial, 0.16);
+  } else if (item.id === 'iron_pickaxe') {
+    addHeldBox(heldView, [0.075, 0.49, 0.075], [0.02, 0.31, -0.12], heldWoodMaterial, -0.18);
+    addHeldBox(heldView, [0.43, 0.095, 0.09], [0.01, 0.58, -0.12], heldMetalMaterial, -0.18);
+    addHeldBox(heldView, [0.105, 0.2, 0.09], [-0.19, 0.55, -0.12], heldMetalMaterial, -0.55);
+    addHeldBox(heldView, [0.105, 0.2, 0.09], [0.21, 0.55, -0.12], heldMetalMaterial, 0.55);
+  } else if (item.id === 'iron_axe') {
+    addHeldBox(heldView, [0.075, 0.53, 0.075], [0.015, 0.31, -0.12], heldWoodMaterial, -0.12);
+    addHeldBox(heldView, [0.16, 0.32, 0.12], [0.12, 0.57, -0.12], heldMetalMaterial, -0.12);
+    addHeldBox(heldView, [0.12, 0.2, 0.125], [0.22, 0.52, -0.12], heldMetalMaterial, 0.14);
+  } else if (item.type) {
+    const blockMaterial = materials[item.type];
+    addHeldBox(heldView, [0.28, 0.28, 0.28], [0.04, 0.28, -0.13], blockMaterial, 0.18);
+  } else {
+    addHeldBox(heldView, [0.17, 0.14, 0.18], [0.02, 0.02, -0.15], heldSkinMaterial, -0.1);
+  }
+}
+function startViewAction(action, now = performance.now()) {
+  viewAction = action;
+  viewActionStarted = now;
+}
+function animateHeldItem(now) {
+  if (breakState && leftMouseHeld) {
+    if (viewAction !== 'mine') startViewAction('mine', now);
+  } else if (viewAction === 'mine') {
+    viewAction = 'idle';
+  }
+  if (viewAction === 'place' && now - viewActionStarted > 280) viewAction = 'idle';
+  heldView.position.copy(heldBasePosition);
+  heldView.rotation.set(0, 0, 0);
+  if (viewAction === 'mine') {
+    const phase = ((now - viewActionStarted) % 430) / 430;
+    const swing = Math.sin(phase * Math.PI * 2);
+    heldView.rotation.set(-0.15 + Math.max(0, swing) * 0.95, 0.05, 0.28 + swing * 0.24);
+    heldView.position.y += Math.max(0, swing) * 0.035;
+  } else if (viewAction === 'place') {
+    const phase = Math.min((now - viewActionStarted) / 280, 1);
+    const swing = Math.sin(phase * Math.PI);
+    heldView.rotation.set(-swing * 0.9, 0, swing * 0.15);
+    heldView.position.y -= swing * 0.12;
+  } else {
+    heldView.position.y += Math.sin(now * 0.003) * 0.006;
+  }
+  const selectedItem = HOTBAR[selected];
+  heldView.rotation.y = selectedItem?.id === 'iron_axe' ? Math.PI : selectedItem?.tool ? -Math.PI / 2 : 0;
+}
+function updateHotbar() {
+  const renderSlots = (element, slots, area) => {
+    element.innerHTML = '';
+    slots.forEach((item, index) => {
+      const slot = document.createElement('div');
+      slot.className = `slot${area === 'hotbar' && index === selected ? ' active' : ''}`;
+      slot.dataset.area = area;
+      slot.dataset.index = index;
+      slot.title = item?.label || '';
+      const visual = item?.type
+        ? `<span class="swatch" style="background:${CSS_COLORS[item.type]}"></span><span class="count">${item.count}</span>`
+        : item?.tool ? `<img class="tool-icon" src="${toolIcons[item.id]}" alt="${item.label}">` : '<span class="empty-icon"></span>';
+      slot.innerHTML = `${area === 'hotbar' ? `<span class="num">${index + 1}</span>` : ''}${visual}${item ? `<span class="label">${item.label}</span>` : ''}`;
+      element.appendChild(slot);
+    });
+  };
+  renderSlots(document.querySelector('#hotbar'), HOTBAR, 'hotbar');
+  renderSlots(document.querySelector('#inventoryHotbar'), HOTBAR, 'hotbar');
+  renderSlots(document.querySelector('#inventoryGrid'), INVENTORY_SLOTS, 'inventory');
+  rebuildHeldItem();
+}
+let cursorStack = null;
+let inventoryOpen = false;
+let inventoryWasLocked = false;
+function itemVisual(item) {
+  if (!item) return '';
+  if (item.tool) return `<img class="tool-icon" src="${toolIcons[item.id]}" alt="${item.label}">`;
+  return `<span class="swatch" style="background:${CSS_COLORS[item.type]}"></span>`;
+}
+function updateCursorItem(event) {
+  const cursor = document.querySelector('#cursorItem');
+  cursor.classList.toggle('show', inventoryOpen && !!cursorStack);
+  if (event) { cursor.style.left = `${event.clientX}px`; cursor.style.top = `${event.clientY}px`; }
+  cursor.innerHTML = cursorStack ? `${itemVisual(cursorStack)}${cursorStack.count > 1 ? `<b>${cursorStack.count}</b>` : ''}` : '';
+}
+function slotArray(area) { return area === 'hotbar' ? HOTBAR : INVENTORY_SLOTS; }
+function transferStack(stack, targets) {
+  if (!stack) return null;
+  let remaining = stack.count;
+  for (const slots of targets) for (let i = 0; i < slots.length && remaining > 0; i++) {
+    const current = slots[i];
+    if (current?.id === stack.id && !current.tool && current.count < 64) {
+      const moved = Math.min(64 - current.count, remaining);
+      current.count += moved;
+      remaining -= moved;
+    }
+  }
+  for (const slots of targets) for (let i = 0; i < slots.length && remaining > 0; i++) {
+    if (!slots[i]) {
+      const moved = stack.tool ? 1 : Math.min(64, remaining);
+      slots[i] = { ...stack, count: moved };
+      remaining -= moved;
+    }
+  }
+  return remaining ? { ...stack, count: remaining } : null;
+}
+function addItemToInventory(id, count = 1) {
+  const labels = { iron_sword: '鉄の剣', iron_pickaxe: '鉄のツルハシ', iron_axe: '鉄の斧', stone: '石', wood: '木', dirt: '土', grass: '草', leaves: '葉' };
+  const tool = id.startsWith('iron_');
+  const stack = { id, label: labels[id] || id, ...(tool ? { tool: true } : { type: id }), count: tool ? 1 : count };
+  const leftover = transferStack(stack, [HOTBAR, INVENTORY_SLOTS]);
+  if (leftover) return false;
+  updateHotbar();
+  return true;
+}
+function handleSlotClick(event, slotElement) {
+  const area = slotElement.dataset.area;
+  const slots = slotArray(area);
+  const index = Number(slotElement.dataset.index);
+  const slotItem = slots[index];
+  if (event.shiftKey && slotItem) {
+    const targets = area === 'hotbar' ? [INVENTORY_SLOTS] : [HOTBAR];
+    const leftover = transferStack(slotItem, targets);
+    if (leftover) {
+      slotItem.count = leftover.count;
+    } else slots[index] = null;
+    updateHotbar();
+    return;
+  }
+  if (event.button === 2) {
+    if (!cursorStack && slotItem && !slotItem.tool) {
+      const take = Math.ceil(slotItem.count / 2);
+      cursorStack = { ...slotItem, count: take };
+      slotItem.count -= take;
+      if (!slotItem.count) slots[index] = null;
+    } else if (cursorStack && !cursorStack.tool) {
+      if (!slotItem) { slots[index] = { ...cursorStack, count: 1 }; cursorStack.count--; }
+      else if (slotItem.id === cursorStack.id && slotItem.count < 64) { slotItem.count++; cursorStack.count--; }
+      if (cursorStack && cursorStack.count <= 0) cursorStack = null;
+    }
+  } else if (!cursorStack) {
+    cursorStack = slotItem;
+    slots[index] = null;
+  } else if (!slotItem) {
+    slots[index] = cursorStack;
+    cursorStack = null;
+  } else if (slotItem.id === cursorStack.id && !slotItem.tool && slotItem.count < 64) {
+    const moved = Math.min(64 - slotItem.count, cursorStack.count);
+    slotItem.count += moved;
+    cursorStack.count -= moved;
+    if (!cursorStack.count) cursorStack = null;
+  } else {
+    slots[index] = cursorStack;
+    cursorStack = slotItem;
+  }
+  updateHotbar();
+  updateCursorItem(event);
+}
+document.querySelector('#hotbar').addEventListener('mousedown', event => {
+  const slot = event.target.closest('.slot');
+  if (!slot || !inventoryOpen) return;
+  event.preventDefault();
+  handleSlotClick(event, slot);
+});
+document.querySelector('#inventoryGrid').addEventListener('mousedown', event => {
+  const slot = event.target.closest('.slot');
+  if (!slot) return;
+  event.preventDefault();
+  handleSlotClick(event, slot);
+});
+document.querySelector('#inventoryHotbar').addEventListener('mousedown', event => {
+  const slot = event.target.closest('.slot');
+  if (!slot) return;
+  event.preventDefault();
+  handleSlotClick(event, slot);
+});
+document.querySelector('#inventoryOverlay').addEventListener('mousedown', event => {
+  if (event.target.id === 'inventoryOverlay') closeInventory();
+});
+document.addEventListener('contextmenu', event => { if (inventoryOpen) event.preventDefault(); });
+document.addEventListener('mousemove', updateCursorItem);
+function returnCursorStack() {
+  if (!cursorStack) return;
+  cursorStack = transferStack(cursorStack, [HOTBAR, INVENTORY_SLOTS]);
+  updateHotbar();
+}
+function openInventory() {
+  inventoryOpen = true;
+  inventoryWasLocked = locked;
+  if (locked) document.exitPointerLock();
+  document.querySelector('#inventoryOverlay').classList.add('show');
+  updateCursorItem();
+}
+function closeInventory() {
+  returnCursorStack();
+  inventoryOpen = false;
+  document.querySelector('#inventoryOverlay').classList.remove('show');
+  document.querySelector('#cursorItem').classList.remove('show');
+  if (inventoryWasLocked) requestLook();
+  inventoryWasLocked = false;
+}
+function dropSelectedItem() {
+  const item = HOTBAR[selected];
+  if (!item) return;
+  spawnDrop(item, player.pos.x - Math.sin(player.yaw) * 0.8, player.pos.y - 0.2, player.pos.z - Math.cos(player.yaw) * 0.8);
+  const dropped = drops[drops.length - 1];
+  dropped.velocityX = -Math.sin(player.yaw) * 3.5;
+  dropped.velocityZ = -Math.cos(player.yaw) * 3.5;
+  dropped.pickupAt = performance.now() + 900;
+  item.count--;
+  if (item.count <= 0) HOTBAR[selected] = null;
+  updateHotbar();
+}
+for (let i = 0; i < 10; i++) {
+  document.querySelector('#hearts').insertAdjacentHTML('beforeend', '<span class="heart">♥</span>');
+  document.querySelector('#hunger').insertAdjacentHTML('beforeend', '<span class="food">🍗</span>');
+}
+function spawnDrop(item, x, y, z) {
+  const color = item.type ? COLORS[item.type] : 0x929b9b;
+  const material = item.type ? materials[item.type] : new THREE.MeshLambertMaterial({ color });
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), material);
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+  drops.push({ mesh, type: item.id, velocityX: 0, velocityZ: 0, velocityY: 0, grounded: false, restY: null, phase: random() * Math.PI * 2, pickupAt: 0 });
+}
+function dropBlock(block) {
+  const removedKey = coordKey(block.x, block.y, block.z);
+  blocks.delete(removedKey);
+  if (escapeBlockKey === removedKey) escapeBlockKey = null;
+  rebuildBlockMeshes();
+  spawnDrop({ id: block.type, type: block.type }, block.x, block.y, block.z);
+}
+updateHotbar();
+
+function getTarget() {
+  camera.updateMatrixWorld(true);
+  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+  const hit = raycaster.intersectObjects([...instanceMeshes.values()], false)[0];
+  if (!hit || hit.instanceId === undefined) return null;
+  return { hit, block: instanceToBlock.get(`${hit.object.userData.blockType}:${hit.instanceId}`) };
+}
+function cancelBreak() {
+  breakState = null;
+  crackMesh.visible = false;
+}
+function drawCracks(stage, block, normal) {
+  crackMaterial.map = destroyStages[stage];
+  crackMaterial.needsUpdate = true;
+  crackMesh.position.set(block.x + normal.x * 0.503, block.y + normal.y * 0.503, block.z + normal.z * 0.503);
+  crackMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
+  crackMesh.visible = true;
+}
+function updateTargetAndBreaking(now) {
+  const target = getTarget();
+  if (target?.block) {
+    outline.position.set(target.block.x, target.block.y, target.block.z);
+    outline.visible = true;
+  } else {
+    outline.visible = false;
+  }
+  if (!leftMouseHeld || !target?.block) { cancelBreak(); return; }
+  const targetKey = coordKey(target.block.x, target.block.y, target.block.z);
+  if (!breakState || breakState.key !== targetKey) {
+    cancelBreak();
+    breakState = {
+      key: targetKey,
+      startedAt: now,
+      duration: getBreakDuration(target.block.type),
+      stage: -1,
+      normal: target.hit.face.normal.clone().transformDirection(target.hit.object.matrixWorld)
+    };
+    if (viewAction !== 'mine') startViewAction('mine', now);
+  }
+  const block = blocks.get(targetKey);
+  if (!block) { cancelBreak(); return; }
+  const progress = Math.min((now - breakState.startedAt) / breakState.duration, 1);
+  const stage = Math.min(9, Math.floor(progress * 10));
+  if (stage !== breakState.stage) {
+    breakState.stage = stage;
+    drawCracks(stage, block, breakState.normal);
+  }
+  if (progress >= 1) {
+    dropBlock(block);
+    cancelBreak();
+    outline.visible = false;
+  }
+}
+function placeBlock(hit) {
+  const held = HOTBAR[selected];
+  const type = held?.type;
+  if (!type) return;
+  if (held.count <= 0) return;
+  const normal = hit.face.normal.clone().transformDirection(hit.object.matrixWorld);
+  const x = Math.round(hit.point.x + normal.x * 0.01);
+  const y = Math.round(hit.point.y + normal.y * 0.01);
+  const z = Math.round(hit.point.z + normal.z * 0.01);
+  if (Math.abs(x - player.pos.x) < 0.8 && Math.abs(z - player.pos.z) < 0.8 && y > player.pos.y - 1.8 && y < player.pos.y + 0.2) return;
+  if (setBlock(x, y, z, type)) {
+    held.count--;
+    if (held.count <= 0) HOTBAR[selected] = null;
+    rebuildBlockMeshes();
+    updateHotbar();
+    startViewAction('place');
+  }
+}
+
+let paused = false;
+const menu = document.querySelector('#menu');
+const mainMenu = document.querySelector('#mainMenu');
+const settingsPanel = document.querySelector('#settingsPanel');
+document.querySelector('#openSettings').addEventListener('click', () => {
+  mainMenu.hidden = true;
+  settingsPanel.hidden = false;
+  renderBindingSettings();
+});
+document.querySelector('#settingsBack').addEventListener('click', () => {
+  rebindingAction = null;
+  settingsPanel.hidden = true;
+  mainMenu.hidden = false;
+});
+const sensitivitySlider = document.querySelector('#sensitivity');
+const sensitivityValue = document.querySelector('#sensitivityValue');
+sensitivitySlider.value = mouseSensitivity;
+sensitivityValue.value = mouseSensitivity.toFixed(1);
+sensitivitySlider.addEventListener('input', () => {
+  mouseSensitivity = Number(sensitivitySlider.value);
+  sensitivityValue.value = mouseSensitivity.toFixed(1);
+  saveControlSettings();
+});
+function setPaused(value) {
+  paused = value;
+  menu.classList.toggle('show', paused);
+  heldView.visible = !paused;
+  if (paused) { leftMouseHeld = false; cancelBreak(); }
+  for (const code of Object.keys(keys)) keys[code] = false;
+  if (paused) {
+    mainMenu.hidden = false;
+    settingsPanel.hidden = true;
+    rebindingAction = null;
+    if (document.pointerLockElement) document.exitPointerLock();
+  } else {
+    requestLook();
+  }
+}
+document.querySelector('#resume').addEventListener('click', () => setPaused(false));
+
+function requestLook() {
+  if (!renderer.domElement.requestPointerLock) return;
+  try {
+    const result = renderer.domElement.requestPointerLock();
+    if (result && result.catch) result.catch(() => {});
+  } catch {}
+}
+renderer.domElement.addEventListener('click', () => { if (!locked) requestLook(); });
+renderer.domElement.addEventListener('mousedown', event => {
+  if (paused) return;
+  if (!locked) dragging = true;
+  if (event.button === 0) leftMouseHeld = true;
+  const target = getTarget();
+  if (event.button === 2 && target?.block) placeBlock(target.hit);
+});
+document.addEventListener('mouseup', event => {
+  dragging = false;
+  if (event.button === 0) { leftMouseHeld = false; cancelBreak(); }
+});
+addEventListener('blur', () => { dragging = false; leftMouseHeld = false; cancelBreak(); for (const code of Object.keys(keys)) keys[code] = false; });
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('pointerlockchange', () => {
+  const wasLocked = locked;
+  locked = document.pointerLockElement === renderer.domElement;
+  if (wasLocked && !locked && !paused && !inventoryOpen) {
+    setTimeout(() => { if (!locked && !paused) setPaused(true); }, 80);
+  }
+});
+document.addEventListener('mousemove', event => {
+  if (paused || inventoryOpen || (!locked && !dragging)) return;
+  // Ignore huge deltas caused by pointer-lock/focus transitions and cap fast flicks.
+  if (Math.abs(event.movementX) > 240 || Math.abs(event.movementY) > 240) return;
+  const dx = THREE.MathUtils.clamp(event.movementX, -80, 80);
+  const dy = THREE.MathUtils.clamp(event.movementY, -80, 80);
+  player.yaw -= dx * 0.0022 * mouseSensitivity;
+  player.pitch = THREE.MathUtils.clamp(player.pitch - dy * 0.0022 * mouseSensitivity, -1.48, 1.48);
+});
+document.addEventListener('keydown', event => {
+  if (rebindingAction) {
+    event.preventDefault();
+    if (event.code !== 'Escape' && !event.code.startsWith('Control') && !event.code.startsWith('Alt') && !event.code.startsWith('Shift')) {
+      bindings[rebindingAction] = event.code;
+      saveControlSettings();
+    }
+    rebindingAction = null;
+    renderBindingSettings();
+    return;
+  }
+  if (event.code === 'Escape') {
+    event.preventDefault();
+    if (inventoryOpen) { closeInventory(); return; }
+    if (paused && !settingsPanel.hidden) {
+      settingsPanel.hidden = true;
+      mainMenu.hidden = false;
+    } else {
+      setPaused(!paused);
+    }
+    return;
+  }
+  if (paused) return;
+  if (event.code === bindings.inventory) {
+    if (event.repeat) return;
+    event.preventDefault();
+    if (inventoryOpen) closeInventory(); else openInventory();
+    return;
+  }
+  if (event.code === bindings.drop) { if (event.repeat) return; event.preventDefault(); dropSelectedItem(); return; }
+  if (event.code === bindings.sneak) event.preventDefault();
+  keys[event.code] = true;
+  for (let slot = 1; slot <= HOTBAR.length; slot++) {
+    if (event.code === bindings[`hotbar${slot}`]) { selected = slot - 1; updateHotbar(); break; }
+  }
+  if (event.code === bindings.jump) {
+    const embedded = findJumpEscapeBlock();
+    if (embedded) {
+      escapeBlockKey = coordKey(embedded.x, embedded.y, embedded.z);
+      player.vel.y = 8.3;
+      player.onGround = false;
+    } else if (player.onGround) {
+      player.vel.y = 8.3;
+      player.onGround = false;
+    }
+  }
+});
+document.addEventListener('keyup', event => { keys[event.code] = false; });
+
+function collides(x, eyeY, z, bodyHeight = player.height, ignoredBlockKey = null) {
+  const playerMin = { x: x - 0.3, y: eyeY - 1.65, z: z - 0.3 };
+  const playerMax = { x: x + 0.3, y: playerMin.y + bodyHeight, z: z + 0.3 };
+  for (let bx = Math.floor(playerMin.x - 0.5); bx <= Math.ceil(playerMax.x + 0.5); bx++) {
+    for (let by = Math.floor(playerMin.y - 0.5); by <= Math.ceil(playerMax.y + 0.5); by++) {
+      for (let bz = Math.floor(playerMin.z - 0.5); bz <= Math.ceil(playerMax.z + 0.5); bz++) {
+        const block = blocks.get(coordKey(bx, by, bz));
+        if (!block) continue;
+        if (coordKey(block.x, block.y, block.z) === ignoredBlockKey) continue;
+        const overlapsX = playerMin.x < bx + 0.5 && playerMax.x > bx - 0.5;
+        const overlapsY = playerMin.y < by + 0.5 && playerMax.y > by - 0.5;
+        const overlapsZ = playerMin.z < bz + 0.5 && playerMax.z > bz - 0.5;
+        if (overlapsX && overlapsY && overlapsZ) return block;
+      }
+    }
+  }
+  return null;
+}
+function horizontalBlockOverlap(x, z, block) {
+  return x - 0.3 < block.x + 0.5 && x + 0.3 > block.x - 0.5 &&
+    z - 0.3 < block.z + 0.5 && z + 0.3 > block.z - 0.5;
+}
+function findLandingSurface(x, z, fromEyeY, toEyeY) {
+  const fromFeet = fromEyeY - 1.65;
+  const toFeet = toEyeY - 1.65;
+  let best = null;
+  for (const block of blocks.values()) {
+    const top = block.y + 0.5;
+    if (horizontalBlockOverlap(x, z, block) && top <= fromFeet + 0.001 && top > toFeet - 0.001 && (!best || top > best.top)) {
+      best = { top };
+    }
+  }
+  return best;
+}
+function findCeilingSurface(x, z, fromEyeY, toEyeY, bodyHeight) {
+  const fromHead = fromEyeY - 1.65 + bodyHeight;
+  const toHead = toEyeY - 1.65 + bodyHeight;
+  let best = null;
+  for (const block of blocks.values()) {
+    const bottom = block.y - 0.5;
+    if (horizontalBlockOverlap(x, z, block) && bottom >= fromHead - 0.001 && bottom < toHead + 0.001 && (!best || bottom < best.bottom)) {
+      best = { bottom };
+    }
+  }
+  return best;
+}
+function findJumpEscapeBlock() {
+  const footY = player.pos.y - 1.65;
+  const height = player.height;
+  const middleY = footY + height / 2;
+  const overlaps = [];
+  for (const block of blocks.values()) {
+    const overlapX = player.pos.x - 0.3 < block.x + 0.5 && player.pos.x + 0.3 > block.x - 0.5;
+    const overlapZ = player.pos.z - 0.3 < block.z + 0.5 && player.pos.z + 0.3 > block.z - 0.5;
+    const overlapY = footY < block.y + 0.5 && footY + height > block.y - 0.5;
+    if (overlapX && overlapZ && overlapY) overlaps.push(block);
+  }
+  const lower = overlaps.filter(block => block.y - 0.5 < middleY && block.y + 0.5 > footY);
+  const upper = overlaps.filter(block => block.y + 0.5 > middleY && block.y - 0.5 < footY + height);
+  if (lower.length !== 1 || upper.length !== 0) return null;
+  const embedded = lower[0];
+  const embeddedKey = coordKey(embedded.x, embedded.y, embedded.z);
+  const targetEyeY = embedded.y + 2.15;
+  const targetHeadTop = targetEyeY + (height - 1.65);
+  for (const block of blocks.values()) {
+    if (coordKey(block.x, block.y, block.z) === embeddedKey) continue;
+    const overlapX = player.pos.x - 0.3 < block.x + 0.5 && player.pos.x + 0.3 > block.x - 0.5;
+    const overlapZ = player.pos.z - 0.3 < block.z + 0.5 && player.pos.z + 0.3 > block.z - 0.5;
+    const blocksJumpPath = block.y + 0.5 > middleY && block.y - 0.5 < targetHeadTop;
+    if (overlapX && overlapZ && blocksJumpPath) return null;
+  }
+  return embedded;
+}
+function hasSneakSupport(x, z, feetY, moveX, moveZ) {
+  const length = Math.hypot(moveX, moveZ) || 1;
+  const backX = -moveX / length;
+  const backZ = -moveZ / length;
+  const sideX = -backZ * 0.27;
+  const sideZ = backX * 0.27;
+  const samples = [
+    [x + backX * 0.27, z + backZ * 0.27],
+    [x + backX * 0.27 + sideX, z + backZ * 0.27 + sideZ],
+    [x + backX * 0.27 - sideX, z + backZ * 0.27 - sideZ]
+  ];
+  return samples.some(([sx, sz]) => {
+    const bx = Math.floor(sx + 0.5), bz = Math.floor(sz + 0.5);
+    const aroundY = Math.floor(feetY + 0.5);
+    for (let by = aroundY - 2; by <= aroundY + 1; by++) {
+      const block = blocks.get(coordKey(bx, by, bz));
+      if (block && Math.abs(block.y + 0.5 - feetY) <= 0.22) return true;
+    }
+    return false;
+  });
+}
+function findDropLandingTop(x, z, fromBottom, toBottom) {
+  const halfSize = 0.15;
+  let bestTop = null;
+  for (const block of blocks.values()) {
+    if (Math.abs(x - block.x) >= 0.5 + halfSize || Math.abs(z - block.z) >= 0.5 + halfSize) continue;
+    const top = block.y + 0.5;
+    const crossedSurface = fromBottom >= top - 0.001 && toBottom <= top + 0.001;
+    const overlapsSurface = toBottom <= top && toBottom + halfSize * 2 >= top;
+    if ((crossedSurface || overlapsSurface) && (bestTop === null || top > bestTop)) bestTop = top;
+  }
+  const fallbackTop = -2.5;
+  if (fromBottom >= fallbackTop - 0.001 && toBottom <= fallbackTop + 0.001 && (bestTop === null || fallbackTop > bestTop)) {
+    bestTop = fallbackTop;
+  }
+  return bestTop;
+}
+
+let previousTime = performance.now();
+function animate(now) {
+  requestAnimationFrame(animate);
+  const dt = Math.min((now - previousTime) / 1000, 0.05);
+  previousTime = now;
+  camera.rotation.set(player.pitch, player.yaw, 0);
+  if (paused) { renderer.render(scene, camera); return; }
+  if (keys[bindings.sneak]) player.sneaking = true;
+  else if (!collides(player.pos.x, player.pos.y, player.pos.z, 2)) player.sneaking = false;
+  const targetHeight = player.sneaking ? 1.75 : 2;
+  player.height = THREE.MathUtils.damp(player.height, targetHeight, 14, dt);
+  const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
+  const right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
+  const movement = new THREE.Vector3();
+  if (keys[bindings.forward]) movement.add(forward);
+  if (keys[bindings.back]) movement.sub(forward);
+  if (keys[bindings.right]) movement.add(right);
+  if (keys[bindings.left]) movement.sub(right);
+  if (movement.lengthSq()) movement.normalize();
+  if (keys[bindings.jump] && player.onGround) { player.vel.y = 8.3; player.onGround = false; }
+  const speed = player.sneaking ? 1.6 : keys[bindings.sprint] ? 6.3 : 5;
+  player.vel.x = THREE.MathUtils.damp(player.vel.x, movement.x * speed, 12, dt);
+  player.vel.z = THREE.MathUtils.damp(player.vel.z, movement.z * speed, 12, dt);
+  const horizontalSpeed = Math.hypot(player.vel.x, player.vel.z);
+  if (horizontalSpeed > speed) { player.vel.x *= speed / horizontalSpeed; player.vel.z *= speed / horizontalSpeed; }
+  player.vel.y -= 28 * dt;
+  const startX = player.pos.x;
+  const startZ = player.pos.z;
+  const nextX = startX + player.vel.x * dt;
+  const nextZ = startZ + player.vel.z * dt;
+  const feetY = player.pos.y - 1.65;
+  let candidateX = startX;
+  let candidateZ = startZ;
+  if (!collides(nextX, player.pos.y, startZ)) candidateX = nextX; else player.vel.x = 0;
+  if (!collides(candidateX, player.pos.y, nextZ)) candidateZ = nextZ; else player.vel.z = 0;
+  const actualMoveX = candidateX - startX;
+  const actualMoveZ = candidateZ - startZ;
+  if (player.sneaking && player.onGround && (actualMoveX || actualMoveZ) &&
+      !hasSneakSupport(candidateX, candidateZ, feetY, actualMoveX, actualMoveZ)) {
+    candidateX = startX;
+    candidateZ = startZ;
+    player.vel.x = 0;
+    player.vel.z = 0;
+  }
+  player.pos.x = candidateX;
+  player.pos.z = candidateZ;
+  const nextY = player.pos.y + player.vel.y * dt;
+  const ignoredEscapeBlock = player.vel.y > 0 ? escapeBlockKey : null;
+  const verticalHit = collides(player.pos.x, nextY, player.pos.z, player.height, ignoredEscapeBlock);
+  if (!verticalHit) { player.pos.y = nextY; player.onGround = false; }
+  else if (player.vel.y > 0) {
+    const bodyHeight = player.height;
+    const ceiling = findCeilingSurface(player.pos.x, player.pos.z, player.pos.y, nextY, bodyHeight);
+    if (ceiling) {
+      player.pos.y = ceiling.bottom - (bodyHeight - 1.65);
+      player.vel.y = -Math.max(3.5, player.vel.y * 0.35);
+    } else {
+      // Already embedded in a block: hold position instead of snapping to another voxel.
+      player.vel.y = 0;
+    }
+    player.onGround = false;
+  } else {
+    const landing = findLandingSurface(player.pos.x, player.pos.z, player.pos.y, nextY);
+    if (landing) {
+      player.pos.y = landing.top + 1.65;
+      player.onGround = true;
+    } else {
+      // Side or lower-body overlap is not a landing surface; remain embedded in place.
+      player.onGround = false;
+    }
+    player.vel.y = 0;
+  }
+  if (escapeBlockKey) {
+    const escapeBlock = blocks.get(escapeBlockKey);
+    if (!escapeBlock || player.pos.y - 1.65 >= escapeBlock.y + 0.48) escapeBlockKey = null;
+  }
+  if (player.pos.y < -8) { player.pos.set(0, terrainHeight(0, 7) + 2.25, 7); player.vel.set(0, 0, 0); }
+  camera.position.set(player.pos.x, player.pos.y - (2 - player.height), player.pos.z);
+  document.querySelector('#coordX').textContent = player.pos.x.toFixed(1);
+  document.querySelector('#coordY').textContent = player.pos.y.toFixed(1);
+  document.querySelector('#coordZ').textContent = player.pos.z.toFixed(1);
+  updateTargetAndBreaking(now);
+  animateHeldItem(now);
+
+  for (let i = drops.length - 1; i >= 0; i--) {
+    const drop = drops[i];
+    drop.mesh.rotation.y += dt * 1.5;
+    if (drop.velocityX || drop.velocityZ) {
+      drop.mesh.position.x += drop.velocityX * dt;
+      drop.mesh.position.z += drop.velocityZ * dt;
+      const friction = Math.exp(-3 * dt);
+      drop.velocityX *= friction;
+      drop.velocityZ *= friction;
+      if (Math.hypot(drop.velocityX, drop.velocityZ) < 0.08) { drop.velocityX = 0; drop.velocityZ = 0; }
+    }
+    if (!drop.grounded) {
+      drop.velocityY -= 18 * dt;
+      const oldY = drop.mesh.position.y;
+      const nextY = drop.mesh.position.y + drop.velocityY * dt;
+      const groundTop = findDropLandingTop(drop.mesh.position.x, drop.mesh.position.z, oldY - 0.15, nextY - 0.15);
+      if (groundTop !== null) {
+        drop.restY = groundTop + 0.15;
+        drop.mesh.position.y = drop.restY;
+        drop.velocityY = 0;
+        drop.grounded = true;
+      } else {
+        drop.mesh.position.y = nextY;
+      }
+    } else {
+      drop.mesh.position.y = drop.restY + Math.sin(now * 0.003 + drop.phase) * 0.045;
+    }
+    if (now >= drop.pickupAt && drop.mesh.position.distanceTo(player.pos) < 1.65) {
+      if (addItemToInventory(drop.type)) {
+        collected++;
+        document.querySelector('#collected').textContent = collected;
+        scene.remove(drop.mesh);
+        drops.splice(i, 1);
+      }
+    }
+  }
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(animate);
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script></body></html>
