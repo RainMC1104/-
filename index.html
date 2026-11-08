@@ -9,9 +9,9 @@
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#83c9e6;color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif}canvas{display:block}#game{position:fixed;inset:0}#ui{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:26px 32px 27px}.top{display:flex;align-items:flex-start;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border:1px solid rgba(255,255,255,.55);background:rgba(20,41,44,.35);display:grid;place-items:center;transform:rotate(-4deg)}.logo span{font-family:'DotGothic16';font-size:24px;color:var(--lime);transform:rotate(4deg)}.name{font-weight:900;font-size:15px;letter-spacing:.13em;line-height:1.2;text-shadow:0 2px 12px #315560}.sub{font-size:10px;letter-spacing:.22em;color:#e2f3ef;opacity:.82;margin-top:4px}.stats{display:flex;gap:8px}.pill{background:var(--glass);border:1px solid var(--line);padding:9px 13px;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.04em;backdrop-filter:blur(10px)}.pill b{font-family:'DotGothic16';font-size:13px;color:var(--lime);font-weight:400}.bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.help{max-width:400px;background:var(--glass);border:1px solid var(--line);padding:14px 17px;backdrop-filter:blur(10px)}.help-title{font-size:10px;letter-spacing:.17em;color:var(--lime);font-weight:700;margin-bottom:8px}.controls{display:grid;grid-template-columns:auto auto;gap:5px 17px}.control{font-size:11px;color:#d8e1dc;display:flex;gap:8px;align-items:center}.key{font-family:'DotGothic16';font-size:10px;color:#fff;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.09);padding:2px 6px;min-width:27px;text-align:center}.hotbar{display:flex;gap:4px;padding:6px;background:rgba(14,24,29,.68);border:1px solid var(--line);backdrop-filter:blur(12px)}.slot{width:48px;height:59px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.035);position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;transition:.15s}.slot.active{border:2px solid var(--lime);background:rgba(204,245,104,.13);transform:translateY(-5px)}.slot .swatch{width:20px;height:20px;border:1px solid rgba(255,255,255,.35);box-shadow:inset -4px -4px rgba(0,0,0,.18)}.slot .label{font-size:8px;color:#d5dfd9;white-space:nowrap;transform:scaleX(.78)}.tool-icon{width:28px;height:28px;object-fit:contain;image-rendering:pixelated}.empty-icon{width:16px;height:16px;border:1px dashed rgba(255,255,255,.32)}.slot .count{position:absolute;right:5px;top:3px;font-family:'DotGothic16';font-size:11px;color:#fff;text-shadow:0 1px 4px #000}.slot .num{position:absolute;left:4px;top:3px;font-size:8px;color:#96a3a2}.crosshair{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 2px #000)}.crosshair:before,.crosshair:after{content:'';position:absolute;background:rgba(255,255,255,.9);border:1px solid rgba(15,30,34,.6)}.crosshair:before{width:2px;height:14px;left:6px;top:0}.crosshair:after{width:14px;height:2px;top:6px;left:0}.overlay{display:none}.overlay.hidden{opacity:0;pointer-events:none}.card{width:min(500px,calc(100vw - 38px));padding:38px 40px 31px;background:rgba(15,27,31,.83);border:1px solid rgba(255,255,255,.25);box-shadow:0 24px 80px rgba(12,28,35,.23);backdrop-filter:blur(18px);text-align:center}.eyebrow{font-size:10px;letter-spacing:.27em;color:var(--lime);font-weight:700}.card h1{font-family:'DotGothic16';font-size:clamp(31px,8vw,48px);font-weight:400;letter-spacing:.06em;margin:9px 0 7px}.card p{font-size:12px;line-height:1.9;color:#c6d2cf;margin:0 auto 22px;max-width:350px}.start{font-family:inherit;font-weight:700;letter-spacing:.09em;font-size:12px;color:#15231f;background:var(--lime);border:0;padding:13px 28px;cursor:pointer;box-shadow:0 5px 0 #86a93b;transition:.12s}.start:hover{transform:translateY(-2px);box-shadow:0 7px 0 #86a93b}.start:active{transform:translateY(3px);box-shadow:0 2px 0 #86a93b}.foot{margin-top:20px;font-size:9px;letter-spacing:.12em;color:#879491}
 .coords{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);font-family:'DotGothic16';font-size:11px;color:#dfe9e4}.coords span{color:#8faaa0;margin-left:5px}.coords b{font-weight:400;color:var(--lime);min-width:35px}.bottom{justify-content:center}.help{display:none}.crosshair{filter:none}.menu-overlay{position:fixed;inset:0;z-index:5;display:none;place-items:center;background:rgba(7,17,20,.62);backdrop-filter:blur(7px);pointer-events:auto}.menu-overlay.show{display:grid}.menu-card{width:min(430px,calc(100vw - 36px));padding:30px 34px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.25);box-shadow:0 24px 80px rgba(0,0,0,.28);text-align:center}.menu-card h1{font-family:'DotGothic16';font-size:30px;font-weight:400;margin:7px 0 20px}.menu-controls{display:grid;grid-template-columns:1fr 1fr;gap:11px 14px;text-align:left;font-size:11px;color:#d8e1dc;margin-bottom:23px}.menu-controls .key{display:inline-block}.menu-card .start{pointer-events:auto}
 .bottom{flex-direction:column;align-items:center;justify-content:flex-end;gap:7px}.vitals{display:flex;flex-direction:row;align-items:center;gap:12px;padding:4px 8px;background:rgba(14,24,29,.54);border:1px solid rgba(255,255,255,.12)}.hearts,.hunger{display:flex;justify-content:center;gap:3px;line-height:1}.heart{font-size:17px;color:#ff5665;text-shadow:0 1px 3px #32151a}.food{font-size:14px;filter:drop-shadow(0 1px 2px #281910)}
-.menu-card [hidden]{display:none!important}.menu-actions{display:flex;justify-content:center;gap:10px}.menu-button,.binding-button{font-family:inherit;color:#eef2e8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 18px;cursor:pointer}.menu-button:hover,.binding-button:hover{border-color:var(--lime)}#settingsPanel h1{margin-bottom:10px}#settingsPanel h2{font-size:13px;color:var(--lime);margin:10px 0}.binding-list{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;max-height:34vh;overflow-y:auto;padding:2px 4px 8px 0}.binding-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;color:#d8e1dc}.binding-button{min-width:72px;padding:5px 8px;font-family:monospace;font-size:11px}.binding-button.waiting{color:var(--lime);border-color:var(--lime)}.sensitivity-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:10px 0 5px;color:#d8e1dc}#sensitivity{width:100%;accent-color:var(--lime);pointer-events:auto}.back-button{margin-top:12px}.inventory-overlay{position:fixed;inset:0;z-index:4;display:none;place-items:center;background:rgba(5,12,14,.38);pointer-events:auto}.inventory-overlay.show{display:grid}.inventory-panel{padding:18px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 65px #0008}.inventory-panel h2{font:20px 'DotGothic16';text-align:center;margin:0 0 14px}.inventory-grid{display:grid;grid-template-columns:repeat(9,54px);gap:4px}.inventory-grid .slot{width:54px;height:54px;cursor:pointer;background:rgba(255,255,255,.08)}.inventory-grid .slot.active{transform:none}.inventory-grid .slot .label{display:none}.inventory-grid .slot .swatch{width:26px;height:26px}.inventory-grid .tool-icon{width:34px;height:34px}.inventory-grid .slot .count,.hotbar .slot .count{z-index:1}.slot .count{pointer-events:none}.inventory-separator{height:10px;border-bottom:1px solid #ffffff30;margin-bottom:10px}.cursor-item{position:fixed;z-index:10;display:none;pointer-events:none;width:48px;height:48px;align-items:center;justify-content:center;background:#162321d9;border:1px solid var(--lime);transform:translate(-50%,-50%)}.cursor-item.show{display:flex}.cursor-item .swatch{width:30px;height:30px}.cursor-item .tool-icon{width:36px;height:36px}.cursor-item b{position:absolute;right:2px;bottom:0;font-size:11px;text-shadow:0 1px 3px #000}@media(max-width:640px){.inventory-grid{grid-template-columns:repeat(9,34px);gap:3px}.inventory-grid .slot{width:34px;height:42px}.inventory-panel{padding:11px}.inventory-grid .tool-icon{width:27px;height:27px}}
+.menu-card [hidden]{display:none!important}.menu-actions{display:flex;justify-content:center;gap:10px}.menu-button,.binding-button{font-family:inherit;color:#eef2e8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);padding:10px 18px;cursor:pointer}.menu-button:hover,.binding-button:hover{border-color:var(--lime)}#settingsPanel h1{margin-bottom:10px}#settingsPanel h2{font-size:13px;color:var(--lime);margin:10px 0}.binding-list{display:flex;flex-direction:column;gap:12px;max-height:52vh;overflow-y:auto;padding:4px 8px 8px 4px;scrollbar-color:var(--lime) rgba(255,255,255,.08);scrollbar-width:thin}.binding-list::-webkit-scrollbar,.menu-card::-webkit-scrollbar{width:8px}.binding-list::-webkit-scrollbar-track,.menu-card::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:8px}.binding-list::-webkit-scrollbar-thumb,.menu-card::-webkit-scrollbar-thumb{background:#91aa94;border:2px solid rgba(15,27,31,.94);border-radius:8px}.binding-group-title{margin:0 0 6px;color:var(--lime);font-size:12px;letter-spacing:.08em}.binding-group-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}.binding-row{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:42px;padding:6px 8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:4px;font-size:12px;color:#d8e1dc}.binding-button{min-width:96px;min-height:32px;padding:5px 8px;font-family:monospace;font-size:11px;font-weight:700;background:#253632;border:1px solid #91aa94;color:#fff}.binding-button.waiting{background:#4e5d27;color:#efffc7;border-color:var(--lime)}.sensitivity-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:10px 0 5px;color:#d8e1dc}#sensitivity{width:100%;accent-color:var(--lime);pointer-events:auto}.back-button{margin-top:12px}.inventory-overlay{position:fixed;inset:0;z-index:4;display:none;place-items:center;background:rgba(5,12,14,.38);pointer-events:auto}.inventory-overlay.show{display:grid}.inventory-panel{padding:18px;background:rgba(15,27,31,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 65px #0008}.inventory-panel h2{font:20px 'DotGothic16';text-align:center;margin:0 0 14px}.inventory-grid{display:grid;grid-template-columns:repeat(9,54px);gap:4px}.inventory-grid .slot{width:54px;height:54px;cursor:pointer;background:rgba(255,255,255,.08)}.inventory-grid .slot.active{transform:none}.inventory-grid .slot .label{display:none}.inventory-grid .slot .swatch{width:26px;height:26px}.inventory-grid .tool-icon{width:34px;height:34px}.inventory-grid .slot .count,.hotbar .slot .count{z-index:1}.slot .count{pointer-events:none}.inventory-separator{height:10px;border-bottom:1px solid #ffffff30;margin-bottom:10px}.cursor-item{position:fixed;z-index:10;display:none;pointer-events:none;width:48px;height:48px;align-items:center;justify-content:center;background:#162321d9;border:1px solid var(--lime);transform:translate(-50%,-50%)}.cursor-item.show{display:flex}.cursor-item .swatch{width:30px;height:30px}.cursor-item .tool-icon{width:36px;height:36px}.cursor-item b{position:absolute;right:2px;bottom:0;font-size:11px;text-shadow:0 1px 3px #000}@media(max-width:640px){.binding-group-grid{grid-template-columns:1fr}.menu-card:has(#settingsPanel:not([hidden])){padding:20px 14px}.binding-row{font-size:11px;padding:5px}.binding-button{min-width:78px}.inventory-grid{grid-template-columns:repeat(9,34px);gap:3px}.inventory-grid .slot{width:34px;height:42px}.inventory-panel{padding:11px}.inventory-grid .tool-icon{width:27px;height:27px}}
 /* Clearer control remapping: larger, higher contrast rows and more room for labels. */
-.menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}.binding-list{grid-template-columns:1fr 1fr;max-height:45vh;gap:7px 10px;padding:4px}.binding-row{min-height:46px;padding:6px 8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:4px;font-size:12px}.binding-button{min-width:104px;min-height:32px;background:#253632;border:1px solid #91aa94;color:#fff;font-size:12px;font-weight:700}.binding-button.waiting{background:#4e5d27;color:#efffc7;border-color:var(--lime)}#settingsPanel .sensitivity-label,#settingsPanel #sensitivity{display:block;max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel .back-button{display:block;margin:16px auto 0}@media(max-width:640px){.menu-card:has(#settingsPanel:not([hidden])){padding:20px 14px}.binding-list{grid-template-columns:1fr 1fr;gap:5px}.binding-row{font-size:11px;padding:5px}.binding-button{min-width:78px}}
+.menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}#settingsPanel .sensitivity-label,#settingsPanel #sensitivity{display:block;max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel .back-button{display:block;margin:16px auto 0}
 </style>
 </head>
 <body>
@@ -43,12 +43,11 @@ const DEFAULT_BINDINGS = {
   hotbar1: 'Digit1', hotbar2: 'Digit2', hotbar3: 'Digit3', hotbar4: 'Digit4', hotbar5: 'Digit5',
   hotbar6: 'Digit6', hotbar7: 'Digit7', hotbar8: 'Digit8', hotbar9: 'Digit9'
 };
-const BINDING_LABELS = {
-  forward: '前進', back: '後退', left: '左移動', right: '右移動', jump: 'ジャンプ',
-  sneak: 'スニーク', sprint: 'ダッシュ', drop: 'アイテムを落とす', inventory: 'インベントリ',
-  hotbar1: 'スロット1', hotbar2: 'スロット2', hotbar3: 'スロット3', hotbar4: 'スロット4',
-  hotbar5: 'スロット5', hotbar6: 'スロット6', hotbar7: 'スロット7', hotbar8: 'スロット8', hotbar9: 'スロット9'
-};
+const BINDING_GROUPS = [
+  { title: 'スロット操作', actions: Array.from({ length: 9 }, (_, index) => [`hotbar${index + 1}`, `スロット ${index + 1}`]) },
+  { title: '移動操作', actions: [['forward', '前進'], ['back', '後退'], ['left', '左移動'], ['right', '右移動'], ['jump', 'ジャンプ'], ['sneak', 'スニーク'], ['sprint', 'ダッシュ']] },
+  { title: 'アクション操作', actions: [['inventory', 'インベントリ'], ['drop', 'アイテムを落とす']] }
+];
 const SETTINGS_STORAGE_KEY = 'blockland-controls-v1';
 let bindings = { ...DEFAULT_BINDINGS };
 let mouseSensitivity = 1;
@@ -77,21 +76,31 @@ function renderBindingSettings() {
   const list = document.querySelector('#bindingList');
   if (!list) return;
   list.innerHTML = '';
-  for (const [action, label] of Object.entries(BINDING_LABELS)) {
-    const row = document.createElement('div');
-    row.className = 'binding-row';
-    const name = document.createElement('span');
-    name.textContent = label;
-    const button = document.createElement('button');
-    button.className = `binding-button${rebindingAction === action ? ' waiting' : ''}`;
-    button.type = 'button';
-    button.textContent = rebindingAction === action ? 'キーを押す' : formatBinding(bindings[action]);
-    button.addEventListener('click', () => {
-      rebindingAction = action;
-      renderBindingSettings();
-    });
-    row.append(name, button);
-    list.appendChild(row);
+  for (const group of BINDING_GROUPS) {
+    const section = document.createElement('section');
+    const heading = document.createElement('h3');
+    heading.className = 'binding-group-title';
+    heading.textContent = group.title;
+    const grid = document.createElement('div');
+    grid.className = 'binding-group-grid';
+    for (const [action, label] of group.actions) {
+      const row = document.createElement('div');
+      row.className = 'binding-row';
+      const name = document.createElement('span');
+      name.textContent = label;
+      const button = document.createElement('button');
+      button.className = `binding-button${rebindingAction === action ? ' waiting' : ''}`;
+      button.type = 'button';
+      button.textContent = rebindingAction === action ? 'キーを押す' : formatBinding(bindings[action]);
+      button.addEventListener('click', () => {
+        rebindingAction = action;
+        renderBindingSettings();
+      });
+      row.append(name, button);
+      grid.appendChild(row);
+    }
+    section.append(heading, grid);
+    list.appendChild(section);
   }
 }
 const scene = new THREE.Scene();
@@ -255,10 +264,18 @@ function makeCrackTexture(progress) {
 }
 const destroyStages = Array.from({ length: 10 }, (_, stage) => makeCrackTexture((stage + 1) / 10));
 const crackMaterial = new THREE.MeshBasicMaterial({ map: destroyStages[0], color: 0xffffff, transparent: true, alphaTest: 0.005, depthTest: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1, side: THREE.DoubleSide });
-const crackMesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), crackMaterial);
-crackMesh.renderOrder = 100;
-crackMesh.visible = false;
-scene.add(crackMesh);
+const crackNormals = [
+  new THREE.Vector3(1, 0, 0), new THREE.Vector3(-1, 0, 0),
+  new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, -1, 0),
+  new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, -1)
+];
+const crackMeshes = crackNormals.map(() => {
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), crackMaterial);
+  mesh.renderOrder = 100;
+  mesh.visible = false;
+  scene.add(mesh);
+  return mesh;
+});
 let breakState = null;
 let selected = 0;
 let locked = false;
@@ -294,13 +311,22 @@ function makeToolIcon(kind) {
     px(7,3,18,8,outline); px(9,4,14,5,metal);
     px(4,7,12,11,outline); px(6,8,9,8,metal);
   }
-  return canvas.toDataURL('image/png');
+  return canvas;
 }
-const toolIcons = {
+const toolIconCanvases = {
   iron_sword: makeToolIcon('iron_sword'),
   iron_pickaxe: makeToolIcon('iron_pickaxe'),
   iron_axe: makeToolIcon('iron_axe')
 };
+const toolIcons = Object.fromEntries(Object.entries(toolIconCanvases).map(([id, canvas]) => [id, canvas.toDataURL('image/png')]));
+const toolIconTextures = Object.fromEntries(Object.entries(toolIconCanvases).map(([id, canvas]) => {
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+  return [id, texture];
+}));
 function addHeldBox(parent, size, position, material, rotation = 0) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), material);
   mesh.position.set(...position);
@@ -344,6 +370,7 @@ function animateHeldItem(now) {
   } else if (viewAction === 'mine') {
     viewAction = 'idle';
   }
+  if (viewAction === 'swing' && now - viewActionStarted > 260) viewAction = 'idle';
   if (viewAction === 'place' && now - viewActionStarted > 280) viewAction = 'idle';
   heldView.position.copy(heldBasePosition);
   heldView.rotation.set(0, 0, 0);
@@ -352,6 +379,11 @@ function animateHeldItem(now) {
     const swing = Math.sin(phase * Math.PI * 2);
     heldView.rotation.set(-0.15 + Math.max(0, swing) * 0.95, 0.05, 0.28 + swing * 0.24);
     heldView.position.y += Math.max(0, swing) * 0.035;
+  } else if (viewAction === 'swing') {
+    const progress = Math.min((now - viewActionStarted) / 260, 1);
+    const swing = Math.sin(progress * Math.PI);
+    heldView.rotation.set(-0.15 + swing * 1.15, 0.05, 0.28 + swing * 0.24);
+    heldView.position.y += swing * 0.045;
   } else if (viewAction === 'place') {
     const phase = Math.min((now - viewActionStarted) / 280, 1);
     const swing = Math.sin(phase * Math.PI);
@@ -424,9 +456,9 @@ function addItemToInventory(id, count = 1) {
   const tool = id.startsWith('iron_');
   const stack = { id, label: labels[id] || id, ...(tool ? { tool: true } : { type: id }), count: tool ? 1 : count };
   const leftover = transferStack(stack, [HOTBAR, INVENTORY_SLOTS]);
-  if (leftover) return false;
-  updateHotbar();
-  return true;
+  const added = stack.count - (leftover?.count || 0);
+  if (added) updateHotbar();
+  return added;
 }
 function handleSlotClick(event, slotElement) {
   const area = slotElement.dataset.area;
@@ -490,7 +522,10 @@ document.querySelector('#inventoryHotbar').addEventListener('mousedown', event =
   handleSlotClick(event, slot);
 });
 document.querySelector('#inventoryOverlay').addEventListener('mousedown', event => {
-  if (event.target.id === 'inventoryOverlay') closeInventory();
+  if (event.target.id === 'inventoryOverlay') {
+    if (cursorStack) dropCursorStack();
+    closeInventory();
+  }
 });
 document.addEventListener('contextmenu', event => { if (inventoryOpen) event.preventDefault(); });
 document.addEventListener('mousemove', updateCursorItem);
@@ -499,9 +534,21 @@ function returnCursorStack() {
   cursorStack = transferStack(cursorStack, [HOTBAR, INVENTORY_SLOTS]);
   updateHotbar();
 }
+function dropCursorStack(count = cursorStack?.count) {
+  if (!cursorStack || !count) return;
+  const droppedCount = Math.min(count, cursorStack.count);
+  spawnPlayerDrop(cursorStack, droppedCount);
+  cursorStack.count -= droppedCount;
+  if (!cursorStack.count) cursorStack = null;
+  updateHotbar();
+  updateCursorItem();
+}
 function openInventory() {
   inventoryOpen = true;
   inventoryWasLocked = locked;
+  for (const code of Object.keys(keys)) keys[code] = false;
+  player.vel.x = 0;
+  player.vel.z = 0;
   if (locked) document.exitPointerLock();
   document.querySelector('#inventoryOverlay').classList.add('show');
   updateCursorItem();
@@ -517,26 +564,41 @@ function closeInventory() {
 function dropSelectedItem() {
   const item = HOTBAR[selected];
   if (!item) return;
-  spawnDrop(item, player.pos.x - Math.sin(player.yaw) * 0.8, player.pos.y - 0.2, player.pos.z - Math.cos(player.yaw) * 0.8);
-  const dropped = drops[drops.length - 1];
-  dropped.velocityX = -Math.sin(player.yaw) * 3.5;
-  dropped.velocityZ = -Math.cos(player.yaw) * 3.5;
-  dropped.pickupAt = performance.now() + 900;
+  spawnPlayerDrop(item, 1);
   item.count--;
   if (item.count <= 0) HOTBAR[selected] = null;
   updateHotbar();
+}
+function spawnPlayerDrop(item, count) {
+  const dropped = spawnDrop(
+    item,
+    player.pos.x - Math.sin(player.yaw) * 0.8,
+    player.pos.y - 0.2,
+    player.pos.z - Math.cos(player.yaw) * 0.8,
+    count
+  );
+  dropped.velocityX = -Math.sin(player.yaw) * 3.5;
+  dropped.velocityZ = -Math.cos(player.yaw) * 3.5;
+  dropped.pickupAt = performance.now() + 900;
 }
 for (let i = 0; i < 10; i++) {
   document.querySelector('#hearts').insertAdjacentHTML('beforeend', '<span class="heart">♥</span>');
   document.querySelector('#hunger').insertAdjacentHTML('beforeend', '<span class="food">🍗</span>');
 }
-function spawnDrop(item, x, y, z) {
+function spawnDrop(item, x, y, z, count = 1) {
   const color = item.type ? COLORS[item.type] : 0x929b9b;
-  const material = item.type ? materials[item.type] : new THREE.MeshLambertMaterial({ color });
-  const mesh = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), material);
+  const material = item.tool
+    ? new THREE.SpriteMaterial({ map: toolIconTextures[item.id], transparent: true, depthWrite: false })
+    : item.type ? materials[item.type] : new THREE.MeshLambertMaterial({ color });
+  const mesh = item.tool
+    ? new THREE.Sprite(material)
+    : new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), material);
+  if (item.tool) mesh.scale.set(0.48, 0.48, 1);
   mesh.position.set(x, y, z);
   scene.add(mesh);
-  drops.push({ mesh, type: item.id, velocityX: 0, velocityZ: 0, velocityY: 0, grounded: false, restY: null, phase: random() * Math.PI * 2, pickupAt: 0 });
+  const drop = { mesh, type: item.id, count: item.tool ? 1 : count, tool: !!item.tool, velocityX: 0, velocityZ: 0, velocityY: 0, grounded: false, restY: null, phase: random() * Math.PI * 2, pickupAt: 0 };
+  drops.push(drop);
+  return drop;
 }
 function dropBlock(block) {
   const removedKey = coordKey(block.x, block.y, block.z);
@@ -556,14 +618,17 @@ function getTarget() {
 }
 function cancelBreak() {
   breakState = null;
-  crackMesh.visible = false;
+  for (const mesh of crackMeshes) mesh.visible = false;
 }
-function drawCracks(stage, block, normal) {
+function drawCracks(stage, block) {
   crackMaterial.map = destroyStages[stage];
   crackMaterial.needsUpdate = true;
-  crackMesh.position.set(block.x + normal.x * 0.503, block.y + normal.y * 0.503, block.z + normal.z * 0.503);
-  crackMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
-  crackMesh.visible = true;
+  crackMeshes.forEach((mesh, index) => {
+    const normal = crackNormals[index];
+    mesh.position.set(block.x + normal.x * 0.503, block.y + normal.y * 0.503, block.z + normal.z * 0.503);
+    mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
+    mesh.visible = true;
+  });
 }
 function updateTargetAndBreaking(now) {
   const target = getTarget();
@@ -581,8 +646,7 @@ function updateTargetAndBreaking(now) {
       key: targetKey,
       startedAt: now,
       duration: getBreakDuration(target.block.type),
-      stage: -1,
-      normal: target.hit.face.normal.clone().transformDirection(target.hit.object.matrixWorld)
+      stage: -1
     };
     if (viewAction !== 'mine') startViewAction('mine', now);
   }
@@ -592,7 +656,7 @@ function updateTargetAndBreaking(now) {
   const stage = Math.min(9, Math.floor(progress * 10));
   if (stage !== breakState.stage) {
     breakState.stage = stage;
-    drawCracks(stage, block, breakState.normal);
+    drawCracks(stage, block);
   }
   if (progress >= 1) {
     dropBlock(block);
@@ -668,9 +732,12 @@ function requestLook() {
 }
 renderer.domElement.addEventListener('click', () => { if (!locked) requestLook(); });
 renderer.domElement.addEventListener('mousedown', event => {
-  if (paused) return;
+  if (paused || inventoryOpen) return;
   if (!locked) dragging = true;
-  if (event.button === 0) leftMouseHeld = true;
+  if (event.button === 0) {
+    leftMouseHeld = true;
+    startViewAction('swing');
+  }
   const target = getTarget();
   if (event.button === 2 && target?.block) placeBlock(target.hit);
 });
@@ -723,6 +790,13 @@ document.addEventListener('keydown', event => {
     if (event.repeat) return;
     event.preventDefault();
     if (inventoryOpen) closeInventory(); else openInventory();
+    return;
+  }
+  if (inventoryOpen) {
+    if (event.code === bindings.drop && !event.repeat) {
+      event.preventDefault();
+      dropCursorStack(1);
+    }
     return;
   }
   if (event.code === bindings.drop) { if (event.repeat) return; event.preventDefault(); dropSelectedItem(); return; }
@@ -820,21 +894,21 @@ function findJumpEscapeBlock() {
 }
 function hasSneakSupport(x, z, feetY, moveX, moveZ) {
   const length = Math.hypot(moveX, moveZ) || 1;
-  const backX = -moveX / length;
-  const backZ = -moveZ / length;
-  const sideX = -backZ * 0.27;
-  const sideZ = backX * 0.27;
+  const forwardX = moveX / length;
+  const forwardZ = moveZ / length;
+  const sideX = -forwardZ * 0.22;
+  const sideZ = forwardX * 0.22;
   const samples = [
-    [x + backX * 0.27, z + backZ * 0.27],
-    [x + backX * 0.27 + sideX, z + backZ * 0.27 + sideZ],
-    [x + backX * 0.27 - sideX, z + backZ * 0.27 - sideZ]
+    [x + forwardX * 0.28, z + forwardZ * 0.28],
+    [x + forwardX * 0.28 + sideX, z + forwardZ * 0.28 + sideZ],
+    [x + forwardX * 0.28 - sideX, z + forwardZ * 0.28 - sideZ]
   ];
-  return samples.some(([sx, sz]) => {
+  return samples.every(([sx, sz]) => {
     const bx = Math.floor(sx + 0.5), bz = Math.floor(sz + 0.5);
-    const aroundY = Math.floor(feetY + 0.5);
-    for (let by = aroundY - 2; by <= aroundY + 1; by++) {
+    for (let by = Math.floor(feetY) - 1; by <= Math.ceil(feetY); by++) {
       const block = blocks.get(coordKey(bx, by, bz));
-      if (block && Math.abs(block.y + 0.5 - feetY) <= 0.22) return true;
+      const top = block ? block.y + 0.5 : -Infinity;
+      if (top <= feetY + 0.08 && top >= feetY - 0.35) return true;
     }
     return false;
   });
@@ -968,11 +1042,17 @@ function animate(now) {
       drop.mesh.position.y = drop.restY + Math.sin(now * 0.003 + drop.phase) * 0.045;
     }
     if (now >= drop.pickupAt && drop.mesh.position.distanceTo(player.pos) < 1.65) {
-      if (addItemToInventory(drop.type)) {
-        collected++;
+      const added = addItemToInventory(drop.type, drop.count);
+      if (added) {
+        collected += added;
         document.querySelector('#collected').textContent = collected;
-        scene.remove(drop.mesh);
-        drops.splice(i, 1);
+        drop.count -= added;
+        if (drop.count <= 0) {
+          scene.remove(drop.mesh);
+          if (drop.tool) drop.mesh.material.dispose();
+          else drop.mesh.geometry.dispose();
+          drops.splice(i, 1);
+        }
       }
     }
   }
