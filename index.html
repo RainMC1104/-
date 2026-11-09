@@ -13,7 +13,7 @@
 /* Clearer control remapping: larger, higher contrast rows and more room for labels. */
 .menu-card:has(#settingsPanel:not([hidden])){width:min(650px,calc(100vw - 36px));text-align:left;max-height:94vh;overflow-y:auto}#settingsPanel .eyebrow,#settingsPanel>h1,#settingsPanel>h2{text-align:center}.binding-group-grid{grid-template-columns:1fr}.binding-row{min-height:40px}.sensitivity-label{max-width:420px;margin-left:auto;margin-right:auto}#settingsPanel #sensitivity,#fieldOfView{display:block;width:100%;max-width:420px;margin-left:auto;margin-right:auto;accent-color:var(--lime);pointer-events:auto}.settings-range{margin-top:12px}.menu-card:has(#settingsPanel:not([hidden])){scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}#settingsPanel .back-button{display:block;margin:16px auto 0}
 .menu-overlay.show{display:grid}.menu-card:has(#worldListPanel:not([hidden])),.menu-card:has(#createWorldPanel:not([hidden])){width:min(700px,calc(100vw - 36px));text-align:left}.menu-card h1{margin-bottom:14px}#titlePanel h1{white-space:nowrap;font-size:clamp(20px,7vw,30px)}.menu-stack{display:flex;flex-direction:column;gap:12px;width:min(320px,100%);margin:26px auto 0}.menu-stack .menu-button,.menu-stack .start,.world-row .start{width:100%;font-size:14px}.menu-stack .start{padding-left:12px;padding-right:12px}#titlePanel #worldMenuButton{white-space:nowrap}.menu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.menu-heading h1{margin:0}.world-list{display:flex;flex-direction:column;gap:9px;max-height:55vh;overflow-y:auto;padding:2px 6px 6px 2px;scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}.world-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}.world-row h2{margin:0 0 3px;font-size:15px}.world-row p{margin:0;color:#aebbb7;font-size:11px}.world-row-actions{display:flex;gap:8px}.world-row .start{width:auto;min-width:100px;padding:10px 18px}.world-row .delete-world{color:#ffb4a9;border-color:#a36363}.world-empty,.world-error{padding:24px;text-align:center;color:#c6d2cf;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.2)}.world-error{color:#ffb4a9}.world-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}.world-mode{min-height:160px;padding:20px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);color:var(--ink);cursor:pointer;font:inherit}.world-mode:hover{border-color:var(--lime);background:rgba(204,245,104,.09)}.world-mode strong{display:block;color:var(--lime);font-size:18px;margin-bottom:8px}.world-mode span{font-size:12px;line-height:1.8;color:#c6d2cf}.menu-error{margin:8px 0;color:#ffb4a9;font-size:12px}.menu-back{display:block;margin:12px auto 0}.settings-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px auto;max-width:420px}.settings-mode-button{padding:9px 6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:var(--ink);font:inherit;cursor:pointer}.settings-mode-button.active{border-color:var(--lime);color:var(--lime);background:rgba(204,245,104,.1)}.chat-panel{position:fixed;z-index:3;left:24px;bottom:110px;width:min(520px,calc(100vw - 40px));pointer-events:none;opacity:0;transform:translateY(8px);transition:.12s}.chat-panel.open{opacity:1;transform:none;pointer-events:auto}.chat-log{max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:linear-gradient(transparent,rgba(8,18,21,.78));font-size:13px;text-shadow:0 1px 3px #000}.chat-line{overflow-wrap:anywhere}.chat-line.system{color:var(--lime)}.chat-line.message{color:#fff}.chat-suggestions{max-height:140px;overflow-y:auto;width:max-content;min-width:180px;margin-bottom:5px;padding:4px;background:rgba(12,22,25,.94);border:1px solid rgba(255,255,255,.2);scrollbar-color:#91aa94 rgba(255,255,255,.08)}.chat-suggestion{padding:4px 8px;font:13px monospace;color:#e5ebe5}.chat-suggestion.selected{background:rgba(204,245,104,.18);color:var(--lime)}.chat-input{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.3);outline:none;background:rgba(12,22,25,.95);color:#fff;font:14px monospace}.chat-input:focus{border-color:var(--lime)}.chat-suggestions[hidden]{display:none!important}#ui.menu-hidden{display:none!important}#ui.spectator .bottom{display:none!important}#ui.spectator .coords{opacity:.7}@media(max-width:600px){.world-mode-grid{grid-template-columns:1fr}.world-mode{min-height:120px}.world-row{gap:8px;padding:10px}.world-row .start{min-width:74px;padding:9px}.menu-heading{align-items:flex-start}.world-row-actions{flex-direction:column}.chat-panel{left:12px;bottom:20px}}
-.inventory-panel{display:flex;align-items:flex-start;gap:18px;max-width:calc(100vw - 24px);max-height:90vh;overflow:auto}.inventory-workspace{display:flex;flex-direction:column;gap:10px}.crafting-preview{display:grid;grid-template-columns:repeat(3,34px);gap:3px;align-items:center;justify-content:center;padding:8px;background:#ffffff0b;border:1px solid #ffffff20}.crafting-preview.small{grid-template-columns:repeat(2,34px)}.craft-cell{width:34px;height:34px;display:grid;place-items:center;background:#ffffff10;border:1px solid #ffffff1a;color:#c6d2cf;font-size:10px}.craft-arrow{color:var(--lime);font-size:18px}.craft-recipes{display:flex;flex-direction:column;gap:5px;width:176px;max-height:330px;overflow:auto;padding-right:4px;scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}.craft-recipe{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 8px;text-align:left;background:#ffffff0b;border:1px solid #ffffff20;color:var(--ink);font-family:inherit;font-size:11px;cursor:pointer}.craft-recipe:hover:not(:disabled){border-color:var(--lime);background:#ccf56818}.craft-recipe:disabled{opacity:.42;cursor:not-allowed}.craft-recipe-output{color:var(--lime);white-space:nowrap}.craft-section-title{font-size:12px;color:var(--lime);margin:0}.inventory-main{display:flex;flex-direction:column;gap:10px}.inventory-main h2{margin-bottom:0}.inventory-main .inventory-grid{margin:0 auto}.inventory-grid .slot .material-icon,.hotbar .slot .material-icon,.cursor-item .material-icon{font-size:22px;color:#f4ead4;text-shadow:0 1px 3px #000}.inventory-grid .slot .swatch,.hotbar .slot .swatch{background-image:linear-gradient(135deg,#ffffff22 25%,transparent 25%,transparent 50%,#0000001a 50%,#0000001a 75%,transparent 75%);background-size:8px 8px}.station-crafting .craft-recipes{width:min(270px,calc(100vw - 40px));max-height:190px}.station-crafting .crafting-preview{grid-template-columns:repeat(3,34px)}.station-title{font:16px 'DotGothic16';color:var(--lime);margin:0 0 8px;text-align:center}@media(max-width:640px){.inventory-panel{gap:8px;padding:8px;max-height:92vh}.craft-recipes{width:112px;max-height:220px}.craft-recipe{font-size:9px;padding:5px 4px}.crafting-preview{grid-template-columns:repeat(3,25px);padding:4px}.crafting-preview.small{grid-template-columns:repeat(2,25px)}.craft-cell{width:25px;height:25px}.inventory-grid .slot .material-icon,.hotbar .slot .material-icon{font-size:15px}.inventory-main h2{font-size:16px}.station-crafting .craft-recipes{width:min(220px,calc(100vw - 24px))}}
+.inventory-panel{display:grid;grid-template-columns:minmax(0,1fr) 250px;align-items:start;gap:20px;width:min(900px,calc(100vw - 24px));max-height:90vh;overflow:auto}.inventory-workspace{display:flex;flex-direction:column;gap:10px;min-width:0;align-items:center;padding:8px 12px;background:#ffffff08;border:1px solid #ffffff1a}.crafting-preview{display:grid;grid-template-columns:repeat(3,38px);gap:4px;align-items:center;justify-content:center;padding:10px;background:#ffffff0b;border:1px solid #ffffff20}.crafting-preview.small{grid-template-columns:repeat(2,38px)}.craft-cell{width:38px;height:38px;display:grid;place-items:center;background:#ffffff10;border:1px solid #ffffff1a;color:#c6d2cf;font-size:10px}.craft-arrow{color:var(--lime);font-size:18px}.craft-recipes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:100%;max-height:230px;overflow:auto;padding:2px 4px 2px 2px;scrollbar-color:#91aa94 rgba(255,255,255,.08);scrollbar-width:thin}.craft-recipe{display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;min-height:44px;padding:5px 7px;text-align:left;background:#ffffff0b;border:1px solid #ffffff20;color:var(--ink);font-family:inherit;font-size:11px;cursor:pointer}.craft-recipe:hover:not(:disabled){border-color:var(--lime);background:#ccf56818}.craft-recipe:disabled{opacity:.42;cursor:not-allowed}.craft-recipe-output{display:flex;align-items:center;gap:3px;color:var(--lime);white-space:nowrap}.craft-section-title{font-size:12px;color:var(--lime);margin:0}.inventory-main{display:flex;flex-direction:column;gap:10px;min-width:0}.inventory-main h2{margin-bottom:0}.inventory-main .inventory-grid{margin:0 auto}.inventory-grid .slot .material-icon,.hotbar .slot .material-icon,.cursor-item .material-icon{width:30px;height:30px;object-fit:contain;image-rendering:pixelated}.inventory-grid .slot .swatch,.hotbar .slot .swatch{background-image:linear-gradient(135deg,#ffffff22 25%,transparent 25%,transparent 50%,#0000001a 50%,#0000001a 75%,transparent 75%);background-size:8px 8px}.station-crafting .craft-recipes{width:100%;max-height:190px}.station-crafting .crafting-preview{grid-template-columns:repeat(3,38px)}.station-title{font:16px 'DotGothic16';color:var(--lime);margin:0 0 8px;text-align:center}@media(max-width:700px){.inventory-panel{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:8px;max-height:92vh}.inventory-workspace{order:2}.inventory-main{order:1}.craft-recipes{grid-template-columns:repeat(3,minmax(0,1fr));max-height:155px}.craft-recipe{min-height:38px;padding:4px}.crafting-preview{grid-template-columns:repeat(3,30px);padding:5px}.crafting-preview.small{grid-template-columns:repeat(2,30px)}.craft-cell{width:30px;height:30px}.inventory-grid .slot .material-icon,.hotbar .slot .material-icon{width:24px;height:24px}.inventory-main h2{font-size:16px}.station-crafting .crafting-preview{grid-template-columns:repeat(3,30px)}}
 </style>
 </head>
 <body>
@@ -27,7 +27,7 @@
 <div id="pausePanel" hidden><h1>一時停止中</h1><div class="menu-stack"><button class="start" id="resume">ゲームに戻る</button><button class="menu-button" id="pauseSettings">設定</button><button class="menu-button" id="leaveWorld">ワールドを抜ける</button></div></div>
 <div id="settingsPanel" hidden><div class="eyebrow">SETTINGS</div><h1>設定</h1><section id="gameModeSettings" hidden><h2>ゲームモード</h2><div class="settings-mode-grid"><button class="settings-mode-button" data-game-mode="survival">サバイバル</button><button class="settings-mode-button" data-game-mode="creative">クリエイティブ</button><button class="settings-mode-button" data-game-mode="spectator">スペクテイター</button><button class="settings-mode-button" data-game-mode="adventure">アドベンチャー</button></div></section><h2>キー操作</h2><div class="binding-list" id="bindingList"></div><label class="sensitivity-label" for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.2" max="3" step="0.1" value="1"><button class="menu-button back-button" id="settingsBack">戻る</button></div>
 </div></div>
-<div id="inventoryOverlay" class="inventory-overlay"><div class="inventory-panel"><aside class="inventory-workspace"><h3 class="craft-section-title">クラフト・レシピ</h3><div id="craftRecipes" class="craft-recipes"></div><div id="craftPreview" class="crafting-preview"></div></aside><div class="inventory-main"><h2 id="inventoryTitle">インベントリ</h2><div id="inventoryGrid" class="inventory-grid"></div><div class="inventory-separator"></div><div id="inventoryHotbar" class="inventory-grid"></div></div></div></div><div id="cursorItem" class="cursor-item"></div>
+<div id="inventoryOverlay" class="inventory-overlay"><div class="inventory-panel"><div class="inventory-main"><h2 id="inventoryTitle">インベントリ</h2><div id="inventoryGrid" class="inventory-grid"></div><div class="inventory-separator"></div><div id="inventoryHotbar" class="inventory-grid"></div></div><aside class="inventory-workspace"><h3 class="craft-section-title">クラフト</h3><div id="craftPreview" class="crafting-preview"></div><div id="craftRecipes" class="craft-recipes"></div></aside></div></div><div id="cursorItem" class="cursor-item"></div>
 <div id="chatPanel" class="chat-panel"><div id="chatLog" class="chat-log" aria-live="polite"></div><div id="chatSuggestions" class="chat-suggestions" hidden></div><input id="chatInput" class="chat-input" type="text" autocomplete="off" disabled aria-label="チャット"></div>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js';
@@ -51,6 +51,8 @@ const INVENTORY_SLOTS = Array(27).fill(null);
 const blocks = new Map();
 const blockEdits = new Map();
 const loadedChunks = new Map();
+const chunkLoadQueue = [];
+const queuedChunkKeys = new Set();
 const activeFluidFlow = new Map();
 const drops = [];
 const keys = Object.create(null);
@@ -147,7 +149,7 @@ let displayedFieldOfView = camera.fov;
 camera.rotation.order = 'YXZ';
 scene.add(camera);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
 renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -159,13 +161,73 @@ const sun = new THREE.DirectionalLight(0xfff1ce, 2.6);
 sun.position.set(-18, 32, 16);
 scene.add(sun);
 
+function makeBlockTexture(type) {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  if (type === 'tall_grass') {
+    const shades = ['#497c35', '#5d963d', '#72ad48', '#8cc957', '#a4d76b', '#396a32'];
+    for (let blade = 0; blade < 22; blade++) {
+      const x = (blade * 29 + 7) % 64;
+      const height = 13 + (blade * 17) % 38;
+      ctx.fillStyle = shades[blade % shades.length];
+      ctx.beginPath();
+      ctx.moveTo(x - 2, 64);
+      ctx.lineTo(x + (blade % 9) - 4, 64 - height);
+      ctx.lineTo(x + 3, 64);
+      ctx.fill();
+    }
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.magFilter = THREE.NearestFilter;
+    texture.minFilter = THREE.NearestFilter;
+    texture.generateMipmaps = false;
+    return texture;
+  }
+  const base = COLORS[type];
+  const channels = [(base >> 16) & 255, (base >> 8) & 255, base & 255];
+  const palette = [[.57, .61, .65], [.72, .76, .79], [.86, .89, .91], [1, 1, 1], [1.12, 1.08, 1.03], [1.24, 1.17, 1.08]]
+    .map(([r, g, b]) => `rgb(${channels.map((value, index) => Math.min(255, Math.round(value * [r, g, b][index]))).join(',')})`);
+  let state = [...type].reduce((value, character) => (Math.imul(value ^ character.charCodeAt(0), 16777619) >>> 0), 2166136261);
+  const next = () => { state = (Math.imul(state, 1664525) + 1013904223) >>> 0; return state / 4294967296; };
+  for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
+    ctx.fillStyle = palette[Math.floor(next() * palette.length)];
+    ctx.fillRect(x * 8, y * 8, 8, 8);
+    if (next() > 0.45) {
+      ctx.fillStyle = palette[Math.floor(next() * palette.length)];
+      ctx.fillRect(x * 8 + Math.floor(next() * 6), y * 8 + Math.floor(next() * 6), 2, 2);
+    }
+  }
+  if (type === 'wood' || type === 'planks') {
+    ctx.strokeStyle = palette[0];
+    ctx.lineWidth = 2;
+    for (let y = 8; y < 64; y += 16) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(64, y); ctx.stroke();
+    }
+  }
+  if (type.endsWith('_ore')) {
+    const ore = type === 'coal_ore' ? '#333638' : type === 'iron_ore' ? '#d9a98b'
+      : type === 'gold_ore' ? '#ffe367' : '#7df3e6';
+    for (let i = 0; i < 10; i++) {
+      ctx.fillStyle = i % 2 ? ore : palette[4];
+      ctx.fillRect(Math.floor(next() * 15) * 4, Math.floor(next() * 15) * 4, 4, 4);
+    }
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+  return texture;
+}
+const blockTextures = Object.fromEntries(TYPES.map(type => [type, makeBlockTexture(type)]));
 const materials = Object.fromEntries(TYPES.map(type => [type, type === 'water'
-  ? new THREE.MeshLambertMaterial({ color: COLORS[type], transparent: true, opacity: 0.58, depthWrite: false })
+  ? new THREE.MeshLambertMaterial({ map: blockTextures[type], color: 0xffffff, transparent: true, opacity: 0.72, depthWrite: false })
   : type === 'lava'
-    ? new THREE.MeshLambertMaterial({ color: COLORS[type], emissive: 0x7d2100, emissiveIntensity: 0.65 })
+    ? new THREE.MeshLambertMaterial({ map: blockTextures[type], color: 0xffffff, emissive: 0x7d2100, emissiveIntensity: 0.65 })
     : type === 'tall_grass'
-      ? new THREE.MeshLambertMaterial({ color: COLORS[type], transparent: true, alphaTest: 0.2, side: THREE.DoubleSide })
-      : new THREE.MeshLambertMaterial({ color: COLORS[type] })]));
+      ? new THREE.MeshLambertMaterial({ map: blockTextures[type], color: 0xffffff, transparent: true, alphaTest: 0.25, side: THREE.DoubleSide })
+      : new THREE.MeshLambertMaterial({ map: blockTextures[type], color: 0xffffff })]));
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 const instanceMeshes = new Map();
 const coordKey = (x, y, z) => `${x},${y},${z}`;
@@ -228,37 +290,67 @@ function streamWorldChunks(force = false) {
       desired.add(`${x},${z}`);
     }
   }
-  let changed = false;
+  const dirtyChunks = new Set();
   for (const [chunkKey, keysInChunk] of loadedChunks) {
     if (desired.has(chunkKey)) continue;
     for (const key of keysInChunk) blocks.delete(key);
     loadedChunks.delete(chunkKey);
-    changed = true;
+    dirtyChunks.add(chunkKey);
+    const [x, z] = chunkKey.split(',').map(Number);
+    for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const neighborKey = `${x + dx},${z + dz}`;
+      if (loadedChunks.has(neighborKey)) dirtyChunks.add(neighborKey);
+    }
   }
-  for (const chunkKey of desired) {
-    if (loadedChunks.has(chunkKey)) continue;
-    const [chunkX, chunkZ] = chunkKey.split(',').map(Number);
-    const chunkKeys = [];
-    for (const baseBlock of generateChunk(chunkX, chunkZ, currentWorld.seed)) {
-      const key = coordKey(baseBlock.x, baseBlock.y, baseBlock.z);
-      const edit = blockEdits.get(key);
-      if (edit?.type === null) continue;
-      blocks.set(key, edit || baseBlock);
+  for (let index = chunkLoadQueue.length - 1; index >= 0; index--) {
+    if (!desired.has(chunkLoadQueue[index])) {
+      queuedChunkKeys.delete(chunkLoadQueue[index]);
+      chunkLoadQueue.splice(index, 1);
+    }
+  }
+  const pending = [...desired].filter(chunkKey => !loadedChunks.has(chunkKey) && !queuedChunkKeys.has(chunkKey))
+    .sort((a, b) => {
+      const [ax, az] = a.split(',').map(Number);
+      const [bx, bz] = b.split(',').map(Number);
+      return Math.abs(ax - centerX) + Math.abs(az - centerZ) -
+        (Math.abs(bx - centerX) + Math.abs(bz - centerZ));
+    });
+  for (const chunkKey of pending) {
+    queuedChunkKeys.add(chunkKey);
+    chunkLoadQueue.push(chunkKey);
+  }
+  if (dirtyChunks.size) rebuildBlockMeshes([...dirtyChunks]);
+}
+function processChunkLoadQueue() {
+  if (!currentWorld || currentWorld.terrainVersion < 2 || !chunkLoadQueue.length) return;
+  const chunkKey = chunkLoadQueue.shift();
+  queuedChunkKeys.delete(chunkKey);
+  if (loadedChunks.has(chunkKey)) return;
+  const [chunkX, chunkZ] = chunkKey.split(',').map(Number);
+  const chunkKeys = [];
+  for (const baseBlock of generateChunk(chunkX, chunkZ, currentWorld.seed)) {
+    const key = coordKey(baseBlock.x, baseBlock.y, baseBlock.z);
+    const edit = blockEdits.get(key);
+    if (edit?.type === null) continue;
+    blocks.set(key, edit || baseBlock);
+    chunkKeys.push(key);
+  }
+  for (const edit of blockEdits.values()) {
+    if (edit.type === null || Math.floor(edit.x / CHUNK_SIZE) !== chunkX ||
+        Math.floor(edit.z / CHUNK_SIZE) !== chunkZ) continue;
+    const key = coordKey(edit.x, edit.y, edit.z);
+    if (!blocks.has(key)) {
+      blocks.set(key, edit);
       chunkKeys.push(key);
     }
-    for (const edit of blockEdits.values()) {
-      if (edit.type === null || Math.floor(edit.x / CHUNK_SIZE) !== chunkX ||
-          Math.floor(edit.z / CHUNK_SIZE) !== chunkZ) continue;
-      const key = coordKey(edit.x, edit.y, edit.z);
-      if (!blocks.has(key)) {
-        blocks.set(key, edit);
-        chunkKeys.push(key);
-      }
-    }
-    loadedChunks.set(chunkKey, chunkKeys);
-    changed = true;
   }
-  if (changed) rebuildBlockMeshes();
+  loadedChunks.set(chunkKey, chunkKeys);
+  const dirtyChunks = new Set([chunkKey]);
+  for (const [dx, dz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+    const neighborKey = `${chunkX + dx},${chunkZ + dz}`;
+    if (loadedChunks.has(neighborKey)) dirtyChunks.add(neighborKey);
+  }
+  rebuildBlockMeshes([...dirtyChunks]);
 }
 function setBlock(x, y, z, type) {
   x = Math.round(x); y = Math.round(y); z = Math.round(z);
@@ -287,48 +379,87 @@ const cubeFaces = [
   { normal: [0, 0, 1], vertices: [[-.5, -.5, .5], [.5, -.5, .5], [.5, .5, .5], [-.5, .5, .5]] },
   { normal: [0, 0, -1], vertices: [[.5, -.5, -.5], [-.5, -.5, -.5], [-.5, .5, -.5], [.5, .5, -.5]] }
 ];
-function rebuildBlockMeshes() {
-  for (const mesh of instanceMeshes.values()) {
-    scene.remove(mesh);
-    mesh.geometry.dispose();
-  }
-  instanceMeshes.clear();
-  for (const type of TYPES) {
-    const positions = [];
-    const indices = [];
-    const faceBlocks = new Map();
-    for (const block of blocks.values()) {
-      if (block.type !== type) continue;
-      for (const face of cubeFaces) {
-        const [dx, dy, dz] = face.normal;
-        const neighbor = blocks.get(coordKey(block.x + dx, block.y + dy, block.z + dz));
-        const fluidType = type === 'water' || type === 'lava';
-        const neighborFluid = neighbor?.type === 'water' || neighbor?.type === 'lava';
-        if (neighbor && (neighbor.type === type || (!fluidType && !neighborFluid) || (fluidType && !neighborFluid))) continue;
+function rebuildBlockMeshes(chunkKeys = null) {
+  const targets = chunkKeys || (loadedChunks.size ? [...loadedChunks.keys()] : ['legacy']);
+  for (const chunkKey of targets) {
+    const prefix = `${chunkKey}|`;
+    for (const [meshKey, mesh] of instanceMeshes) {
+      if (!meshKey.startsWith(prefix)) continue;
+      scene.remove(mesh);
+      mesh.geometry.dispose();
+      instanceMeshes.delete(meshKey);
+    }
+    const chunkBlocks = chunkKey === 'legacy'
+      ? [...blocks.values()]
+      : (loadedChunks.get(chunkKey) || []).map(key => blocks.get(key)).filter(Boolean);
+    const blocksByType = new Map();
+    for (const block of chunkBlocks) {
+      if (!blocksByType.has(block.type)) blocksByType.set(block.type, []);
+      blocksByType.get(block.type).push(block);
+    }
+    for (const [type, typeBlocks] of blocksByType) {
+      const positions = [];
+      const uvs = [];
+      const indices = [];
+      const faceBlocks = new Map();
+      const addQuad = (block, vertices, vertexUvs = [[0, 0], [1, 0], [1, 1], [0, 1]]) => {
         const vertexStart = positions.length / 3;
-        for (const [vx, vy, vz] of face.vertices) positions.push(block.x + vx, block.y + vy, block.z + vz);
+        for (const [vx, vy, vz] of vertices) positions.push(vx, vy, vz);
+        for (const [u, v] of vertexUvs) uvs.push(u, v);
         const triangleStart = indices.length / 3;
         indices.push(vertexStart, vertexStart + 1, vertexStart + 2, vertexStart, vertexStart + 2, vertexStart + 3);
         faceBlocks.set(triangleStart, block);
         faceBlocks.set(triangleStart + 1, block);
+      };
+      for (const block of typeBlocks) {
+        if (type === 'tall_grass') {
+          const bottom = block.y - 0.5;
+          const top = block.y + 0.5;
+          addQuad(block, [[block.x - .5, bottom, block.z - .5], [block.x + .5, bottom, block.z + .5],
+            [block.x + .5, top, block.z + .5], [block.x - .5, top, block.z - .5]]);
+          addQuad(block, [[block.x + .5, bottom, block.z - .5], [block.x - .5, bottom, block.z + .5],
+            [block.x - .5, top, block.z + .5], [block.x + .5, top, block.z - .5]]);
+          continue;
+        }
+        for (const face of cubeFaces) {
+          const [dx, dy, dz] = face.normal;
+          const neighbor = blocks.get(coordKey(block.x + dx, block.y + dy, block.z + dz));
+          const fluidType = type === 'water' || type === 'lava';
+          const neighborFluid = neighbor?.type === 'water' || neighbor?.type === 'lava';
+          if (neighbor && neighbor.type !== 'tall_grass' &&
+              (neighbor.type === type || (!fluidType && !neighborFluid) || (fluidType && !neighborFluid))) continue;
+          addQuad(block, face.vertices.map(([vx, vy, vz]) => [block.x + vx, block.y + vy, block.z + vz]));
+        }
       }
+      if (!indices.length) continue;
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geometry.setIndex(indices);
+      geometry.computeVertexNormals();
+      const mesh = new THREE.Mesh(geometry, materials[type]);
+      mesh.userData.faceBlocks = faceBlocks;
+      scene.add(mesh);
+      instanceMeshes.set(`${chunkKey}|${type}`, mesh);
     }
-    if (!indices.length) continue;
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    geometry.setIndex(indices);
-    geometry.computeVertexNormals();
-    const mesh = new THREE.Mesh(geometry, materials[type]);
-    mesh.userData.faceBlocks = faceBlocks;
-    scene.add(mesh);
-    instanceMeshes.set(type, mesh);
   }
+}
+function refreshChunkMeshes(chunkKey) {
+  if (!loadedChunks.size) {
+    rebuildBlockMeshes();
+    return;
+  }
+  const [x, z] = chunkKey.split(',').map(Number);
+  const affected = [chunkKey, `${x + 1},${z}`, `${x - 1},${z}`, `${x},${z + 1}`, `${x},${z - 1}`]
+    .filter(key => loadedChunks.has(key));
+  rebuildBlockMeshes(affected);
 }
 let lastFluidTick = 0;
 function updateFluidFlow(now) {
   if (now - lastFluidTick < 650 || !activeFluidFlow.size) return;
   lastFluidTick = now;
   let changed = false;
+  const dirtyChunks = new Set();
   const addFlowBlock = (block, key, distance, lastUpdate) => {
     const chunkKey = `${Math.floor(block.x / CHUNK_SIZE)},${Math.floor(block.z / CHUNK_SIZE)}`;
     const chunkBlocks = loadedChunks.get(chunkKey);
@@ -337,6 +468,7 @@ function updateFluidFlow(now) {
     if (!chunkBlocks.includes(key)) chunkBlocks.push(key);
     activeFluidFlow.set(key, { type: block.type, distance, lastUpdate });
     recordBlockEdit(block.x, block.y, block.z, block.type);
+    dirtyChunks.add(chunkKey);
     return true;
   };
   const reactWithFluid = (key, target, type) => {
@@ -345,6 +477,7 @@ function updateFluidFlow(now) {
     blocks.set(key, { ...target, type: 'stone' });
     activeFluidFlow.delete(key);
     recordBlockEdit(target.x, target.y, target.z, 'stone');
+    dirtyChunks.add(`${Math.floor(target.x / CHUNK_SIZE)},${Math.floor(target.z / CHUNK_SIZE)}`);
     changed = true;
     return true;
   };
@@ -379,7 +512,7 @@ function updateFluidFlow(now) {
     }
   }
   if (changed) {
-    rebuildBlockMeshes();
+    for (const chunkKey of [...dirtyChunks]) refreshChunkMeshes(chunkKey);
     scheduleWorldSave();
   }
 }
@@ -499,6 +632,8 @@ function activateWorld(world) {
   blocks.clear();
   blockEdits.clear();
   loadedChunks.clear();
+  chunkLoadQueue.length = 0;
+  queuedChunkKeys.clear();
   lastStreamCenter = null;
   if (world.terrainVersion >= 2) {
     for (const edit of world.blockEdits || []) blockEdits.set(coordKey(edit.x, edit.y, edit.z), { ...edit });
@@ -777,6 +912,33 @@ const toolIconCanvases = Object.fromEntries(
   Object.entries(ITEM_CATALOG).filter(([, item]) => item.tool).map(([id]) => [id, makeToolIcon(id)])
 );
 const toolIcons = Object.fromEntries(Object.entries(toolIconCanvases).map(([id, canvas]) => [id, canvas.toDataURL('image/png')]));
+const itemIconUrls = Object.fromEntries(Object.entries(ITEM_CATALOG).map(([id, item]) => {
+  if (toolIcons[id]) return [id, toolIcons[id]];
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 40;
+  const ctx = canvas.getContext('2d');
+  if (item.block) {
+    ctx.drawImage(blockTextures[id].image, 2, 2, 36, 36);
+    ctx.strokeStyle = '#ffffff88';
+    ctx.strokeRect(2.5, 2.5, 35, 35);
+  } else {
+    const color = id.includes('iron') ? '#b9c3c4' : id.includes('gold') ? '#e6c64e'
+      : id === 'diamond' ? '#55c9c5' : id === 'coal' || id === 'charcoal' ? '#333638'
+        : id === 'stick' ? '#9c754b' : id === 'torch' ? '#ffd76b' : '#c6d2cf';
+    ctx.fillStyle = '#202b29';
+    ctx.fillRect(4, 4, 32, 32);
+    ctx.fillStyle = color;
+    ctx.fillRect(8, 8, 24, 24);
+    ctx.fillStyle = '#ffffff66';
+    ctx.fillRect(10, 10, 6, 4);
+    ctx.fillStyle = '#18221f';
+    ctx.font = 'bold 22px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(ITEM_GLYPHS[id] || item.label.slice(0, 1), 20, 22);
+  }
+  return [id, canvas.toDataURL('image/png')];
+}));
 const toolIconTextures = Object.fromEntries(Object.entries(toolIconCanvases).map(([id, canvas]) => {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -893,11 +1055,13 @@ function updateHotbar() {
 let cursorStack = null;
 let inventoryOpen = false;
 let inventoryWasLocked = false;
+let inventoryRightClickTimer = 0;
+let inventoryRightClickActive = false;
+let inventoryRightClickSlots = new Set();
+let inventoryRightClickPointerHandler = null;
 function itemVisual(item) {
   if (!item) return '';
-  if (item.tool && toolIcons[item.id]) return `<img class="tool-icon" src="${toolIcons[item.id]}" alt="${item.label}">`;
-  if (item.type && CSS_COLORS[item.type]) return `<span class="swatch" style="background:${CSS_COLORS[item.type]}"></span>`;
-  return `<span class="material-icon" aria-label="${item.label}">${ITEM_GLYPHS[item.id] || item.label.slice(0, 1)}</span>`;
+  return `<img class="material-icon${item.tool ? ' tool-icon' : ''}" src="${itemIconUrls[item.id]}" alt="${item.label}">`;
 }
 function countItem(id) {
   return [...HOTBAR, ...INVENTORY_SLOTS].reduce((count, item) => count + (item?.id === id ? item.count : 0), 0);
@@ -908,20 +1072,23 @@ function updateCraftingUI() {
   if (!list || !preview) return;
   const previewSize = craftingStationType === 'inventory' ? 4 : 9;
   preview.classList.toggle('small', previewSize === 4);
-  const recipes = craftingStationType === 'furnace'
-    ? SMELTING_RECIPES
-    : CRAFTING_RECIPES.filter(entry => entry.station <= craftingStationSize);
+  const recipes = craftingStationType === 'furnace' ? SMELTING_RECIPES : CRAFTING_RECIPES;
   if (!recipes.some(entry => entry.key === selectedCraftRecipe)) selectedCraftRecipe = recipes[0]?.key || null;
   list.replaceChildren();
   for (const recipe of recipes) {
     const availability = getRecipeAvailability(recipe, countItem, craftingStationSize);
     const fuel = recipe.fuel?.find(id => countItem(id) > (recipe.ingredients[id] || 0));
+    const outputPreview = makeStack(recipe.output.id, recipe.output.count);
+    const testHotbar = HOTBAR.map(item => item ? { ...item } : null);
+    const testInventory = INVENTORY_SLOTS.map(item => item ? { ...item } : null);
+    const hasOutputSpace = !transferStack({ ...outputPreview }, [testHotbar, testInventory]);
     const button = document.createElement('button');
     button.className = 'craft-recipe';
     button.type = 'button';
-    button.disabled = ((!availability.available || (recipe.fuel && !fuel)) && gameMode !== 'creative');
-    button.title = recipe.fuel && !fuel ? '燃料が必要です' : availability.reason || recipe.label;
-    button.innerHTML = `<span>${recipe.label}</span><span class="craft-recipe-output">→ ${recipe.output.count}</span>`;
+    button.disabled = ((!availability.available || (recipe.fuel && !fuel) || !hasOutputSpace) && gameMode !== 'creative');
+    button.title = recipe.fuel && !fuel ? '燃料が必要です' : !hasOutputSpace ? 'インベントリに空きがありません' : availability.reason || recipe.label;
+    button.setAttribute('aria-label', `${recipe.label}を作成`);
+    button.innerHTML = `${itemVisual(outputPreview)}<span class="craft-recipe-output">×${recipe.output.count}</span>`;
     button.addEventListener('click', () => {
       selectedCraftRecipe = recipe.key;
       craftRecipe(recipe);
@@ -939,7 +1106,7 @@ function updateCraftingUI() {
     cell.className = 'craft-cell';
     const itemId = pattern[index];
     if (itemId) {
-      cell.textContent = ITEM_GLYPHS[itemId] || (LABELS[itemId] || itemId).slice(0, 1);
+      cell.innerHTML = itemVisual(makeStack(itemId));
       cell.title = LABELS[itemId] || itemId;
     }
     preview.appendChild(cell);
@@ -950,7 +1117,7 @@ function updateCraftingUI() {
   preview.appendChild(arrow);
   const output = document.createElement('span');
   output.className = 'craft-cell';
-  output.textContent = ITEM_GLYPHS[recipe.output.id] || (LABELS[recipe.output.id] || recipe.label).slice(0, 1);
+  output.innerHTML = itemVisual(makeStack(recipe.output.id));
   output.title = recipe.label;
   preview.appendChild(output);
 }
@@ -1095,24 +1262,66 @@ function handleSlotClick(event, slotElement) {
   updateHotbar();
   updateCursorItem(event);
 }
+function stopInventoryRightClick() {
+  clearInterval(inventoryRightClickTimer);
+  inventoryRightClickTimer = 0;
+  inventoryRightClickActive = false;
+  inventoryRightClickSlots.clear();
+  if (inventoryRightClickPointerHandler) {
+    document.removeEventListener('mousemove', inventoryRightClickPointerHandler);
+    inventoryRightClickPointerHandler = null;
+  }
+}
+function startInventoryRightClick(event, slot) {
+  stopInventoryRightClick();
+  if (event.button !== 2) return;
+  inventoryRightClickActive = true;
+  inventoryRightClickSlots.add(`${slot.dataset.area}:${slot.dataset.index}`);
+  let pointerX = event.clientX;
+  let pointerY = event.clientY;
+  inventoryRightClickPointerHandler = moveEvent => {
+    pointerX = moveEvent.clientX;
+    pointerY = moveEvent.clientY;
+  };
+  document.addEventListener('mousemove', inventoryRightClickPointerHandler);
+  inventoryRightClickTimer = setInterval(() => {
+    if (!inventoryOpen || !inventoryRightClickActive) {
+      stopInventoryRightClick();
+      return;
+    }
+    const target = document.elementFromPoint(pointerX, pointerY)?.closest('.slot');
+    if (!target || !document.querySelector('#inventoryOverlay').contains(target)) return;
+    const key = `${target.dataset.area}:${target.dataset.index}`;
+    if (inventoryRightClickSlots.has(key)) return;
+    inventoryRightClickSlots.add(key);
+    handleSlotClick({ button: 2, shiftKey: false, clientX: pointerX, clientY: pointerY }, target);
+  }, 110);
+}
 document.querySelector('#hotbar').addEventListener('mousedown', event => {
   const slot = event.target.closest('.slot');
   if (!slot || !inventoryOpen) return;
   event.preventDefault();
   handleSlotClick(event, slot);
+  startInventoryRightClick(event, slot);
 });
 document.querySelector('#inventoryGrid').addEventListener('mousedown', event => {
   const slot = event.target.closest('.slot');
   if (!slot) return;
   event.preventDefault();
   handleSlotClick(event, slot);
+  startInventoryRightClick(event, slot);
 });
 document.querySelector('#inventoryHotbar').addEventListener('mousedown', event => {
   const slot = event.target.closest('.slot');
   if (!slot) return;
   event.preventDefault();
   handleSlotClick(event, slot);
+  startInventoryRightClick(event, slot);
 });
+document.addEventListener('mouseup', event => {
+  if (event.button === 2) stopInventoryRightClick();
+});
+addEventListener('blur', stopInventoryRightClick);
 document.querySelector('#inventoryOverlay').addEventListener('mousedown', event => {
   if (event.target.id === 'inventoryOverlay') {
     if (cursorStack) dropCursorStack();
@@ -1140,6 +1349,7 @@ function openInventory(station = 'inventory') {
   craftingStationType = station;
   craftingStationSize = station === 'table' ? 3 : 2;
   selectedCraftRecipe = null;
+  stopInventoryRightClick();
   document.querySelector('#inventoryTitle').textContent =
     station === 'table' ? '作業台' : station === 'furnace' ? 'かまど' : 'インベントリ';
   inventoryOpen = true;
@@ -1154,6 +1364,7 @@ function openInventory(station = 'inventory') {
   updateCursorItem();
 }
 function closeInventory() {
+  stopInventoryRightClick();
   returnCursorStack();
   inventoryOpen = false;
   craftingStationType = 'inventory';
@@ -1208,7 +1419,7 @@ function dropBlock(block) {
   recordBlockEdit(block.x, block.y, block.z, null);
   if (escapeBlockKey === removedKey) escapeBlockKey = null;
   scheduleWorldSave();
-  rebuildBlockMeshes();
+  refreshChunkMeshes(`${Math.floor(block.x / CHUNK_SIZE)},${Math.floor(block.z / CHUNK_SIZE)}`);
   if (gameMode !== 'creative') {
     const oreDrops = {
       coal_ore: { id: 'coal', min: 5, max: 20 },
@@ -1311,7 +1522,16 @@ function placeBlock(hit, hitBlock) {
     y = hitBlock.y;
     z = hitBlock.z;
   }
-  if (Math.abs(x - player.pos.x) < 0.8 && Math.abs(z - player.pos.z) < 0.8 && y > player.pos.y - 1.8 && y < player.pos.y + 0.2) return;
+  const playerMinX = player.pos.x - 0.3;
+  const playerMaxX = player.pos.x + 0.3;
+  const playerMinY = player.pos.y - 1.65;
+  const playerMaxY = playerMinY + player.height - 0.15;
+  const playerMinZ = player.pos.z - 0.3;
+  const playerMaxZ = player.pos.z + 0.3;
+  const overlapsPlayer = x - 0.5 < playerMaxX && x + 0.5 > playerMinX &&
+    y - 0.5 < playerMaxY && y + 0.5 > playerMinY &&
+    z - 0.5 < playerMaxZ && z + 0.5 > playerMinZ;
+  if (overlapsPlayer) return;
   const destination = blocks.get(coordKey(x, y, z));
   if (destination?.type === 'water') {
     const below = blocks.get(coordKey(x, y - 1, z));
@@ -1324,7 +1544,7 @@ function placeBlock(hit, hitBlock) {
       held.count--;
       if (held.count <= 0) HOTBAR[selected] = null;
     }
-    rebuildBlockMeshes();
+    refreshChunkMeshes(`${Math.floor(x / CHUNK_SIZE)},${Math.floor(z / CHUNK_SIZE)}`);
     updateHotbar();
     startViewAction('place');
   }
@@ -1708,7 +1928,7 @@ function hasSneakSupport(x, z, feetY, moveX, moveZ) {
   const length = Math.hypot(moveX, moveZ) || 1;
   const forwardX = moveX / length;
   const forwardZ = moveZ / length;
-  const frontReach = 0.01;
+  const frontReach = 0.07;
   const sideReach = 0.24;
   const sideX = -forwardZ * sideReach;
   const sideZ = forwardX * sideReach;
@@ -1820,6 +2040,7 @@ function animate(now) {
     ? THREE.MathUtils.clamp(candidateZ, -WORLD_DEPTH / 2 - 0.2, WORLD_DEPTH / 2 - 0.8)
     : candidateZ;
   streamWorldChunks();
+  processChunkLoadQueue();
   const requestedFov = baseFieldOfView * fieldOfViewPercent / 90 + (sprinting ? 10 : 0);
   displayedFieldOfView = THREE.MathUtils.damp(displayedFieldOfView, requestedFov, 8, dt);
   if (Math.abs(requestedFov - displayedFieldOfView) <= 0.01) displayedFieldOfView = requestedFov;
